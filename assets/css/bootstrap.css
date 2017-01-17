@@ -3663,7 +3663,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-collapse {
-  max-height: 340px;
+  max-height: 440px;
   padding-right: 15px;
   padding-left: 15px;
   overflow-x: visible;
