@@ -638,3 +638,13 @@ a:after {
 	}
 }
 
+
+
+/* ==========================================================================
+   SPECIFIC STYLE FOR LISTS WITHOUT BULLETS (Added by G. PETIT)
+   ========================================================================== */
+
+ul.liste_sans_puce {
+    list-style-type:none;
+}
+
