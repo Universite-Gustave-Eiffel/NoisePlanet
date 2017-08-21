@@ -16,6 +16,7 @@ document.write("                            <li> <a href=\".\/onomap.html\" clas
 document.write("							<li> <a href=\".\/noisecapture.html\" class=\"smoothScroll\">NoiseCapture</a></li>");
 document.write("                            <li> <a href=\".\/noisemodelling.html\" class=\"smoothScroll\">NoiseModelling</a></li>");
 document.write("                            <li> <a href=\".\/map.html\" class=\"smoothScroll\">Map</a></li>                        ");
+document.write("                            <li> <a href=\".\/data.html\" class=\"smoothScroll\">Data</a></li>                        ");
 document.write("                            <li> <a href=\".\/publication.html\" class=\"smoothScroll\">Publications</a></li>");
 document.write("                            <li> <a href=\".\/contact.html\" class=\"smoothScroll\">Contact</a></li>                      ");     
 document.write("                    </div><!--/nav-collapse -->");
