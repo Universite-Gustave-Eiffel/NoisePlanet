@@ -10,7 +10,7 @@ document.write("                        <!--<a class=\"navbar-brand hidden-xs hi
 document.write("                    </div>");
 document.write("                    <div class=\"navbar-collapse collapse\">");
 document.write("                        <ul class=\"nav navbar-nav\">");
-document.write("                            <li> <a href=\".\/index.html\" class=\"smoothScroll\">Home</a></li>");
+document.write("                            <li> <a href=\".\/index.html\" class=\"smoothScroll\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i></a></li>");
 document.write("                            <li> <a href=\".\/project.html\" class=\"smoothScroll\">Project</a></li>");
 document.write("                            <li> <a href=\".\/onomap.html\" class=\"smoothScroll\">OnoMap</a></li>");
 document.write("							<li> <a href=\".\/noisecapture.html\" class=\"smoothScroll\">NoiseCapture</a></li>");
