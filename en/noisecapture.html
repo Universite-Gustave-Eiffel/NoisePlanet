@@ -16,6 +16,7 @@
         <link href="../assets/css/main.css" rel="stylesheet">
         <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
         <link href="../assets/css/animate-custom.css" rel="stylesheet">
+		<link href="../assets/css/slidy.css" rel="stylesheet">
 
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
@@ -34,6 +35,9 @@
 
         <!-- for GitHub widget -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
+		
+		<script src="../assets/js/cssSlidy.js"></script>
+		
     </head>
 
     <body data-spy="scroll" data-offset="0" data-target="#navbar-main">
@@ -65,10 +69,18 @@
                     <a class="github-button" href="https://github.com/Ifsttar/NoiseCapture/archive/master.zip" data-icon="octicon-cloud-download" data-size="large" aria-label="Download Ifsttar/NoiseCapture on GitHub">Download</a>
 					</p>                
 
-            <div class="col-lg-6">
-               <br>
-               <p><img class="img-responsive" src="../assets/img/noisecapture/noisecapture.png" alt=""></p>
-            </div><!-- col-lg-6 -->
+            <div class="col-lg-3">               
+               <!-- Screenshot -->            
+                <div id="slidy-container">
+					<figure id="slidy">
+						<img src="../assets/img/noisecapture/NoiseCapture_measure_spectrogram.jpg" alt data-caption="NoiseCapture, Mesure">
+						<img src="../assets/img/noisecapture/NoiseCapture_description.jpg" alt data-caption="NoiseCapture, Description" >
+						<img src="../assets/img/noisecapture/NoiseCapture_results.jpg" alt data-caption="NoiseCapture, Results">							
+					</figure>
+				</div>
+				<script> cssSlidy(); </script>
+			</div><!-- col-lg-3 -->
+
             <div class="col-lg-6">
                 <p align="justify">
                     <b>NoiseCapture</b> is a free and open-source Android application that allows users to measure and share t noise environnement.
