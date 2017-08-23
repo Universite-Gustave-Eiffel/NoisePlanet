@@ -75,7 +75,7 @@
                 <h3>Last measurements
 				<a><i class="fa fa-refresh" onclick="doHistoRefresh()"></i>				
 				<span class="sr-only">Refresh</span></a></h3>
-				<p>Click on the flag to show the measure</p>
+				<span class="label label-primary"><i class="fa fa-lightbulb-o" aria-hidden="true"></i><b> Click on the flag to show the measure.</b> </span>
                 <div id="measures_log"></div>
             </div>
             
@@ -113,11 +113,12 @@
             <div class="sidebar-pane" id="hexainfo">
                 <h1 class="sidebar-header">Selected area<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
                 <h3>Explore the mean noise of your environment</h3>
-				</p>Results are obbtained from all collected measurements, without filtering. <b>Select an area to show results.</b></p>                
+				</p>Results are obbtained from all collected measurements, without filtering.</p>
+				<span class="label label-primary"><i class="fa fa-lightbulb-o" aria-hidden="true"></i><b> Select an hexagon to show results.</b> </span>               
                 <div id="areainfo"></div>	
 				<br>
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#la50">LA50 <i class="fa fa-info-circle" aria-hidden="true" title="The LA50 is the A-weighted noise level that is exceeded for 50% of the measurement period. It is a good descriptor of the perceived sound level in the environment."></i></a></li>
+                    <li class="active"><a data-toggle="tab" href="#la50">LA50 <i class="fa fa-info-circle" aria-hidden="true" title="The LA50 is the A-weighted noise level that is exceeded for 50% of the measurement period. It is a good descriptor of the perceived sound level in the environment."></i></a></li>					
                     <!--<li><a data-toggle="tab" href="#lden">Lden</a></li>-->
                     <li><a data-toggle="tab" href="#laeq">LAeq <i class="fa fa-info-circle" aria-hidden="true" title="The LAeq is the A-weighted noise level. It is a standard descriptor of the perceived sound level in the environment."></i></a></li>
                 </ul>
