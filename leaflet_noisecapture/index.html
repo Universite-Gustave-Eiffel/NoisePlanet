@@ -1,0 +1,335 @@
+<html>
+
+<head>
+    <title>NoiseCapture interactive community map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/leaflet-sidebar.css" />
+    <link rel="stylesheet" href="css/leaflet.awesome-markers.css">
+    <link rel="stylesheet" href="css/languages.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/cluster.css" />
+    <link href="css/flag-icon.min.css" rel="stylesheet">
+    <link href="css/leaflet-search.min.css" rel="stylesheet" />
+    <link href="css/L.Control.MousePosition.css" rel="stylesheet" />
+    <link href="css/time_donut.css" rel="stylesheet">
+    <script src="js/leaflet.js"></script>
+
+	<link href="../assets/css/main.css" rel="stylesheet">	
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">	
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+	
+	<script type="text/javascript">window.liveSettings={api_key:"4c31aac0398149cf971660ee00d6106b"};</script>
+	<script type="text/javascript" src="//cdn.transifex.com/live.js"></script>	
+	
+</head>
+
+<body>
+
+	<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+	<!-- NAVIGATION BAR -->
+
+    <script src="../en/navbar.js"></script>
+	
+	<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+	<!-- SIDEBAR -->
+
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-question-circle"></i></a></li>
+                <li><a href="#hexainfo" role="tab"><i class="fa fa-pie-chart"></i></a></li>
+                <li><a href="#history" role="tab" onclick="doHistoRefresh()"><i class="fa fa-history"></i></a></li>
+                <li class="disabled"><a href="#statistics" role="tab"><i class="fa fa-line-chart"></i></a></li>
+				<li><a href="#about" role="tab"><i class="fa fa-copyright"></i></a></li>
+            </ul>
+            <ul role="tablist">                
+                <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            
+			<div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">Home<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <h3>Explore the noisemaps</h3>
+                <p>The following map represent all collected data using the NoiseCapture application. You can navigate on the map, select the layers, explore your noise environment...</p>
+                <h3>Contribute to the noisemaps</h3>
+                <p>Download the NoiseCapture Android App, realize measurements and transfer data to the community...</p>
+                <div class="centered">
+                    <a href="https://play.google.com/store/apps/details?id=org.noise_planet.noisecapture"><img style="width: 164px; height: 63px;" alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"></a><br>
+                </div>
+				<hr>
+				<h4><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Disclaimer</h4>
+                <p align="justify">The data provided on this site result from a research project. It has no legal force and serves for information purposes only.Absolutely no accuracy or completeness guarantee is implied or intended.
+				The authors are not responsible for the direct or indirect consequences of the uses or interpretation of the information provided.</p>
+				<hr>
+            </div>
+            
+			<div class="sidebar-pane" id="history">
+                <h1 class="sidebar-header">History<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <h3>Last measurements
+				<a><i class="fa fa-refresh" onclick="doHistoRefresh()"></i>				
+				<span class="sr-only">Refresh</span></a></h3>
+				<p>Click on the flag to show the measure</p>
+                <div id="measures_log"></div>
+            </div>
+            
+			<div class="sidebar-pane" id="statistics">
+                <h1 class="sidebar-header">Statistics<span class="sidebar-close"><i class="fa fa-line-chart"></i></span></h1>
+                <h3>Measurement information</h3>
+            </div>
+            
+			<div class="sidebar-pane" id="about">
+                <h1 class="sidebar-header">About<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <h3>Licenses</h3>
+					<h4>Web page</h4>
+					<p>This page is a publication of the Ifsttar (French Institute of Science and Technology devoted to Transport, Planning and Networks) and of the CNRS (Centre national de la recherche scientifique). Unless specified otherwise, the content on this website is properties of Ifsttar and CNRS.
+					</p>
+					<h4>NoiseCapture Android App</h4>
+					<p>NoiseCapture Android App is a free software; you can redistribute it and/or modify it under the terms of the GNU
+					General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+					<a href="../en/noisecapture.html"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>						
+					<h4>Collected raw data</h4>
+					<p>All raw data collected from the NoiseCapture Android App, i.e. the DATABASE-NoiseCaptureRaw, are made available under the Open Database
+					License. Any rights in individual contents of the database are licensed under the Database Contents License.
+					<a href="../en/data.html"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
+				<h3>Privacy</h3>
+					<p>All collected data are anonymous.
+					<a href="../en/NoiseCapture_privacy_policy_history.html"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
+				<h3>Information</h3>
+					<h4>Follow us</h4>
+					<a target="_blank" href="https://twitter.com/search?q=%40Noise_planet&src=typd"><img title="Follow @Noise_Planet" alt="Follow @Noise_Planet" src="https://img.shields.io/twitter/follow/Noise_Planet.svg?style=social&amp;label=Follow" /></a>
+					<a target="_blank" href="https://github.com/Ifsttar/NoiseCapture/subscription"> <img title="Watch NoiseCapture" alt="Watch NoiseCapture" src="https://img.shields.io/github/watchers/ifsttar/noisecapture.svg?style=social&amp;label=Watch" /></a>
+					<h4>Contact us</h4>
+                <p>For any questions involving the project and the data, please contact us at <a title="mailt ot: noisecapture@noise-planet.org" href="mailto:noisecapture@noise-planet.org">noisecapture(at)noise-planet.org</a>
+                </p>
+            </div>
+			
+            <div class="sidebar-pane" id="hexainfo">
+                <h1 class="sidebar-header">Selected area<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <h3>Explore the mean noise of your environment</h3>
+				</p>Results are obbtained from all collected measurements, without filtering. <b>Select an area to show results.</b></p>                
+                <div id="areainfo"></div>	
+				<br>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#la50">LA50 <i class="fa fa-info-circle" aria-hidden="true" title="The LA50 is the A-weighted noise level that is exceeded for 50% of the measurement period. It is a good descriptor of the perceived sound level in the environment."></i></a></li>
+                    <!--<li><a data-toggle="tab" href="#lden">Lden</a></li>-->
+                    <li><a data-toggle="tab" href="#laeq">LAeq <i class="fa fa-info-circle" aria-hidden="true" title="The LAeq is the A-weighted noise level. It is a standard descriptor of the perceived sound level in the environment."></i></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="la50" class="tab-pane fade in active">					
+
+                        <img align="right" style="margin:5px 5px" src="http://onomap-gs.noise-planet.org/geoserver/gwc/service/wms?REQUEST=GetLegendGraphic&VERSION=1.3.0&FORMAT=image/png&LAYER=noisecapture:noisecapture_area&legend_options=fontName:Cerdana;fontAntiAliasing:true;fontColor:0x000033;fontSize:12;dpi:80&TRANSPARENT=true"/>                       
+                        <div>
+                            <div class="donut_block">
+                                <h4 class='attribute_label' style="margin-bottom:0.5em">Working days <i class="fa fa-info-circle" aria-hidden="true" title="The following 'time-donuts' show the temporal evolution of the noise level over the 24h of a working day."></i></h3>
+                                <div id="donut_working_day_la50" class="sidepanel_donut"></div>
+                            </div>
+                            <div class="donut_block">
+                                <h4 class='attribute_label' style="margin-bottom:0.5em">Saturday <i class="fa fa-info-circle" aria-hidden="true" title="The following 'time-donuts' show the temporal evolution of the noise level over the 24h of a saturday."></i></h3>
+                                <div id="donut_saturday_la50" class="sidepanel_donut"></div>
+                            </div>
+                            <div class="donut_block">
+                                <h4 class='attribute_label' style="margin-bottom:0.5em">Sunday <i class="fa fa-info-circle" aria-hidden="true" title="The following 'time-donuts' show the temporal evolution of the noise level over the 24h of a sunday."></i></h3>
+                                <div id="donut_sunday_la50" class="sidepanel_donut"></div>
+                            </div>
+                        </div>
+					</div>
+
+					<div id="laeq" class="tab-pane fade in">
+
+                        <img align="right" style="margin:5px 5px" src="http://onomap-gs.noise-planet.org/geoserver/gwc/service/wms?REQUEST=GetLegendGraphic&VERSION=1.3.0&FORMAT=image/png&LAYER=noisecapture:noisecapture_area&legend_options=fontName:Cerdana;fontAntiAliasing:true;fontColor:0x000033;fontSize:12;dpi:80&TRANSPARENT=true"/>
+                                
+							<div>
+								<div class="donut_block">
+									<h4 class='attribute_label' style="margin-bottom:0.5em">Working days <i class="fa fa-info-circle" aria-hidden="true" title="The following 'time-donuts' show the temporal evolution of the noise level over the 24h of a working day."></i></h3>
+									<div id="donut_working_day_laeq" class="sidepanel_donut"></div>
+								</div>
+								<div class="donut_block">
+									<h4 class='attribute_label' style="margin-bottom:0.5em">Saturday <i class="fa fa-info-circle" aria-hidden="true" title="The following 'time-donuts' show the temporal evolution of the noise level over the 24h of a saturday."></i></h3>
+									<div id="donut_saturday_laeq" class="sidepanel_donut"></div>
+								</div>
+								<div class="donut_block">
+									<h4 class='attribute_label' style="margin-bottom:0.5em">Sunday <i class="fa fa-info-circle" aria-hidden="true" title="The following 'time-donuts' show the temporal evolution of the noise level over the 24h of a sunday."></i></h3>
+									<div id="donut_sunday_laeq" class="sidepanel_donut"></div>
+								</div>
+							</div>
+                    </div>
+                    <div id="lden" class="tab-pane fade">
+                        <h3>Menu 1</h3>
+                        <p>Some content in menu 1.</p>
+                    </div>
+                    <div id="leq" class="tab-pane fade">
+                        <h3>Menu 2</h3>
+                        <p>Some content in menu 2.</p>
+                    </div>
+                </div>
+            </div>            
+            
+			<div class="sidebar-pane" id="settings">
+                <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <!-- http://usrz.github.io/bootstrap-languages/ -->
+                <!--  -->
+                <h4>Time format language:</h4>
+                <div class="btn-group dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					<span id="time_lang" class="lang-sm lang-lbl-full" lang="en"></span> <span class="caret"></span>
+					</button>
+                    <ul id="time_lang_list" class="dropdown-menu" role="menu">
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="bg"></span></a></li>
+                        <!-- Bulgarian -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="hr"></span></a></li>
+                        <!-- Croatian -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="cs"></span></a></li>
+                        <!-- Czech -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="da"></span></a></li>
+                        <!-- Danish -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="nl"></span></a></li>
+                        <!-- Dutch -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="en"></span></a></li>
+                        <!-- English -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="el"></span></a></li>
+                        <!-- Croatian -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="et"></span></a></li>
+                        <!-- Estonian -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="fi"></span></a></li>
+                        <!-- Finish -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="fr"></span></a></li>
+                        <!-- French -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="de"></span></a></li>
+                        <!-- German -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="el"></span></a></li>
+                        <!-- Greek -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="hu"></span></a></li>
+                        <!-- Hungarian -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="ga"></span></a></li>
+                        <!-- Irish -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="it"></span></a></li>
+                        <!-- Italian -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="lv"></span></a></li>
+                        <!-- Latvian -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="lt"></span></a></li>
+                        <!-- Lithuanian -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="mt"></span></a></li>
+                        <!-- Maltese -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="pl"></span></a></li>
+                        <!-- Polish -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="pt"></span></a></li>
+                        <!-- Portuguese -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="ro"></span></a></li>
+                        <!-- Romanian -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="sk"></span></a></li>
+                        <!-- Slovak -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="sl"></span></a></li>
+                        <!-- Slovenian -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="es"></span></a></li>
+                        <!-- Spanish -->
+                        <li><a role="menuitem" tabindex="-1"><span class="lang-sm lang-lbl-full" lang="sv"></span></a></li>
+                        <!-- Swedish -->
+                    </ul>
+                </div>
+                <h4>Time format zone:</h4>
+                <label class="radio-inline"><input type="radio" name="tz-option"> Browser timezone</label><br>
+                <label class="radio-inline"><input onsite type="radio" name="tz-option" checked> Measurement location timezone</label>
+            </div>
+        </div>
+    </div>
+    <div id="map" class="sidebar-map"></div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="js/time_donut.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/proj4.js"></script>
+    <script src="js/L.TileLayer.OnoMap.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/leaflet-sidebar.js"></script>
+    <script src="js/cluster.js"></script>
+    <script src="js/leaflet.wms.js"></script>
+    <script src="js/leaflet-search.min.js"></script>
+    <script src="js/moment-with-locales.min.js"></script>
+    <script src="js/leaflet.awesome-markers.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/L.Control.MousePosition.js"></script>
+    <script>
+
+        var map = L.map('map').setView([47.175, 12.524], 5);
+
+        var sidebar = L.control.sidebar('sidebar').addTo(map);
+
+        var osm = L.tileLayer('http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        });
+
+        var esriworldimagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+
+        var onomap = L.tileLayer.OnoMap('http://onomap-gs.noise-planet.org/geoserver/gwc/service/tms/1.0.0/noisecapture:noisecapture_area@EPSG:900913@png/{z}/{x}/{y}.png', {
+            "attribution": "<a href='http://onomap-gs.noise-planet.org'>OnoMap server</a>",
+            tms: true,
+            minZoom: 14
+        });
+
+        var onomap_pt = L.tileLayer('http://onomap-gs.noise-planet.org/geoserver/gwc/service/tms/1.0.0/noisecapture:noisecapture_leaflet_point@EPSG:900913@png/{z}/{x}/{y}.png', {
+            "attribution": "<a href='http://onomap-gs.noise-planet.org'>OnoMap server</a>",
+            tms: true,
+            minZoom: 14
+        });
+
+        var onomap_cluster_layer = L.geoJSON.OnoMap('http://onomap-gs.noise-planet.org/geoserver/ows');
+
+        L.control.scale({
+            'position': 'bottomright',
+            'metric': true,
+            'imperial': false
+        }).addTo(map);
+
+        L.control.mousePosition().addTo(map);
+
+        new L.Control.Search({
+            url: 'https://nominatim.openstreetmap.org/search?format=json&q={s}',
+            jsonpParam: 'json_callback',
+            propertyName: 'display_name',
+            propertyLoc: ['lat', 'lon'],
+            markerLocation: true,
+            autoType: false,
+            autoCollapse: true,
+            minLength: 2,
+            zoom: 15
+        }).addTo(map);
+
+        map.addLayer(osm)
+        map.addLayer(onomap)
+        map.addLayer(onomap_cluster_layer)
+
+        var baseLayers = {
+            "OpenStreetMap": osm,
+            "Images satellites": esriworldimagery
+        };
+
+        L.control.layers(baseLayers, {
+            "Sound level (LA50)": onomap,
+            "Density of measures": onomap_cluster_layer,
+            "Location of measures": onomap_pt
+        }).addTo(map);
+
+        var hash = new L.Hash(map);
+
+        var weekdonut = initTimeDonut("donut_working_day");
+        var saturdaydonut = initTimeDonut("donut_saturday");
+        var sundaydonut = initTimeDonut("donut_sunday");
+
+        // Load default donuts
+        onomap.showGetFeatureInfo(null, null, []);
+
+        function doHistoRefresh() {
+            onomap.getHistory();
+        }
+    </script>
+</body>
+
+</html>
