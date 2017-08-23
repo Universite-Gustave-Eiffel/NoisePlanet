@@ -35,9 +35,7 @@
 
         <!-- for GitHub widget -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
-		
-		<script src="../assets/js/cssSlidy.js"></script>
-		
+
     </head>
 
     <body data-spy="scroll" data-offset="0" data-target="#navbar-main">
@@ -70,24 +68,39 @@
 					</p>                
 
             <div class="col-lg-offset-1 col-lg-3">               
-               <!-- Screenshot -->            
-                <div id="slidy-container">
-					<figure id="slidy">
-						<img src="../assets/img/noisecapture/NoiseCapture_measure_spectrogram.jpg" alt data-caption="Measure (spectrogram)">
-						<img src="../assets/img/noisecapture/NoiseCapture_measure_spectrumm.jpg" alt data-caption="Measure (spectrum)">
-						<img src="../assets/img/noisecapture/NoiseCapture_measure_map.jpg" alt data-caption="Measure (map)">
-						<img src="../assets/img/noisecapture/NoiseCapture_description.jpg" alt data-caption="Measure description" >
-						<img src="../assets/img/noisecapture/NoiseCapture_results.jpg" alt data-caption="Noise indicators">
-						<img src="../assets/img/noisecapture/NoiseCapture_results.jpg" alt data-caption="Map view">
-						<img src="../assets/img/noisecapture/NoiseCapture_results.jpg" alt data-caption="History">						
-					</figure>
-				</div>
-				<script> cssSlidy(); </script>
+               
+			   <!-- Screenshot -->            
+				  <div id="myCarousel" class="carousel slide" data-ride="carousel" >
+				  
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner">
+					  <div class="item active"><img src="../assets/img/noisecapture/NoiseCapture_measure_spectrogram.jpg" alt="Measure (spectrogram)" style="width:100%;"></div>
+					  <div class="item"><img src="../assets/img/noisecapture/NoiseCapture_measure_spectrum.jpg" alt="Measure (spectrum)" style="width:100%;"></div>
+					  <div class="item"><img src="../assets/img/noisecapture/NoiseCapture_measure_map.jpg" alt="Measure (map)" style="width:100%;"></div>
+					  <div class="item"><img src="../assets/img/noisecapture/NoiseCapture_description.jpg" alt="Measure description" style="width:100%;"></div>
+					  <div class="item"><img src="../assets/img/noisecapture/NoiseCapture_results.jpg" alt="Noise indicators" style="width:100%;"></div>
+					  <div class="item"><img src="../assets/img/noisecapture/NoiseCapture_map.jpg" alt="Map view" style="width:100%;"></div>
+					  <div class="item"><img src="../assets/img/noisecapture/NoiseCapture_history.jpg" alt="History" style="width:100%;"></div>
+					</div>
+
+					<!-- Left and right controls -->
+					<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <span class="glyphicon glyphicon-chevron-left"></span>
+					  <span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <span class="glyphicon glyphicon-chevron-right"></span>
+					  <span class="sr-only">Next</span>
+					</a>
+				  </div>
+				
+				
+				
 			</div><!-- col-lg-3 -->
 
             <div class="col-lg-6">
                 <p align="justify">
-                    <b>NoiseCapture</b> is a free and open-source Android application that allows users to measure and share t noise environnement.
+                    <b>NoiseCapture</b> is a free and open-source Android application that allows users to measure and share the noise environnement.
                     Each noise measure is combined with its GPS track so that the result can be displayed in a interactive maps within the application, but also <b><a href="./map.html">on this page</a></b>.
                     </p>
 			   <p align="justify">
