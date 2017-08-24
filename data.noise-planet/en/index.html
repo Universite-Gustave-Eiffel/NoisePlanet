@@ -18,19 +18,7 @@
         <link href="../assets/css/animate-custom.css" rel="stylesheet">
 
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
-
-        <script src="../assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="../assets/js/modernizr.custom.js"></script>
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-          <script src="../assets/js/html5shiv.js"></script>
-          <script src="../assets/js/respond.min.js"></script>
-        <![endif]-->
-		
-		<script type="text/javascript">window.liveSettings={api_key:"4c31aac0398149cf971660ee00d6106b"};</script>
-		<script type="text/javascript" src="//cdn.transifex.com/live.js"></script>		
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>	
 
     </head>
 
@@ -40,7 +28,24 @@
 <!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 <!-- NAVIGATION BAR -->
 
-    <script src="./navbar.js"></script>
+    <div id="navbar-main">
+            <!-- Fixed navbar -->
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon icon-globe" style="font-size:30px; color:#3498db;"></span>
+                        </button>
+                        <!--<a class="navbar-brand hidden-xs hidden-sm" href="#home"><span style="font-size:18px; color:#3498db;"></span></a>-->
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li> <a href="http://noise-planet.org/index.html" class="smoothScroll"><i class="fa fa-caret-left" aria-hidden="true"></i> Back to Noise-Planet</a></li>
+                    </div><!--/nav-collapse -->
+                </div><!--/container -->
+            </div><!--/navbar navbar-inverse navbar-fixed-top -->
+        </div><!--/navbar-main -->
+		
 
 <!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 <!-- ==== HEADERWRAP ==== -->
@@ -57,10 +62,8 @@
 <!-- ==== Tools ==== -->
         <div class="container" id="tools" name="tools">
 
-            <div class="row white centered">
-            <br>
-            	<p align="center">Right now, only data coming from <a href="http://noise-planet.org/fr/noisecapture.html">NoiseCapture</a> are avalaible.</p>   
-            </div><!-- row -->
+            <h1 class="centered"><img class="img-responsive" style="display: inline;" src="../assets/img/logos/Logo_noisecapture.png" height="80px" width="80px" alt="Logo Map" /> NoiseCapture</h1>
+                <hr>				
         </div><!-- Container -->
 
 <!-- ==== NoiseCapture ==== -->
@@ -107,7 +110,18 @@
     <!-- Include content present in the "footer_credits.js" file -->
     <script src="../en/footer_credits.js"></script>
 
+	<script src="../assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../assets/js/modernizr.custom.js"></script>
 
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="../assets/js/html5shiv.js"></script>
+	  <script src="../assets/js/respond.min.js"></script>
+	<![endif]-->
+	
+	<script type="text/javascript">window.liveSettings={api_key:"4c31aac0398149cf971660ee00d6106b"};</script>
+	<script type="text/javascript" src="//cdn.transifex.com/live.js"></script>	
+	
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

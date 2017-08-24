@@ -19,7 +19,12 @@ document.write("                            		  <li><a href=\"./project.html\">P
 document.write("                                      <li><a href=\"./publication.html\">Publications</a></li>");
 document.write("                            </ul>");				
 document.write("                            <li> <a href=\"./onomap.html\" class=\"smoothScroll\">OnoMap</a></li>");
-document.write("							<li> <a href=\"./noisecapture.html\" class=\"smoothScroll\">NoiseCapture</a></li>");
+document.write("                            <li class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">NoiseCapture<span class=\"caret\"></span></a>");
+document.write("                            <ul class=\"dropdown-menu\">");
+document.write("                            		  <li><a href=\"../noisecapture.html\">NoiseCapture App</a></li>");
+document.write("                                      <li><a href=\"./noisecapture_protocol.html\">NoiseCapture Party</a></li>");
+document.write("                                      <li><a href=\"./NoiseCapture_privacy_policy_history.html\">Pricay Policy</a></li>");
+document.write("                            </ul>");
 document.write("                            <li> <a href=\"./noisemodelling.html\" class=\"smoothScroll\">NoiseModelling</a></li>");
 document.write("                            <li> <a href=\"./map.html\" class=\"smoothScroll\"><i class=\"fa fa-map\" aria-hidden=\"true\"></i> MAP</a></li>");
 document.write("                            <li> <a href=\"http://data.noise-planet.org\/en\/index.html\" class=\"smoothScroll\"><i class=\"fa fa-download\" aria-hidden=\"true\"></i> DATA</a></li>");
