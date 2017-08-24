@@ -19,7 +19,7 @@ document.write("                            </ul>");
 document.write("                            <li> <a href=\"..\/en\/onomap.html\" class=\"smoothScroll\">OnoMap</a></li>");
 document.write("							<li> <a href=\"..\/en\/noisecapture.html\" class=\"smoothScroll\">NoiseCapture</a></li>");
 document.write("                            <li> <a href=\"..\/en\/noisemodelling.html\" class=\"smoothScroll\">NoiseModelling</a></li>");
-document.write("                            <li> <a href=\"..\/leaflet_noisecapture\/index.html\" class=\"smoothScroll\"><i class=\"fa fa-map\" aria-hidden=\"true\"></i> MAP</a></li>");
+document.write("                            <li> <a href=\"..\/en\/map.html\" class=\"smoothScroll\"><i class=\"fa fa-map\" aria-hidden=\"true\"></i> MAP</a></li>");
 document.write("                            <li> <a href=\"http:\/\/data.noise-planet.org\/en\/index.html\" class=\"smoothScroll\"><i class=\"fa fa-download\" aria-hidden=\"true\"></i> DATA</a></li>");
 document.write("                            </ul>");
 document.write("                            <ul class=\"nav navbar-nav navbar-right\">");

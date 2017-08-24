@@ -47,19 +47,24 @@
 
         <div class="container" id="Map" name="Map">
             <div class="row">
-                <br>
-                <br>
-                <h1 class="centered"><img class="img-responsive" style="display: inline;" src="../assets/img/map/map.png" height="80px" width="80px" alt="Logo Map" /> Community Maps</h1>
+            
+				<h1 class="centered"><img class="img-responsive" style="display: inline;" src="../assets/img/map/map.png" height="80px" width="80px" alt="Logo Map" /> Noise Maps</h1>
                 <hr>
-                <p align="center">This community noise map is currently feeded by measures made with <a href="./noisecapture.html">NoiseCapture</a> app.
-            </div><!-- /row -->
+				<br>
+            
+				<div class="col-lg-6">
+                    <h2>NoiseCapture raw data</h2>
+                    <p align="justify"><a href="../leaflet_noisecapture/index.html#5/47.175/12.524">This map</a> is feeded in realtime by the raw data collected using the NoiseCapture mobile application. There is no filtering or processing of the data. It shows a noise map that is built using an agregation of all raw data, and allows to explore the noise environment everywhere in the world, from the NoiseCapture users community.</p>
+                </div><!-- col-lg-6 -->
+
+                <div class="col-lg-6">
+                    <a href="../leaflet_noisecapture/index.html#5/47.175/12.524"><img src="../assets/img/map/map_medium.png" alt data-caption="NoiseCapture raw data map" width="70%"></a>	
+                </div><!-- col-lg-6 -->
+		
+			</div><!-- /row -->
         </div>
+		<br>
 
-        <!-- Embeded Map -->
-        <iframe width="100%" height="800px" frameBorder="0" src="http://onomap.noise-planet.org/"></iframe>
-
-<br>
-<br>
 
 
 <!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
