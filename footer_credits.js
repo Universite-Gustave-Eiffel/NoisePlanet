@@ -3,7 +3,7 @@ document.write("");
 document.write("");
 document.write("    <div id=\"footerwrap\">");
 document.write("        <div class=\"container centered\">");
-document.write("            <h4><a data-toggle=\"modal\" href=\"#credits\">Credits<\/a> | <img src=\"..\/assets\/img\/logos\/twitter.png\" height=\"25px\" width=\"25px\"  alt=\"Twitter\"><a href=\"https:\/\/twitter.com\/Noise_Planet\" target=\"blank\"> @Noise_Planet<\/a><\/h4>");
+document.write("            <h4><a data-toggle=\"modal\" href=\"#credits\">Credits<\/a> | <img src=\".\/assets\/img\/logos\/twitter.png\" height=\"25px\" width=\"25px\"  alt=\"Twitter\"><a href=\"https:\/\/twitter.com\/Noise_Planet\" target=\"blank\"> @Noise_Planet<\/a><\/h4>");
 document.write("        <\/div>");
 document.write("");
 document.write("        <div class=\"modal fade\" id=\"credits\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">");
