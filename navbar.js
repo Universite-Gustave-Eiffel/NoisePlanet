@@ -21,7 +21,7 @@ document.write("                            </ul>");
 document.write("                            <li> <a href=\"./onomap.html\" class=\"smoothScroll\">OnoMap</a></li>");
 document.write("                            <li class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">NoiseCapture<span class=\"caret\"></span></a>");
 document.write("                            <ul class=\"dropdown-menu\">");
-document.write("                            		  <li><a href=\"../noisecapture.html\">NoiseCapture App</a></li>");
+document.write("                            		  <li><a href=\"./noisecapture.html\">NoiseCapture App</a></li>");
 document.write("                                      <li><a href=\"./noisecapture_protocol.html\">NoiseCapture Party</a></li>");
 document.write("                                      <li><a href=\"./NoiseCapture_privacy_policy_history.html\">Pricay Policy</a></li>");
 document.write("                            </ul>");
