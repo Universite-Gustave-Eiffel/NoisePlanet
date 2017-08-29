@@ -27,7 +27,7 @@ document.write("                                      <li><a href=\"../NoiseCapt
 document.write("                            </ul>");
 document.write("                            <li> <a href=\"../noisemodelling.html\" class=\"smoothScroll\">NoiseModelling</a></li>");
 document.write("                            <li> <a href=\"../map.html\" class=\"smoothScroll\"><i class=\"fa fa-map\" aria-hidden=\"true\"></i> Map</a></li>");
-document.write("                            <li> <a href=\"http://data.noise-planet.org\/en\/index.html\" class=\"smoothScroll\"><i class=\"fa fa-download\" aria-hidden=\"true\"></i> Data</a></li>");
+document.write("                            <li> <a href=\"http://data.noise-planet.org\/index.html\" class=\"smoothScroll\"><i class=\"fa fa-download\" aria-hidden=\"true\"></i> Data</a></li>");
 document.write("                            <li> <a href=\"../contact.html\" class=\"smoothScroll\"><i class=\"fa fa-envelope-o\" aria-hidden=\"true\"></i> Contact</a></li>");
 document.write("                         </ul>");
 document.write("                    </div><!--/nav-collapse -->");
