@@ -23,12 +23,14 @@ document.write("                            <li class=\"dropdown\"><a class=\"dr
 document.write("                            <ul class=\"dropdown-menu\">");
 document.write("                            		  <li><a href=\"../noisecapture.html\">NoiseCapture App</a></li>");
 document.write("                                      <li><a href=\"../noisecapture_protocol.html\">NoiseCapture Party</a></li>");
-document.write("                                      <li><a href=\"../NoiseCapture_privacy_policy_history.html\">Pricay Policy</a></li
-document.write("                            	      <li> <a href=\"../contact.html\" class=\"smoothScroll\"><i class=\"fa fa-envelope-o\" aria-hidden=\"true\"></i> Contact</a></li>");
+document.write("                                      <li><a href=\"../NoiseCapture_privacy_policy_history.html\">Pricay Policy</a></li>");
 document.write("                            </ul>");
 document.write("                            <li> <a href=\"../noisemodelling.html\" class=\"smoothScroll\">NoiseModelling</a></li>");
 document.write("                            <li> <a href=\"../map.html\" class=\"smoothScroll\"><i class=\"fa fa-map\" aria-hidden=\"true\"></i> MAP</a></li>");
 document.write("                            <li> <a href=\"http://data.noise-planet.org\/en\/index.html\" class=\"smoothScroll\"><i class=\"fa fa-download\" aria-hidden=\"true\"></i> DATA</a></li>");
+document.write("                            </ul>");
+document.write("                            <ul class=\"nav navbar-nav navbar-right\">");
+document.write("                            	<li> <a href=\"../contact.html\" class=\"smoothScroll\"><i class=\"fa fa-envelope-o\" aria-hidden=\"true\"></i> Contact</a></li>");
 document.write("                            </ul>");	   
 document.write("                    </div><!--/nav-collapse -->");
 document.write("                </div><!--/container -->");
