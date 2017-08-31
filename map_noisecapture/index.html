@@ -11,17 +11,18 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/cluster.css" />
+    <link rel="stylesheet" href="css/jqcloud.css" />
     <link href="css/flag-icon.min.css" rel="stylesheet">
     <link href="css/leaflet-search.min.css" rel="stylesheet" />
     <link href="css/L.Control.MousePosition.css" rel="stylesheet" />
     <link href="css/time_donut.css" rel="stylesheet">
 
 
-	<link href="../assets/css/main.css" rel="stylesheet">	
-    <link href="../assets/css/font-awesome.min.css" rel="stylesheet">	
+	<link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
-	
+
 </head>
 
 <body>
@@ -30,27 +31,27 @@
 	<!-- NAVIGATION BAR -->
 
     <script src="./navbar.js"></script>
-	
+
 	<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 	<!-- SIDEBAR -->
-	
+
 	<div id="sidebar" class="sidebar collapsed">
         <!-- Nav tabs -->
         <div class="sidebar-tabs">
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-question-circle"></i></a></li>
                 <li><a href="#hexainfo" role="tab"><i class="fa fa-pie-chart"></i></a></li>
-                <li><a href="#history" role="tab" onclick="doHistoRefresh()"><i class="fa fa-history"></i></a></li>
-                <li class="disabled"><a href="#statistics" role="tab"><i class="fa fa-line-chart"></i></a></li>
+                <li><a href="#history" role="tab" onclick="setTimeout(doHistoRefresh(),200)"><i class="fa fa-history"></i></a></li>
+                <li><a href="#statistics" role="tab"  onclick="setTimeout(loadStatistics,200)"><i class="fa fa-line-chart"></i></a></li>
 				<li><a href="#about" role="tab"><i class="fa fa-copyright"></i></a></li>
             </ul>
-            <ul role="tablist">                
+            <ul role="tablist">
                 <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
             </ul>
         </div>
         <!-- Tab panes -->
         <div class="sidebar-content">
-            
+
 			<div class="sidebar-pane" id="home">
                 <h1 class="sidebar-header">Home</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></span>
                 <h3>Explore the noisemaps</h3>
@@ -66,21 +67,70 @@
 				The authors are not responsible for the direct or indirect consequences of the uses or interpretation of the information provided.</p>
 				<hr>
             </div>
-            
+
 			<div class="sidebar-pane" id="history">
                 <h1 class="sidebar-header">History</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></span>
                 <h3>Last measurements
-				<a><i class="fa fa-refresh" onclick="doHistoRefresh()"></i>				
+				<a><i class="fa fa-refresh" onclick="doHistoRefresh()"></i>
 				<span class="sr-only">Refresh</span></a></h3>
 				<span class="label label-primary"><i class="fa fa-lightbulb-o" aria-hidden="true"></i><b> Click on the flag to show the measure</b> </span>
                 <div id="measures_log"></div>
             </div>
-            
+
 			<div class="sidebar-pane" id="statistics">
                 <h1 class="sidebar-header">Statistics</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></span>
-                <h3>Measurement information</h3>
+
+                <h4>Summary</h4>
+
+                    <table class="table">
+                   <thead>
+                     <tr>
+                       <th></th>
+                       <th>Last 7 days</th>
+                       <th>Last 7 weeks</th>
+                       <th>All activity</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr>
+                       <td>New contributors</td>
+                       <td id="statistics_week_new_contributors"></td>
+                       <td id="statistics_7weeks_new_contributors"></td>
+                       <td id="statistics_total_contributors"></td>
+                     </tr>
+                     <tr>
+                       <td>Number of tracks</td>
+                       <td id="statistics_week_new_tracks_count"></td>
+                       <td id="statistics_7weeks_new_tracks_count"></td>
+                       <td id="statistics_total_tracks"></td>
+                     </tr>
+                     <tr>
+                       <td>Duration</td>
+                       <td id="statistics_week_new_tracks_duration"></td>
+                       <td id="statistics_7weeks_new_tracks_duration"></td>
+                       <td id="statistics_total_tracks_duration"></td>
+                     </tr>
+                   </tbody>
+                 </table>
+               <h4>Activity of the last 7 weeks</h4>
+                <div style="height: 300px">
+                  <canvas id="statistics_country_weeks"></canvas>
+                </div>
+               <h4>Contribution per country</h4>
+                <div>
+                  <canvas id="statistics_country_contribution"></canvas>
+                  <canvas id="statistics_country_contribution_count"></canvas>
+                </div>
+                <h4>Distributions</h4>
+                 <div>
+                  <canvas id="statistics_length_distribution"></canvas>
+                    <canvas id="statistics_tags_per_track"></canvas>
+                </div>
+                <h4>Tags</h4>
+                <div id="statistics_world_tags" style="width: 100%; height: 350px;"></div>
+
             </div>
-            
+
 			<div class="sidebar-pane" id="about">
                 <h1 class="sidebar-header">About</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></i></span>
                 <h3>Licenses</h3>
@@ -90,7 +140,7 @@
 					<h4>NoiseCapture Android App</h4>
 					<p>NoiseCapture Android App is a free software; you can redistribute it and/or modify it under the terms of the GNU
 					General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
-					<a href="../noisecapture.html"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>						
+					<a href="../noisecapture.html"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
 					<h4>Collected raw data</h4>
 					<p>All raw data collected from the NoiseCapture Android App, i.e. the DATABASE-NoiseCaptureRaw, are made available under the Open Database
 					License. Any rights in individual contents of the database are licensed under the Database Contents License.
@@ -106,23 +156,23 @@
                 <p>For any questions involving the project and the data, please contact us at <a title="mailt ot: noisecapture@noise-planet.org" href="mailto:noisecapture@noise-planet.org">noisecapture(at)noise-planet.org</a>
                 </p>
             </div>
-			
+
             <div class="sidebar-pane" id="hexainfo">
                 <h1 class="sidebar-header">Selected area</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></span>
                 <h3>Explore the mean noise of your environment</h3>
 				<p>Results are obtained from all collected measurements, without filtering.</p>
-				<span class="label label-primary"><i class="fa fa-lightbulb-o" aria-hidden="true"></i><b> Select an hexagon to show results</b> </span>               
-                <div id="areainfo"></div>	
+				<span class="label label-primary"><i class="fa fa-lightbulb-o" aria-hidden="true"></i><b> Select an hexagon to show results</b> </span>
+                <div id="areainfo"></div>
 				<br>
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#la50">LA50 <i class="fa fa-info-circle" aria-hidden="true" title="The LA50 is the A-weighted noise level that is exceeded for 50% of the measurement period. It is a good descriptor of the mean sound level in the environment."></i></a></li>					
+                    <li class="active"><a data-toggle="tab" href="#la50">LA50 <i class="fa fa-info-circle" aria-hidden="true" title="The LA50 is the A-weighted noise level that is exceeded for 50% of the measurement period. It is a good descriptor of the mean sound level in the environment."></i></a></li>
                     <!--<li><a data-toggle="tab" href="#lden">Lden</a></li>-->
                     <li><a data-toggle="tab" href="#laeq">LAeq <i class="fa fa-info-circle" aria-hidden="true" title="The LAeq is the A-weighted noise level. It is a standard descriptor of the perceived sound level in the environment."></i></a></li>
                 </ul>
                 <div class="tab-content">
-                    <div id="la50" class="tab-pane fade in active">					
+                    <div id="la50" class="tab-pane fade in active">
 
-                        <img align="right" style="margin:5px 5px" src="http://onomap-gs.noise-planet.org/geoserver/gwc/service/wms?REQUEST=GetLegendGraphic&VERSION=1.3.0&FORMAT=image/png&LAYER=noisecapture:noisecapture_area&legend_options=fontName:Cerdana;fontAntiAliasing:true;fontColor:0x000033;fontSize:12;dpi:80&TRANSPARENT=true"/>                       
+                        <img align="right" style="margin:5px 5px" src="http://onomap-gs.noise-planet.org/geoserver/gwc/service/wms?REQUEST=GetLegendGraphic&VERSION=1.3.0&FORMAT=image/png&LAYER=noisecapture:noisecapture_area&legend_options=fontName:Cerdana;fontAntiAliasing:true;fontColor:0x000033;fontSize:12;dpi:80&TRANSPARENT=true"/>
                         <div>
                             <div class="donut_block">
                                 <h4 class='attribute_label' style="margin-bottom:0.5em">Working days <i class="fa fa-info-circle" aria-hidden="true" title="The following 'time-donuts' show the temporal evolution of the noise level over the 24h of a working day."></i></h3>
@@ -142,7 +192,7 @@
 					<div id="laeq" class="tab-pane fade in">
 
                         <img align="right" style="margin:5px 5px" src="http://onomap-gs.noise-planet.org/geoserver/gwc/service/wms?REQUEST=GetLegendGraphic&VERSION=1.3.0&FORMAT=image/png&LAYER=noisecapture:noisecapture_area&legend_options=fontName:Cerdana;fontAntiAliasing:true;fontColor:0x000033;fontSize:12;dpi:80&TRANSPARENT=true"/>
-                                
+
 							<div>
 								<div class="donut_block">
 									<h4 class='attribute_label' style="margin-bottom:0.5em">Working days <i class="fa fa-info-circle" aria-hidden="true" title="The following 'time-donuts' show the temporal evolution of the noise level over the 24h of a working day."></i></h3>
@@ -167,8 +217,8 @@
                         <p>Some content in menu 2.</p>
                     </div>
                 </div>
-            </div>            
-            
+            </div>
+
 			<div class="sidebar-pane" id="settings">
                 <h1 class="sidebar-header">Settings</h1><span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 <!-- http://usrz.github.io/bootstrap-languages/ -->
@@ -252,9 +302,11 @@
     <script src="js/leaflet.wms.js"></script>
     <script src="js/leaflet-search.min.js"></script>
     <script src="js/moment-with-locales.min.js"></script>
+    <script src="js/Chart.min.js"></script>
     <script src="js/leaflet.awesome-markers.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/L.Control.MousePosition.js"></script>
+    <script src="js/jqcloud-1.0.4.min.js"></script>
     <script>
 
         var map = L.map('map').setView([47.175, 12.524], 5);
@@ -330,6 +382,266 @@
         function doHistoRefresh() {
             onomap.getHistory();
         }
+
+
+            function length_to_dd_hh_mm_ss(seconds) {
+              if (seconds == 0) {
+                return "0s";
+              }
+              // calculate (and subtract) whole days
+              var days = Math.floor(seconds / 86400);
+              seconds -= days * 86400;
+
+              // calculate (and subtract) whole hours
+              var hours = Math.floor(seconds / 3600) % 24;
+              seconds -= hours * 3600;
+
+              // calculate (and subtract) whole minutes
+              var minutes = Math.floor(seconds / 60) % 60;
+              seconds -= minutes * 60;
+
+              // what's left is seconds
+              var seconds = seconds % 60; // in theory the modulus is not required
+              if (days > 0) {
+                return days + "d " + hours + "h" + minutes + "m"
+              } else if (hours > 0) {
+                return hours + "h" + minutes + "m";
+              } else if (minutes > 0) {
+                return minutes + "m" + seconds + "s";
+              } else {
+                return seconds + "s";
+              }
+            }
+
+            function loadStatistics() {
+              // Test if statistics are aloready loaded
+              if (typeof window.statisticsCountryContributionBar !== 'undefined') {
+                return;
+              }
+              // Retrieve stored statistics file
+              $.ajax({
+                url: "http://data.noise-planet.org/statistics.json",
+                type: "GET",
+                crossDomain: true,
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                  document.getElementById('statistics_week_new_contributors').innerHTML = data["week_new_contributors"];
+                  document.getElementById('statistics_week_new_tracks_count').innerHTML = data["week_new_tracks_count"];
+                  document.getElementById('statistics_week_new_tracks_duration').innerHTML = length_to_dd_hh_mm_ss(data["week_new_tracks_duration"]);
+
+                  document.getElementById('statistics_7weeks_new_contributors').innerHTML = data["7weeks_new_contributors"];
+                  document.getElementById('statistics_7weeks_new_tracks_count').innerHTML = data["7weeks_new_tracks_count"];
+                  document.getElementById('statistics_7weeks_new_tracks_duration').innerHTML = length_to_dd_hh_mm_ss(data["7weeks_new_tracks_duration"]);
+
+                  document.getElementById('statistics_total_contributors').innerHTML = data["total_contributors"];
+                  document.getElementById('statistics_total_tracks').innerHTML = data["total_tracks"];
+                  document.getElementById('statistics_total_tracks_duration').innerHTML = length_to_dd_hh_mm_ss(data["total_tracks_duration"]);
+
+                  // Load tags
+                  // Set tooltipItem
+                  // <a data-placement="right" style="cursor: pointer;" data-toggle="tooltip" title="" onclick="onomap.goToHistory(3)" data-original-title="Vannes, Bretagne, France"><span class="flag-icon flag-icon-fr"></span></a>
+                  for(var idTag=0; idTag < data["tags"].length; idTag++) {
+                    data["tags"][idTag]["html"] = {'data-original-title': data["tags"][idTag]["weight"]+" tracks", 'data-toggle':"tooltip", 'data-placement':"top", title:""}
+                  }
+                  $("#statistics_world_tags").jQCloud(data["tags"]);
+
+                  // Load contribution per country
+                  // Sort arrays by track_length
+                  var name_sorted = data["countries"]["names"].slice()
+                  var count_sorted = data["countries"]["track_length"].slice()
+                  window.statisticsCountryContributionBar =  new Chart(document.getElementById("statistics_country_contribution"), {
+                    type: 'horizontalBar',
+                    data: {
+                      labels: name_sorted.sort(function(a,b) {return data["countries"]["track_length"][data["countries"]["names"].indexOf(b)] - data["countries"]["track_length"][data["countries"]["names"].indexOf(a)]}).slice(0, Math.min(8, data["countries"]["names"].length)),
+                      datasets: [{
+                          label: 'Mesurements',
+                          backgroundColor: "#d1e5f0",
+                          borderColor: "#67a9cf",
+                          borderWidth: 1,
+                          data: count_sorted.sort(function(a, b){return b-a}).slice(0, Math.min(8, data["countries"]["track_length"].length))
+                      }]
+                    },
+                    options: {
+                        // Elements options apply to all of the options unless overridden in a dataset
+                        // In this case, we are setting the border of each horizontal bar to be 2px wide
+                        elements: {
+                            rectangle: {
+                                borderWidth: 2,
+                            }
+                        },
+                        responsive: true,
+                        tooltips: {
+                          mode: 'index',
+                          intersect: true,
+                          callbacks: {
+                            label: function(tooltipItem, data) {
+                              return data.datasets[tooltipItem.datasetIndex].label + ': ' + length_to_dd_hh_mm_ss(tooltipItem.xLabel);
+                            }
+                          }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Measurements duration'
+                        },
+                        scales: {
+                          xAxes: [{
+                            time: {
+                              unit: 'second'
+                            },
+                            ticks: {
+                              userCallback: function(v) {
+                                return length_to_dd_hh_mm_ss(v)
+                              }
+                            }
+                          }]
+                        }
+                    }
+                  });
+
+
+                  // Load contribution per country
+                  window.statistics_country_contribution_count =  new Chart(document.getElementById("statistics_country_contribution_count"), {
+                    type: 'horizontalBar',
+                    data: {
+                      labels: data["countries"]["names"].slice(0, Math.min(8, data["countries"]["names"].length)),
+                      datasets: [{
+                          label: 'Mesurements',
+                          backgroundColor: "#d1e5f0",
+                          borderColor: "#67a9cf",
+                          borderWidth: 1,
+                          data: data["countries"]["total_tracks"].slice(0, Math.min(8, data["countries"]["total_tracks"].length))
+                      }]
+                    },
+                    options: {
+                        // Elements options apply to all of the options unless overridden in a dataset
+                        // In this case, we are setting the border of each horizontal bar to be 2px wide
+                        elements: {
+                            rectangle: {
+                                borderWidth: 2,
+                            }
+                        },
+                        responsive: true,
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Number of measurements'
+                        }
+                    }
+                  });
+
+                  // Load country/week stack bar
+                  window.statisticsCountryWeeksBar = new Chart(document.getElementById("statistics_country_weeks"), {
+                    type: 'bar',
+                    data: data["week_tracks"],
+                    options: {
+                      maintainAspectRatio: false,
+                      title: {
+                        display: true,
+                        text: "Measurement duration by week"
+                      },
+                      tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                          label: function(tooltipItem, data) {
+                            return data.datasets[tooltipItem.datasetIndex].label + ': ' + length_to_dd_hh_mm_ss(tooltipItem.yLabel);
+                          }
+                        }
+                      },
+                      responsive: true,
+                      scales: {
+                        xAxes: [{
+                          stacked: true,
+                        }],
+                        yAxes: [{
+                          stacked: true,
+                          //type: "logarithmic",
+                          time: {
+                            unit: 'second'
+                          },
+                          ticks: {
+                            userCallback: function(v) {
+                              return length_to_dd_hh_mm_ss(v)
+                            }
+                          }
+                        }]
+                      }
+                    }
+                  });
+
+                  // Load measurementslength distribution
+                  // Bar chart
+                  new Chart(document.getElementById("statistics_length_distribution"), {
+                      type: 'bar',
+                      data: {
+                        labels: data["distribution_measurements"]["ranges"],
+                        datasets: [
+                          {
+                            label: "Measurement count",
+                            backgroundColor: "#d1e5f0",
+                            borderColor: "#67a9cf",
+                            data: data["distribution_measurements"]["total_tracks"]
+                          }
+                        ]
+                      },
+                      options: {
+                        legend: { display: false },
+                        title: {
+                          display: true,
+                          text: 'Measurement duration distribution'
+                        }
+                      }
+                  });
+
+
+
+                  // Load measurementslength distribution
+                  // Bar chart
+                  new Chart(document.getElementById("statistics_tags_per_track"), {
+                      type: 'bar',
+                      data: {
+                        labels: data["tags_per_track"]["tag_count"],
+                        datasets: [
+                          {
+                            label: "Measurement count",
+                            backgroundColor: "#d1e5f0",
+                            borderColor: "#67a9cf",
+                            data: data["tags_per_track"]["track_count"],
+                          }
+                        ]
+                      },
+                      options: {
+                        legend: { display: false },
+                        title: {
+                          display: true,
+                          text: 'Distribution of tags per measurement'
+                        },
+                        tooltips: {
+                          callbacks: {
+                            title: function(tooltipItems, data) {
+                                //Return value for title
+                                return tooltipItems[0].xLabel + '  tags';
+                            }
+                          }
+                        }
+                      }
+                  });
+
+                  // Have to call this for tags clouds toolips to work
+                  // do not remove
+                  setTimeout(function() { $('[data-toggle="tooltip"]').tooltip(); }, 1000);
+
+
+                }
+              });
+            }
+
     </script>
 </body>
 
