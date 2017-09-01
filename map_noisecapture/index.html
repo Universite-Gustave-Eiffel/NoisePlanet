@@ -385,9 +385,6 @@
 
 
             function length_to_dd_hh_mm_ss(seconds) {
-              if (seconds == 0) {
-                return "0s";
-              }
               // calculate (and subtract) whole days
               var days = Math.floor(seconds / 86400);
               seconds -= days * 86400;
@@ -403,13 +400,13 @@
               // what's left is seconds
               var seconds = seconds % 60; // in theory the modulus is not required
               if (days > 0) {
-                return days + "d " + hours + "h" + minutes + "m"
+                return Transifex.live.translateText("{days}d {hours}h{minutes}m", { days: days, hours:hours, minutes:minutes})
               } else if (hours > 0) {
-                return hours + "h" + minutes + "m";
+                return Transifex.live.translateText("{hours}h{minutes}m", { hours:hours, minutes:minutes})
               } else if (minutes > 0) {
-                return minutes + "m" + seconds + "s";
+                return Transifex.live.translateText("{minutes}m{seconds}s", { hours:hours, minutes:minutes, seconds:seconds})
               } else {
-                return seconds + "s";
+                return Transifex.live.translateText("{seconds}s", {seconds:seconds})
               }
             }
 
@@ -455,7 +452,7 @@
                     data: {
                       labels: name_sorted.sort(function(a,b) {return data["countries"]["track_length"][data["countries"]["names"].indexOf(b)] - data["countries"]["track_length"][data["countries"]["names"].indexOf(a)]}).slice(0, Math.min(8, data["countries"]["names"].length)),
                       datasets: [{
-                          label: 'Mesurements',
+                          label: Transifex.live.translateText('Mesurements'),
                           backgroundColor: "#d1e5f0",
                           borderColor: "#67a9cf",
                           borderWidth: 1,
@@ -485,7 +482,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Measurements duration'
+                            text: Transifex.live.translateText('Measurements duration')
                         },
                         scales: {
                           xAxes: [{
@@ -509,7 +506,7 @@
                     data: {
                       labels: data["countries"]["names"].slice(0, Math.min(8, data["countries"]["names"].length)),
                       datasets: [{
-                          label: 'Mesurements',
+                          label: Transifex.live.translateText('Mesurements'),
                           backgroundColor: "#d1e5f0",
                           borderColor: "#67a9cf",
                           borderWidth: 1,
@@ -530,7 +527,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Number of measurements'
+                            text: Transifex.live.translateText('Number of measurements')
                         }
                     }
                   });
@@ -543,7 +540,7 @@
                       maintainAspectRatio: false,
                       title: {
                         display: true,
-                        text: "Measurement duration by week"
+                        text: Transifex.live.translateText("Measurement duration by week")
                       },
                       tooltips: {
                         mode: 'index',
@@ -583,7 +580,7 @@
                         labels: data["distribution_measurements"]["ranges"],
                         datasets: [
                           {
-                            label: "Measurement count",
+                            label: Transifex.live.translateText("Measurement count"),
                             backgroundColor: "#d1e5f0",
                             borderColor: "#67a9cf",
                             data: data["distribution_measurements"]["total_tracks"]
@@ -594,7 +591,7 @@
                         legend: { display: false },
                         title: {
                           display: true,
-                          text: 'Measurement duration distribution'
+                          text: Transifex.live.translateText('Measurement duration distribution')
                         }
                       }
                   });
@@ -609,7 +606,7 @@
                         labels: data["tags_per_track"]["tag_count"],
                         datasets: [
                           {
-                            label: "Measurement count",
+                            label: Transifex.live.translateText("Measurement count"),
                             backgroundColor: "#d1e5f0",
                             borderColor: "#67a9cf",
                             data: data["tags_per_track"]["track_count"],
@@ -620,7 +617,7 @@
                         legend: { display: false },
                         title: {
                           display: true,
-                          text: 'Distribution of tags per measurement'
+                          text: Transifex.live.translateText('Distribution of tags per measurement')
                         },
                         tooltips: {
                           callbacks: {
