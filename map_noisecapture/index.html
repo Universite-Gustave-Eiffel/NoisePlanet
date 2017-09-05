@@ -452,7 +452,7 @@
                     data: {
                       labels: name_sorted.sort(function(a,b) {return data["countries"]["track_length"][data["countries"]["names"].indexOf(b)] - data["countries"]["track_length"][data["countries"]["names"].indexOf(a)]}).slice(0, Math.min(8, data["countries"]["names"].length)),
                       datasets: [{
-                          label: Transifex.live.translateText('Measurements'),
+                          label: Transifex.live.translateText('Duration'),
                           backgroundColor: "#d1e5f0",
                           borderColor: "#67a9cf",
                           borderWidth: 1,
@@ -506,7 +506,7 @@
                     data: {
                       labels: data["countries"]["names"].slice(0, Math.min(8, data["countries"]["names"].length)),
                       datasets: [{
-                          label: Transifex.live.translateText('Mesurements'),
+                          label: Transifex.live.translateText('Measurements'),
                           backgroundColor: "#d1e5f0",
                           borderColor: "#67a9cf",
                           borderWidth: 1,
