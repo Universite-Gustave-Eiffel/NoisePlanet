@@ -452,7 +452,6 @@
                     data: {
                       labels: name_sorted.sort(function(a,b) {return data["countries"]["track_length"][data["countries"]["names"].indexOf(b)] - data["countries"]["track_length"][data["countries"]["names"].indexOf(a)]}).slice(0, Math.min(8, data["countries"]["names"].length)),
                       datasets: [{
-                          label: Transifex.live.translateText('Mesurements'),
                           backgroundColor: "#d1e5f0",
                           borderColor: "#67a9cf",
                           borderWidth: 1,
