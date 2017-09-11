@@ -383,8 +383,10 @@
             onomap.getHistory();
         }
 
-
             function length_to_dd_hh_mm_ss(seconds) {
+              if (seconds == 0) {
+                return "0s";
+              }
               // calculate (and subtract) whole days
               var days = Math.floor(seconds / 86400);
               seconds -= days * 86400;
@@ -483,6 +485,7 @@
                         title: {
                             display: true,
                             text: Transifex.live.translateText('Measurements duration')
+
                         },
                         scales: {
                           xAxes: [{
@@ -528,6 +531,7 @@
                         title: {
                             display: true,
                             text: Transifex.live.translateText('Number of measurements')
+
                         }
                     }
                   });
@@ -541,6 +545,7 @@
                       title: {
                         display: true,
                         text: Transifex.live.translateText("Measurement duration by week")
+
                       },
                       tooltips: {
                         mode: 'index',
@@ -581,6 +586,7 @@
                         datasets: [
                           {
                             label: Transifex.live.translateText("Measurement count"),
+
                             backgroundColor: "#d1e5f0",
                             borderColor: "#67a9cf",
                             data: data["distribution_measurements"]["total_tracks"]
@@ -592,6 +598,7 @@
                         title: {
                           display: true,
                           text: Transifex.live.translateText('Measurement duration distribution')
+
                         }
                       }
                   });
@@ -618,6 +625,7 @@
                         title: {
                           display: true,
                           text: Transifex.live.translateText('Distribution of tags per measurement')
+
                         },
                         tooltips: {
                           callbacks: {
