@@ -144,7 +144,7 @@
 					<h4>Collected raw data</h4>
 					<p>All raw data collected from the NoiseCapture Android App, i.e. the DATABASE-NoiseCaptureRaw, are made available under the Open Database
 					License. Any rights in individual contents of the database are licensed under the Database Contents License.
-					<a href="http://data.noise-planet.org/en/index.html"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
+					<a href="http://data.noise-planet.org/index.html"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
 				<h3>Privacy</h3>
 					<p>All collected data are anonymous.
 					<a href="../NoiseCapture_privacy_policy_history.html"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
@@ -383,7 +383,6 @@
             onomap.getHistory();
         }
 
-
             function length_to_dd_hh_mm_ss(seconds) {
               if (seconds == 0) {
                 return "0s";
@@ -403,13 +402,13 @@
               // what's left is seconds
               var seconds = seconds % 60; // in theory the modulus is not required
               if (days > 0) {
-                return days + "d " + hours + "h" + minutes + "m"
+                return Transifex.live.translateText("{days}d {hours}h{minutes}m", { days: days, hours:hours, minutes:minutes})
               } else if (hours > 0) {
-                return hours + "h" + minutes + "m";
+                return Transifex.live.translateText("{hours}h{minutes}m", { hours:hours, minutes:minutes})
               } else if (minutes > 0) {
-                return minutes + "m" + seconds + "s";
+                return Transifex.live.translateText("{minutes}m{seconds}s", { hours:hours, minutes:minutes, seconds:seconds})
               } else {
-                return seconds + "s";
+                return Transifex.live.translateText("{seconds}s", {seconds:seconds})
               }
             }
 
@@ -455,7 +454,7 @@
                     data: {
                       labels: name_sorted.sort(function(a,b) {return data["countries"]["track_length"][data["countries"]["names"].indexOf(b)] - data["countries"]["track_length"][data["countries"]["names"].indexOf(a)]}).slice(0, Math.min(8, data["countries"]["names"].length)),
                       datasets: [{
-                          label: 'Mesurements',
+                          label: Transifex.live.translateText('Duration'),
                           backgroundColor: "#d1e5f0",
                           borderColor: "#67a9cf",
                           borderWidth: 1,
@@ -485,7 +484,8 @@
                         },
                         title: {
                             display: true,
-                            text: 'Measurements duration'
+                            text: Transifex.live.translateText('Measurements duration')
+
                         },
                         scales: {
                           xAxes: [{
@@ -509,7 +509,7 @@
                     data: {
                       labels: data["countries"]["names"].slice(0, Math.min(8, data["countries"]["names"].length)),
                       datasets: [{
-                          label: 'Mesurements',
+                          label: Transifex.live.translateText('Measurements'),
                           backgroundColor: "#d1e5f0",
                           borderColor: "#67a9cf",
                           borderWidth: 1,
@@ -530,7 +530,8 @@
                         },
                         title: {
                             display: true,
-                            text: 'Number of measurements'
+                            text: Transifex.live.translateText('Number of measurements')
+
                         }
                     }
                   });
@@ -543,7 +544,8 @@
                       maintainAspectRatio: false,
                       title: {
                         display: true,
-                        text: "Measurement duration by week"
+                        text: Transifex.live.translateText("Measurement duration by week")
+
                       },
                       tooltips: {
                         mode: 'index',
@@ -583,7 +585,8 @@
                         labels: data["distribution_measurements"]["ranges"],
                         datasets: [
                           {
-                            label: "Measurement count",
+                            label: Transifex.live.translateText("Measurement count"),
+
                             backgroundColor: "#d1e5f0",
                             borderColor: "#67a9cf",
                             data: data["distribution_measurements"]["total_tracks"]
@@ -594,7 +597,8 @@
                         legend: { display: false },
                         title: {
                           display: true,
-                          text: 'Measurement duration distribution'
+                          text: Transifex.live.translateText('Measurement duration distribution')
+
                         }
                       }
                   });
@@ -609,7 +613,7 @@
                         labels: data["tags_per_track"]["tag_count"],
                         datasets: [
                           {
-                            label: "Measurement count",
+                            label: Transifex.live.translateText("Measurement count"),
                             backgroundColor: "#d1e5f0",
                             borderColor: "#67a9cf",
                             data: data["tags_per_track"]["track_count"],
@@ -620,7 +624,8 @@
                         legend: { display: false },
                         title: {
                           display: true,
-                          text: 'Distribution of tags per measurement'
+                          text: Transifex.live.translateText('Distribution of tags per measurement')
+
                         },
                         tooltips: {
                           callbacks: {
