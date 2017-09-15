@@ -38,8 +38,6 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
 	size : 15.,
 	// While moving the mouse do not redraw if hex coordinate is the same
 	lastDrawnHex : {q:0, r:0},
-  ows_url:'http://onomap-gs.noise-planet.org/geoserver/ows',
-  //ows_url:'http://127.0.0.1:8085/geoserver/ows',
   // Last hexa donut downloaded data
   data:null,
   // Last history data
@@ -78,6 +76,12 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
 		var z = h.r
 		var y = -x-z
 		return {x:x, y:y, z:z}
+	},
+
+	initialize : function (url, options) {
+	    this.server_url = options["server_url"];
+	    this.ows_url = this.server_url+'ows';
+	    L.TileLayer.prototype.initialize.call(this, url, options);
 	},
 
 	/**

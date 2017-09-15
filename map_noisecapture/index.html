@@ -308,6 +308,7 @@
     <script src="js/L.Control.MousePosition.js"></script>
     <script src="js/jqcloud-1.0.4.min.js"></script>
     <script>
+        var server_url = 'https://onomap-gs.noise-planet.org/geoserver/';
 
         var map = L.map('map').setView([47.175, 12.524], 5);
 
@@ -321,19 +322,20 @@
 	    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         });
 
-        var onomap = L.tileLayer.OnoMap('http://onomap-gs.noise-planet.org/geoserver/gwc/service/tms/1.0.0/noisecapture:noisecapture_area@EPSG:900913@png/{z}/{x}/{y}.png', {
+        var onomap = L.tileLayer.OnoMap(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_area@EPSG:900913@png/{z}/{x}/{y}.png', {
+            "attribution": "<a href='http://onomap-gs.noise-planet.org'>OnoMap server</a>",
+            tms: true,
+            server_url: server_url,
+            minZoom: 14
+        });
+
+        var onomap_pt = L.tileLayer(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_leaflet_point@EPSG:900913@png/{z}/{x}/{y}.png', {
             "attribution": "<a href='http://onomap-gs.noise-planet.org'>OnoMap server</a>",
             tms: true,
             minZoom: 14
         });
 
-        var onomap_pt = L.tileLayer('http://onomap-gs.noise-planet.org/geoserver/gwc/service/tms/1.0.0/noisecapture:noisecapture_leaflet_point@EPSG:900913@png/{z}/{x}/{y}.png', {
-            "attribution": "<a href='http://onomap-gs.noise-planet.org'>OnoMap server</a>",
-            tms: true,
-            minZoom: 14
-        });
-
-        var onomap_cluster_layer = L.geoJSON.OnoMap('http://onomap-gs.noise-planet.org/geoserver/ows');
+        var onomap_cluster_layer = L.geoJSON.OnoMap(server_url+'ows');
 
         L.control.scale({
             'position': 'bottomright',
