@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/languages.min.css" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/cluster.css" />
     <link rel="stylesheet" href="css/jqcloud.css" />
     <link href="css/flag-icon.min.css" rel="stylesheet">
     <link href="css/leaflet-search.min.css" rel="stylesheet" />
@@ -298,7 +297,6 @@
     <script src="js/L.TileLayer.OnoMap.js"></script>
     <script src="js/leaflet-hash.js"></script>
     <script src="js/leaflet-sidebar.js"></script>
-    <script src="js/cluster.js"></script>
     <script src="js/leaflet.wms.js"></script>
     <script src="js/leaflet-search.min.js"></script>
     <script src="js/moment-with-locales.min.js"></script>
@@ -308,7 +306,8 @@
     <script src="js/L.Control.MousePosition.js"></script>
     <script src="js/jqcloud-1.0.4.min.js"></script>
     <script>
-        var server_url = 'https://onomap-gs.noise-planet.org/geoserver/';
+
+        var server_url = 'http://127.0.0.1:8085/geoserver/';
 
         var map = L.map('map').setView([47.175, 12.524], 5);
 
@@ -317,15 +316,14 @@
         var osm = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
         maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'});
 
-
         var esriworldimagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 	    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         });
 
         var onomap = L.tileLayer.OnoMap(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_area@EPSG:900913@png/{z}/{x}/{y}.png', {
             "attribution": "<a href='http://onomap-gs.noise-planet.org'>OnoMap server</a>",
-            tms: true,
             server_url: server_url,
+            tms: true,
             minZoom: 14
         });
 
@@ -334,8 +332,6 @@
             tms: true,
             minZoom: 14
         });
-
-        var onomap_cluster_layer = L.geoJSON.OnoMap(server_url+'ows');
 
         L.control.scale({
             'position': 'bottomright',
@@ -357,9 +353,25 @@
             zoom: 15
         }).addTo(map);
 
+
+
+
+        var noiseparty_list = L.control({position: 'topright'});
+        var sel = document.createElement("select");
+        sel.onchange = function() {
+            // If the user change NoiseParty
+
+        };
+        noiseparty_list.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend');
+            div.appendChild(sel);
+            div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation;
+            return div;
+        };
+        noiseparty_list.addTo(map);
+
         map.addLayer(osm)
         map.addLayer(onomap)
-        map.addLayer(onomap_cluster_layer)
 
         var baseLayers = {
             "OpenStreetMap": osm,
@@ -368,7 +380,6 @@
 
         L.control.layers(baseLayers, {
             "Sound level (LA50)": onomap,
-            "Density of measures": onomap_cluster_layer,
             "Location of measures": onomap_pt
         }).addTo(map);
 
@@ -380,6 +391,10 @@
 
         // Load default donuts
         onomap.showGetFeatureInfo(null, null, []);
+
+        function loadNoiseParty(noiseparty_tag) {
+
+        }
 
         function doHistoRefresh() {
             onomap.getHistory();

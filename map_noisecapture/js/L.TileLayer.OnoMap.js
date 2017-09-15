@@ -290,7 +290,7 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
     var url = this.getFeatureInfoUrl('groovy:nc_last_measures'),
         showResults = L.Util.bind(this.showHistory, this);
     var _this = this;
-    var postData = this.getHistoryContent();
+    var postData = this.getHistoryContent('OGRS_2018');
     $.ajax({
       type: 'POST',
       crossDomain: true,
@@ -354,7 +354,7 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
     return this.ows_url + L.Util.getParamString(params, this.ows_url, true);
   },
 
-  getHistoryContent: function() {
+  getHistoryContent: function(noise_party_tag) {
     return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><wps:Execute version=\"1.0.0\" \
      service=\"WPS\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"  \
      xmlns=\"http://www.opengis.net/wps/1.0.0\" xmlns:wfs=\"http://www.opengis.net/wfs\"  \
@@ -362,8 +362,15 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
      xmlns:gml=\"http://www.opengis.net/gml\" xmlns:ogc=\"http://www.opengis.net/ogc\" \
       xmlns:wcs=\"http://www.opengis.net/wcs/1.1.1\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"  \
       xsi:schemaLocation=\"http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd\"> \
-  <ows:Identifier>groovy:nc_last_measures</ows:Identifier> \
-  <wps:DataInputs/> \
+      <ows:Identifier>groovy:nc_last_measures</ows:Identifier> \
+      <wps:DataInputs>\
+        <wps:Input>\
+          <ows:Identifier>noiseparty</ows:Identifier>\
+          <wps:Data>\
+            <wps:LiteralData>"+noise_party_tag+"</wps:LiteralData>\
+          </wps:Data>\
+        </wps:Input>\
+      </wps:DataInputs>\
   <wps:ResponseForm> \
     <wps:RawDataOutput> \
       <ows:Identifier>result</ows:Identifier> \
