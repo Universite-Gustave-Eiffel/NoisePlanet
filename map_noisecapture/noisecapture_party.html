@@ -360,7 +360,7 @@
         var sel = document.createElement("select");
         sel.onchange = function() {
             // If the user change NoiseParty
-
+            loadNoiseParty(sel.value)
         };
         noiseparty_list.onAdd = function (map) {
             var div = L.DomUtil.create('div', 'info legend');
@@ -393,7 +393,9 @@
         onomap.showGetFeatureInfo(null, null, []);
 
         function loadNoiseParty(noiseparty_tag) {
-
+          //test load http://127.0.0.1:8085/geoserver/gwc/service/wmts?gp-leaflet-ext=0.10.0-dev&service=WMTS&request=GetTile&version=1.0.0&layer=noisecapture:noisecapture_area&TileMatrixSet=EPSG:900913&format=image%2Fpng&tilematrix=EPSG:900913:15&tilerow=11504&tilecol=16234
+          // use wms instead
+          // &CQL_FILTER=pk_party %3D 5
         }
 
         function doHistoRefresh() {
