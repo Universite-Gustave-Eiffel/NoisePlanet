@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/languages.min.css" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/cluster.css" />
     <link rel="stylesheet" href="css/jqcloud.css" />
     <link href="css/flag-icon.min.css" rel="stylesheet">
     <link href="css/leaflet-search.min.css" rel="stylesheet" />
@@ -54,6 +53,8 @@
 
 			<div class="sidebar-pane" id="home">
                 <h1 class="sidebar-header">Home</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></span>
+                <h3 id="noisecapture_party_title"></h3>
+                <p id="noisecapture_party_description"></p>
                 <h3>Explore the noisemaps</h3>
                 <p>The following map represent all collected data using the NoiseCapture application. You can navigate on the map, select the layers, explore your noise environment...</p>
                 <h3>Contribute to the noisemaps</h3>
@@ -80,55 +81,31 @@
 			<div class="sidebar-pane" id="statistics">
                 <h1 class="sidebar-header">Statistics</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></span>
 
-                <h4>Summary</h4>
+                <h4>Summary<a><i class="fa fa-refresh" onclick="loadStatistics()"></i>
+        				<span class="sr-only">Refresh</span></a></h4>
 
                     <table class="table">
                    <thead>
                      <tr>
                        <th></th>
-                       <th>Last 7 days</th>
-                       <th>Last 7 weeks</th>
-                       <th>All activity</th>
+                       <th>NoiseCapture party</th>
                      </tr>
                    </thead>
                    <tbody>
                      <tr>
-                       <td>New contributors</td>
-                       <td id="statistics_week_new_contributors"></td>
-                       <td id="statistics_7weeks_new_contributors"></td>
+                       <td>Number of contributors</td>
                        <td id="statistics_total_contributors"></td>
                      </tr>
                      <tr>
-                       <td>Number of tracks</td>
-                       <td id="statistics_week_new_tracks_count"></td>
-                       <td id="statistics_7weeks_new_tracks_count"></td>
+                       <td>Number of measurements</td>
                        <td id="statistics_total_tracks"></td>
                      </tr>
                      <tr>
-                       <td>Duration</td>
-                       <td id="statistics_week_new_tracks_duration"></td>
-                       <td id="statistics_7weeks_new_tracks_duration"></td>
+                       <td>Total duration</td>
                        <td id="statistics_total_tracks_duration"></td>
                      </tr>
                    </tbody>
                  </table>
-               <h4>Activity of the last 7 weeks</h4>
-                <div style="height: 300px">
-                  <canvas id="statistics_country_weeks"></canvas>
-                </div>
-               <h4>Contribution per country</h4>
-                <div>
-                  <canvas id="statistics_country_contribution"></canvas>
-                  <canvas id="statistics_country_contribution_count"></canvas>
-                </div>
-                <h4>Distributions</h4>
-                 <div>
-                  <canvas id="statistics_length_distribution"></canvas>
-                    <canvas id="statistics_tags_per_track"></canvas>
-                </div>
-                <h4>Tags</h4>
-                <div id="statistics_world_tags" style="width: 100%; height: 350px;"></div>
-
             </div>
 
 			<div class="sidebar-pane" id="about">
@@ -298,7 +275,6 @@
     <script src="js/L.TileLayer.OnoMap.js"></script>
     <script src="js/leaflet-hash.js"></script>
     <script src="js/leaflet-sidebar.js"></script>
-    <script src="js/cluster.js"></script>
     <script src="js/leaflet.wms.js"></script>
     <script src="js/leaflet-search.min.js"></script>
     <script src="js/moment-with-locales.min.js"></script>
@@ -309,8 +285,10 @@
     <script src="js/jqcloud-1.0.4.min.js"></script>
     <script>
 
-        var server_url = 'https://onomap-gs.noise-planet.org/geoserver/';
+        var noisePartyList = null;
+
         //var server_url = 'http://127.0.0.1:8085/geoserver/';
+        var server_url = 'https://onomap-gs.noise-planet.org/geoserver/';
 
         var map = L.map('map').setView([47.175, 12.524], 5);
 
@@ -319,25 +297,16 @@
         var osm = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
         maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'});
 
-
         var esriworldimagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 	    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         });
 
         var onomap = L.tileLayer.OnoMap(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_area@EPSG:900913@png/{z}/{x}/{y}.png', {
             "attribution": "<a href='http://onomap-gs.noise-planet.org'>OnoMap server</a>",
-            tms: true,
             server_url: server_url,
-            minZoom: 14
-        });
-
-        var onomap_pt = L.tileLayer(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_leaflet_point@EPSG:900913@png/{z}/{x}/{y}.png', {
-            "attribution": "<a href='http://onomap-gs.noise-planet.org'>OnoMap server</a>",
             tms: true,
             minZoom: 14
         });
-
-        var onomap_cluster_layer = L.geoJSON.OnoMap(server_url+'ows');
 
         L.control.scale({
             'position': 'bottomright',
@@ -359,9 +328,25 @@
             zoom: 15
         }).addTo(map);
 
+
+
+
+        var noiseparty_list = L.control({position: 'topright'});
+        var sel = document.createElement("select");
+        sel.onchange = function() {
+            // If the user change NoiseParty
+            loadNoiseParty(sel.value)
+        };
+        noiseparty_list.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend');
+            div.appendChild(sel);
+            div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation;
+            return div;
+        };
+        noiseparty_list.addTo(map);
+
         map.addLayer(osm)
         map.addLayer(onomap)
-        map.addLayer(onomap_cluster_layer)
 
         var baseLayers = {
             "OpenStreetMap": osm,
@@ -369,9 +354,7 @@
         };
 
         L.control.layers(baseLayers, {
-            "Sound level (LA50)": onomap,
-            "Density of measures": onomap_cluster_layer,
-            "Location of measures": onomap_pt
+            "Sound level (LA50)": onomap
         }).addTo(map);
 
         var hash = new L.Hash(map);
@@ -382,6 +365,27 @@
 
         // Load default donuts
         onomap.showGetFeatureInfo(null, null, []);
+
+        function loadNoiseParty(noiseparty_id) {
+          //test load http://127.0.0.1:8085/geoserver/gwc/service/wmts?gp-leaflet-ext=0.10.0-dev&service=WMTS&request=GetTile&version=1.0.0&layer=noisecapture:noisecapture_area&TileMatrixSet=EPSG:900913&format=image%2Fpng&tilematrix=EPSG:900913:15&tilerow=11504&tilecol=16234
+          // use wms instead
+          // &CQL_FILTER=pk_party %3D 5
+          onomap.loadNoiseCaptureParty(noisePartyList[noiseparty_id]);
+          onomap.setUrl(server_url+'gwc/service/tms/1.0.0/'+noisePartyList[noiseparty_id].layer_name+'@EPSG:900913@png/{z}/{x}/{y}.png');
+          // Update texts
+          document.getElementById('noisecapture_party_title').innerHTML = noisePartyList[noiseparty_id].title;
+          document.getElementById('noisecapture_party_description').innerHTML = noisePartyList[noiseparty_id].description;
+
+          // Zoom to noisecapture party
+
+          var bounds = noisePartyList[noiseparty_id].geometry.coordinates[0];
+          map.fitBounds([
+          [bounds[0][1], bounds[0][0]],
+          [bounds[2][1], bounds[2][0]]
+          ]);
+
+          sidebar.open('home');
+        }
 
         function doHistoRefresh() {
             onomap.getHistory();
@@ -417,240 +421,91 @@
             }
 
             function loadStatistics() {
+              if(noisePartyList == null || noisePartyList.length <= sel.selectedIndex) {
+                return;
+              }
+              var party_data = noisePartyList[sel.selectedIndex];
               // Test if statistics are aloready loaded
               if (typeof window.statisticsCountryContributionBar !== 'undefined') {
                 return;
               }
+              var postData = `<?xml version="1.0" encoding="UTF-8"?><wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
+                <ows:Identifier>groovy:nc_party_get_stats</ows:Identifier>
+                <wps:DataInputs>
+                  <wps:Input>
+                    <ows:Identifier>noiseparty</ows:Identifier>
+                    <wps:Data>
+                      <wps:LiteralData>`+party_data.pk_party+`</wps:LiteralData>
+                    </wps:Data>
+                  </wps:Input>
+                </wps:DataInputs>
+                <wps:ResponseForm>
+                  <wps:RawDataOutput>
+                    <ows:Identifier>result</ows:Identifier>
+                  </wps:RawDataOutput>
+                </wps:ResponseForm>
+              </wps:Execute>
+              `
               // Retrieve stored statistics file
+              var url = server_url+'ows' + L.Util.getParamString(params, '', true);
               $.ajax({
-                url: "http://data.noise-planet.org/statistics.json",
-                type: "GET",
+                type: 'POST',
                 crossDomain: true,
-                cache: false,
+                data: postData,
+                contentType: "text/plain",
                 dataType: "json",
+                url: url,
                 success: function(data) {
-                  document.getElementById('statistics_week_new_contributors').innerHTML = data["week_new_contributors"];
-                  document.getElementById('statistics_week_new_tracks_count').innerHTML = data["week_new_tracks_count"];
-                  document.getElementById('statistics_week_new_tracks_duration').innerHTML = length_to_dd_hh_mm_ss(data["week_new_tracks_duration"]);
-
-                  document.getElementById('statistics_7weeks_new_contributors').innerHTML = data["7weeks_new_contributors"];
-                  document.getElementById('statistics_7weeks_new_tracks_count').innerHTML = data["7weeks_new_tracks_count"];
-                  document.getElementById('statistics_7weeks_new_tracks_duration').innerHTML = length_to_dd_hh_mm_ss(data["7weeks_new_tracks_duration"]);
-
                   document.getElementById('statistics_total_contributors').innerHTML = data["total_contributors"];
                   document.getElementById('statistics_total_tracks').innerHTML = data["total_tracks"];
                   document.getElementById('statistics_total_tracks_duration').innerHTML = length_to_dd_hh_mm_ss(data["total_tracks_duration"]);
-
-                  // Load tags
-                  // Set tooltipItem
-                  // <a data-placement="right" style="cursor: pointer;" data-toggle="tooltip" title="" onclick="onomap.goToHistory(3)" data-original-title="Vannes, Bretagne, France"><span class="flag-icon flag-icon-fr"></span></a>
-                  for(var idTag=0; idTag < data["tags"].length; idTag++) {
-                    data["tags"][idTag]["html"] = {'data-original-title': data["tags"][idTag]["weight"]+" tracks", 'data-toggle':"tooltip", 'data-placement':"top", title:""}
-                  }
-                  $("#statistics_world_tags").jQCloud(data["tags"]);
-
-                  // Load contribution per country
-                  // Sort arrays by track_length
-                  var name_sorted = data["countries"]["names"].slice()
-                  var count_sorted = data["countries"]["track_length"].slice()
-                  window.statisticsCountryContributionBar =  new Chart(document.getElementById("statistics_country_contribution"), {
-                    type: 'horizontalBar',
-                    data: {
-                      labels: name_sorted.sort(function(a,b) {return data["countries"]["track_length"][data["countries"]["names"].indexOf(b)] - data["countries"]["track_length"][data["countries"]["names"].indexOf(a)]}).slice(0, Math.min(8, data["countries"]["names"].length)),
-                      datasets: [{
-                          label: Transifex.live.translateText('Duration'),
-                          backgroundColor: "#d1e5f0",
-                          borderColor: "#67a9cf",
-                          borderWidth: 1,
-                          data: count_sorted.sort(function(a, b){return b-a}).slice(0, Math.min(8, data["countries"]["track_length"].length))
-                      }]
-                    },
-                    options: {
-                        // Elements options apply to all of the options unless overridden in a dataset
-                        // In this case, we are setting the border of each horizontal bar to be 2px wide
-                        elements: {
-                            rectangle: {
-                                borderWidth: 2,
-                            }
-                        },
-                        responsive: true,
-                        tooltips: {
-                          mode: 'index',
-                          intersect: true,
-                          callbacks: {
-                            label: function(tooltipItem, data) {
-                              return data.datasets[tooltipItem.datasetIndex].label + ': ' + length_to_dd_hh_mm_ss(tooltipItem.xLabel);
-                            }
-                          }
-                        },
-                        legend: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: Transifex.live.translateText('Measurements duration')
-
-                        },
-                        scales: {
-                          xAxes: [{
-                            time: {
-                              unit: 'second'
-                            },
-                            ticks: {
-                              userCallback: function(v) {
-                                return length_to_dd_hh_mm_ss(v)
-                              }
-                            }
-                          }]
-                        }
-                    }
-                  });
-
-
-                  // Load contribution per country
-                  window.statistics_country_contribution_count =  new Chart(document.getElementById("statistics_country_contribution_count"), {
-                    type: 'horizontalBar',
-                    data: {
-                      labels: data["countries"]["names"].slice(0, Math.min(8, data["countries"]["names"].length)),
-                      datasets: [{
-                          label: Transifex.live.translateText('Measurements'),
-                          backgroundColor: "#d1e5f0",
-                          borderColor: "#67a9cf",
-                          borderWidth: 1,
-                          data: data["countries"]["total_tracks"].slice(0, Math.min(8, data["countries"]["total_tracks"].length))
-                      }]
-                    },
-                    options: {
-                        // Elements options apply to all of the options unless overridden in a dataset
-                        // In this case, we are setting the border of each horizontal bar to be 2px wide
-                        elements: {
-                            rectangle: {
-                                borderWidth: 2,
-                            }
-                        },
-                        responsive: true,
-                        legend: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: Transifex.live.translateText('Number of measurements')
-
-                        }
-                    }
-                  });
-
-                  // Load country/week stack bar
-                  window.statisticsCountryWeeksBar = new Chart(document.getElementById("statistics_country_weeks"), {
-                    type: 'bar',
-                    data: data["week_tracks"],
-                    options: {
-                      maintainAspectRatio: false,
-                      title: {
-                        display: true,
-                        text: Transifex.live.translateText("Measurement duration by week")
-
-                      },
-                      tooltips: {
-                        mode: 'index',
-                        intersect: false,
-                        callbacks: {
-                          label: function(tooltipItem, data) {
-                            return data.datasets[tooltipItem.datasetIndex].label + ': ' + length_to_dd_hh_mm_ss(tooltipItem.yLabel);
-                          }
-                        }
-                      },
-                      responsive: true,
-                      scales: {
-                        xAxes: [{
-                          stacked: true,
-                        }],
-                        yAxes: [{
-                          stacked: true,
-                          //type: "logarithmic",
-                          time: {
-                            unit: 'second'
-                          },
-                          ticks: {
-                            userCallback: function(v) {
-                              return length_to_dd_hh_mm_ss(v)
-                            }
-                          }
-                        }]
-                      }
-                    }
-                  });
-
-                  // Load measurementslength distribution
-                  // Bar chart
-                  new Chart(document.getElementById("statistics_length_distribution"), {
-                      type: 'bar',
-                      data: {
-                        labels: data["distribution_measurements"]["ranges"],
-                        datasets: [
-                          {
-                            label: Transifex.live.translateText("Measurement count"),
-
-                            backgroundColor: "#d1e5f0",
-                            borderColor: "#67a9cf",
-                            data: data["distribution_measurements"]["total_tracks"]
-                          }
-                        ]
-                      },
-                      options: {
-                        legend: { display: false },
-                        title: {
-                          display: true,
-                          text: Transifex.live.translateText('Measurement duration distribution')
-
-                        }
-                      }
-                  });
-
-
-
-                  // Load measurementslength distribution
-                  // Bar chart
-                  new Chart(document.getElementById("statistics_tags_per_track"), {
-                      type: 'bar',
-                      data: {
-                        labels: data["tags_per_track"]["tag_count"],
-                        datasets: [
-                          {
-                            label: Transifex.live.translateText("Measurement count"),
-                            backgroundColor: "#d1e5f0",
-                            borderColor: "#67a9cf",
-                            data: data["tags_per_track"]["track_count"],
-                          }
-                        ]
-                      },
-                      options: {
-                        legend: { display: false },
-                        title: {
-                          display: true,
-                          text: Transifex.live.translateText('Distribution of tags per measurement')
-
-                        },
-                        tooltips: {
-                          callbacks: {
-                            title: function(tooltipItems, data) {
-                                //Return value for title
-                                return tooltipItems[0].xLabel + '  tags';
-                            }
-                          }
-                        }
-                      }
-                  });
-
-                  // Have to call this for tags clouds toolips to work
-                  // do not remove
-                  setTimeout(function() { $('[data-toggle="tooltip"]').tooltip(); }, 1000);
-
-
                 }
               });
+
+
             }
 
+            function loadPartyList() {
+              // Load noisecapture party events
+              var postData = `<?xml version="1.0" encoding="UTF-8"?><wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
+                      <ows:Identifier>groovy:nc_noiseparty_list</ows:Identifier>
+                      <wps:DataInputs/>
+                      <wps:ResponseForm>
+                        <wps:RawDataOutput>
+                          <ows:Identifier>result</ows:Identifier>
+                        </wps:RawDataOutput>
+                      </wps:ResponseForm>
+                    </wps:Execute>`;
+              params = {
+                request: 'Execute',
+                service: 'wps',
+                version: '1.0.0',
+                Identifier: 'groovy:nc_noiseparty_list'
+              };
+              var url = server_url+'ows' + L.Util.getParamString(params, '', true);
+              $.ajax({
+                type: 'POST',
+                crossDomain: true,
+                data: postData,
+                contentType: "text/plain",
+                dataType: "json",
+                url: url,
+                success: function(data) {
+                  noisePartyList = data;
+                  for (i = 0; i < data.length; i++) {
+                    var row = data[i];
+                    var opt = document.createElement("option");
+                    opt.value = i;
+                    opt.text = row.title;
+                    sel.appendChild(opt);
+                  }
+                  if(data.length > 0) {
+                    loadNoiseParty(0)
+                  }
+                }
+              });
+          }
+          loadPartyList();
     </script>
 </body>
 

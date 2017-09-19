@@ -38,10 +38,10 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
 	size : 15.,
 	// While moving the mouse do not redraw if hex coordinate is the same
 	lastDrawnHex : {q:0, r:0},
-  ows_url:'http://onomap-gs.noise-planet.org/geoserver/ows',
-  //ows_url:'http://127.0.0.1:8085/geoserver/ows',
   // Last hexa donut downloaded data
   data:null,
+  // selected NoiseCapture party
+  partyData:null,
   // Last history data
   data_histo:null,
   // Start stop marker of selected history
@@ -56,6 +56,10 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
 		y = this.size * 3./2. * hex.r;
 		return {x:x, y:y};
 	},
+
+  loadNoiseCaptureParty : function (partyData) {
+    this.partyData = partyData;
+  },
 
 	/**
 	 * @param center Hex center position
@@ -78,6 +82,12 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
 		var z = h.r
 		var y = -x-z
 		return {x:x, y:y, z:z}
+	},
+
+	initialize : function (url, options) {
+	    this.server_url = options["server_url"];
+	    this.ows_url = this.server_url+'ows';
+	    L.TileLayer.prototype.initialize.call(this, url, options);
 	},
 
 	/**
@@ -286,7 +296,7 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
     var url = this.getFeatureInfoUrl('groovy:nc_last_measures'),
         showResults = L.Util.bind(this.showHistory, this);
     var _this = this;
-    var postData = this.getHistoryContent();
+    var postData = this.getHistoryContent(this.partyData != null ? this.partyData.tag : "");
     $.ajax({
       type: 'POST',
       crossDomain: true,
@@ -350,7 +360,7 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
     return this.ows_url + L.Util.getParamString(params, this.ows_url, true);
   },
 
-  getHistoryContent: function() {
+  getHistoryContent: function(noise_party_tag) {
     return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><wps:Execute version=\"1.0.0\" \
      service=\"WPS\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"  \
      xmlns=\"http://www.opengis.net/wps/1.0.0\" xmlns:wfs=\"http://www.opengis.net/wfs\"  \
@@ -358,8 +368,15 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
      xmlns:gml=\"http://www.opengis.net/gml\" xmlns:ogc=\"http://www.opengis.net/ogc\" \
       xmlns:wcs=\"http://www.opengis.net/wcs/1.1.1\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"  \
       xsi:schemaLocation=\"http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd\"> \
-  <ows:Identifier>groovy:nc_last_measures</ows:Identifier> \
-  <wps:DataInputs/> \
+      <ows:Identifier>groovy:nc_last_measures</ows:Identifier> \
+      <wps:DataInputs>\
+        <wps:Input>\
+          <ows:Identifier>noiseparty</ows:Identifier>\
+          <wps:Data>\
+            <wps:LiteralData>"+noise_party_tag+"</wps:LiteralData>\
+          </wps:Data>\
+        </wps:Input>\
+      </wps:DataInputs>\
   <wps:ResponseForm> \
     <wps:RawDataOutput> \
       <ows:Identifier>result</ows:Identifier> \
@@ -371,6 +388,10 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
     // Construct a GetFeatureInfo request content given a point
     if (latlng) {
     			var gPos = proj4('EPSG:3857', [latlng.lng, latlng.lat]);
+          var partyId = null;
+          if(this.partyData != null) {
+            partyId = this.partyData.pk_party;
+          }
     			var hPos = this.meterToHex(gPos[0], gPos[1]);
     			var qIndex = hPos.q;
     			var rIndex = hPos.r;
@@ -393,6 +414,12 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
               <ows:Identifier>qIndex</ows:Identifier>\
               <wps:Data>\
                 <wps:LiteralData>"+qIndex+"</wps:LiteralData>\
+              </wps:Data>\
+            </wps:Input>\
+            <wps:Input>\
+              <ows:Identifier>noiseparty</ows:Identifier>\
+              <wps:Data>\
+                <wps:LiteralData>"+partyId+"</wps:LiteralData>\
               </wps:Data>\
             </wps:Input>\
           </wps:DataInputs>\
