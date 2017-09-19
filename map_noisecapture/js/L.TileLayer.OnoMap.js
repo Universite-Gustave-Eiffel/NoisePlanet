@@ -40,6 +40,8 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
 	lastDrawnHex : {q:0, r:0},
   // Last hexa donut downloaded data
   data:null,
+  // selected NoiseCapture party
+  partyData:null,
   // Last history data
   data_histo:null,
   // Start stop marker of selected history
@@ -54,6 +56,10 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
 		y = this.size * 3./2. * hex.r;
 		return {x:x, y:y};
 	},
+
+  loadNoiseCaptureParty : function (partyData) {
+    this.partyData = partyData;
+  },
 
 	/**
 	 * @param center Hex center position

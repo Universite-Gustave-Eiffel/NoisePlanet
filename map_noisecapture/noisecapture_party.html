@@ -307,6 +307,8 @@
     <script src="js/jqcloud-1.0.4.min.js"></script>
     <script>
 
+        var noisePartyList = null;
+
         var server_url = 'http://127.0.0.1:8085/geoserver/';
 
         var map = L.map('map').setView([47.175, 12.524], 5);
@@ -392,10 +394,13 @@
         // Load default donuts
         onomap.showGetFeatureInfo(null, null, []);
 
-        function loadNoiseParty(noiseparty_tag) {
+        function loadNoiseParty(noiseparty_id) {
           //test load http://127.0.0.1:8085/geoserver/gwc/service/wmts?gp-leaflet-ext=0.10.0-dev&service=WMTS&request=GetTile&version=1.0.0&layer=noisecapture:noisecapture_area&TileMatrixSet=EPSG:900913&format=image%2Fpng&tilematrix=EPSG:900913:15&tilerow=11504&tilecol=16234
           // use wms instead
           // &CQL_FILTER=pk_party %3D 5
+          onomap.loadNoiseCaptureParty(noisePartyList[noiseparty_id]);
+          onomap.setUrl(server_url+'gwc/service/tms/1.0.0/noisecapture:'+noisePartyList[noiseparty_id].layer_name+'@EPSG:900913@png/{z}/{x}/{y}.png');
+
         }
 
         function doHistoRefresh() {
@@ -664,8 +669,49 @@
 
                 }
               });
+
+
             }
 
+
+            // Load noisecapture party events
+            var postData = `<?xml version="1.0" encoding="UTF-8"?><wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
+                    <ows:Identifier>groovy:nc_noiseparty_list</ows:Identifier>
+                    <wps:DataInputs/>
+                    <wps:ResponseForm>
+                      <wps:RawDataOutput>
+                        <ows:Identifier>result</ows:Identifier>
+                      </wps:RawDataOutput>
+                    </wps:ResponseForm>
+                  </wps:Execute>`;
+            params = {
+              request: 'Execute',
+              service: 'wps',
+              version: '1.0.0',
+              Identifier: 'groovy:nc_noiseparty_list'
+            };
+            var url = server_url+'ows' + L.Util.getParamString(params, '', true);
+            $.ajax({
+              type: 'POST',
+              crossDomain: true,
+              data: postData,
+              contentType: "text/plain",
+              dataType: "json",
+              url: url,
+              success: function(data) {
+                noisePartyList = data;
+                for (i = 0; i < data.length; i++) {
+                  var row = data[i];
+                  var opt = document.createElement("option");
+                  opt.value = i;
+                  opt.text = row.title;
+                  sel.appendChild(opt);
+                }
+                if(data.length > 0) {
+                  loadNoiseParty(0)
+                }
+              }
+            });
     </script>
 </body>
 
