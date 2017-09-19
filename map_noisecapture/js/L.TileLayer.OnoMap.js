@@ -296,7 +296,7 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
     var url = this.getFeatureInfoUrl('groovy:nc_last_measures'),
         showResults = L.Util.bind(this.showHistory, this);
     var _this = this;
-    var postData = this.getHistoryContent('OGRS_2018');
+    var postData = this.getHistoryContent(this.partyData != null ? this.partyData.tag : "");
     $.ajax({
       type: 'POST',
       crossDomain: true,

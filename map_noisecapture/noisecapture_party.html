@@ -81,7 +81,8 @@
 			<div class="sidebar-pane" id="statistics">
                 <h1 class="sidebar-header">Statistics</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></span>
 
-                <h4>Summary</h4>
+                <h4>Summary<a><i class="fa fa-refresh" onclick="loadStatistics()"></i>
+        				<span class="sr-only">Refresh</span></a></h4>
 
                     <table class="table">
                    <thead>
@@ -306,12 +307,6 @@
             minZoom: 14
         });
 
-        var onomap_pt = L.tileLayer(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_leaflet_point@EPSG:900913@png/{z}/{x}/{y}.png', {
-            "attribution": "<a href='http://onomap-gs.noise-planet.org'>OnoMap server</a>",
-            tms: true,
-            minZoom: 14
-        });
-
         L.control.scale({
             'position': 'bottomright',
             'metric': true,
@@ -358,8 +353,7 @@
         };
 
         L.control.layers(baseLayers, {
-            "Sound level (LA50)": onomap,
-            "Location of measures": onomap_pt
+            "Sound level (LA50)": onomap
         }).addTo(map);
 
         var hash = new L.Hash(map);
@@ -380,6 +374,14 @@
           // Update texts
           document.getElementById('noisecapture_party_title').innerHTML = noisePartyList[noiseparty_id].title;
           document.getElementById('noisecapture_party_description').innerHTML = noisePartyList[noiseparty_id].description;
+
+          // Zoom to noisecapture party
+
+          var bounds = noisePartyList[noiseparty_id].geometry.coordinates[0];
+          map.fitBounds([
+          [bounds[0][1], bounds[0][0]],
+          [bounds[2][1], bounds[2][0]]
+          ]);
 
           sidebar.open('home');
         }
@@ -426,8 +428,7 @@
               if (typeof window.statisticsCountryContributionBar !== 'undefined') {
                 return;
               }
-              var postData = `
-              <?xml version="1.0" encoding="UTF-8"?><wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
+              var postData = `<?xml version="1.0" encoding="UTF-8"?><wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
                 <ows:Identifier>groovy:nc_party_get_stats</ows:Identifier>
                 <wps:DataInputs>
                   <wps:Input>
