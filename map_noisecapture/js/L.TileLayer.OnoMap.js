@@ -388,6 +388,10 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
     // Construct a GetFeatureInfo request content given a point
     if (latlng) {
     			var gPos = proj4('EPSG:3857', [latlng.lng, latlng.lat]);
+          var partyId = null;
+          if(this.partyData != null) {
+            partyId = this.partyData.pk_party;
+          }
     			var hPos = this.meterToHex(gPos[0], gPos[1]);
     			var qIndex = hPos.q;
     			var rIndex = hPos.r;
@@ -410,6 +414,12 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
               <ows:Identifier>qIndex</ows:Identifier>\
               <wps:Data>\
                 <wps:LiteralData>"+qIndex+"</wps:LiteralData>\
+              </wps:Data>\
+            </wps:Input>\
+            <wps:Input>\
+              <ows:Identifier>noiseparty</ows:Identifier>\
+              <wps:Data>\
+                <wps:LiteralData>"+partyId+"</wps:LiteralData>\
               </wps:Data>\
             </wps:Input>\
           </wps:DataInputs>\
