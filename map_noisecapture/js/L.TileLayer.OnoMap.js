@@ -248,7 +248,11 @@ L.TileLayer.OnoMap = L.TileLayer.extend({
             time_record = moment(row.record_utc).format('LLL');
           }
           var location_title = row.name_3+", "+row.name_1+", "+row.country;
-          html_cont += "<tr><td><a data-placement=\"right\"  style=\"cursor: pointer;\" data-toggle=\"tooltip\" title=\""+location_title+"\" onclick=\"onomap.goToHistory("+i+")\"><span class=\"flag-icon flag-icon-"+this.countries[row.country].toLowerCase()+"\"></span></a></td><td>"+time_record+"</td><td>"+row.time_length+" s</td></tr>";
+          var country_iso = '';
+          if(row.country in this.countries) {
+            country_iso = "flag-icon-"+this.countries[row.country].toLowerCase();
+          }
+          html_cont += "<tr><td><a data-placement=\"right\"  style=\"cursor: pointer;\" data-toggle=\"tooltip\" title=\""+location_title+"\" onclick=\"onomap.goToHistory("+i+")\"><span class=\"flag-icon "+country_iso+"\"></span></a></td><td>"+time_record+"</td><td>"+row.time_length+" s</td></tr>";
         }
         html_cont += "</tbody></table>";
         histoDiv.innerHTML = html_cont;
