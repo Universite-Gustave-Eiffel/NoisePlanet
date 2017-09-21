@@ -500,12 +500,13 @@
                   var partyIndex = 0;
                   for (i = 0; i < data.length; i++) {
                     var row = data[i];
-                    if("party" in map.options && map.options["party"].tag == row.tag) {
-                      partyIndex = i;
-                    }
                     var opt = document.createElement("option");
                     opt.value = i;
                     opt.text = row.title;
+                    if("party" in map.options && map.options["party"].tag == row.tag) {
+                      partyIndex = i;
+                      opt.selected = true;
+                    }
                     sel.appendChild(opt);
                   }
                   if(data.length > partyIndex) {
