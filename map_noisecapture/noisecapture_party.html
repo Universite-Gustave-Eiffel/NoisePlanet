@@ -367,6 +367,10 @@
         onomap.showGetFeatureInfo(null, null, []);
 
         function loadNoiseParty(noiseparty_id) {
+
+          var loadBounds = !("party" in map.options) || ("party" in map.options && map.options["party"].forceBounds);
+
+          map.options["party"] = noisePartyList[noiseparty_id];
           //test load http://127.0.0.1:8085/geoserver/gwc/service/wmts?gp-leaflet-ext=0.10.0-dev&service=WMTS&request=GetTile&version=1.0.0&layer=noisecapture:noisecapture_area&TileMatrixSet=EPSG:900913&format=image%2Fpng&tilematrix=EPSG:900913:15&tilerow=11504&tilecol=16234
           // use wms instead
           // &CQL_FILTER=pk_party %3D 5
@@ -377,12 +381,13 @@
           document.getElementById('noisecapture_party_description').innerHTML = noisePartyList[noiseparty_id].description;
 
           // Zoom to noisecapture party
-
-          var bounds = noisePartyList[noiseparty_id].geometry.coordinates[0];
-          map.fitBounds([
-          [bounds[0][1], bounds[0][0]],
-          [bounds[2][1], bounds[2][0]]
-          ]);
+          if(loadBounds) {
+            var bounds = noisePartyList[noiseparty_id].geometry.coordinates[0];
+            map.fitBounds([
+            [bounds[0][1], bounds[0][0]],
+            [bounds[2][1], bounds[2][0]]
+            ]);
+          }
 
           sidebar.open('home');
         }
@@ -492,15 +497,19 @@
                 url: url,
                 success: function(data) {
                   noisePartyList = data;
+                  var partyIndex = 0;
                   for (i = 0; i < data.length; i++) {
                     var row = data[i];
+                    if("party" in map.options && map.options["party"].tag == row.tag) {
+                      partyIndex = i;
+                    }
                     var opt = document.createElement("option");
                     opt.value = i;
                     opt.text = row.title;
                     sel.appendChild(opt);
                   }
-                  if(data.length > 0) {
-                    loadNoiseParty(0)
+                  if(data.length > partyIndex) {
+                    loadNoiseParty(partyIndex);
                   }
                 }
               });
