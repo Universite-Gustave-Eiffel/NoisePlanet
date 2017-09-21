@@ -302,9 +302,15 @@
         });
 
         var onomap = L.tileLayer.OnoMap(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_area@EPSG:900913@png/{z}/{x}/{y}.png', {
-            "attribution": "<a href='http://onomap-gs.noise-planet.org'>OnoMap server</a>",
             server_url: server_url,
             tms: true,
+            minZoom: 14
+        });
+
+        var onomap_points = L.tileLayer.wms(server_url+'ows?', {
+            layers: 'noisecapture:noisecapture_points_party',
+            format: 'image/png',
+            transparent: true,
             minZoom: 14
         });
 
@@ -335,6 +341,9 @@
         var sel = document.createElement("select");
         sel.onchange = function() {
             // If the user change NoiseParty
+            if("party" in map.options) {
+              map.options["party"].forceBounds = true;
+            }
             loadNoiseParty(sel.value)
         };
         noiseparty_list.onAdd = function (map) {
@@ -354,7 +363,8 @@
         };
 
         L.control.layers(baseLayers, {
-            "Sound level (LA50)": onomap
+            "Sound level (LA50)": onomap,
+            "Location of measures": onomap_points
         }).addTo(map);
 
         var hash = new L.Hash(map);
@@ -376,6 +386,11 @@
           // &CQL_FILTER=pk_party %3D 5
           onomap.loadNoiseCaptureParty(noisePartyList[noiseparty_id]);
           onomap.setUrl(server_url+'gwc/service/tms/1.0.0/'+noisePartyList[noiseparty_id].layer_name+'@EPSG:900913@png/{z}/{x}/{y}.png');
+
+          onomap_points.setParams({cql_filter: 'pk_party=' + noisePartyList[noiseparty_id].pk_party});
+          //.options["CQL_FILTER"] = 'pk_party=' + noisePartyList[noiseparty_id].pk_party;
+          //onomap_points.setUrl(server_url+'ows?');
+
           // Update texts
           document.getElementById('noisecapture_party_title').innerHTML = noisePartyList[noiseparty_id].title;
           document.getElementById('noisecapture_party_description').innerHTML = noisePartyList[noiseparty_id].description;
