@@ -18,18 +18,31 @@
 			hash = hash.substr(1);
 		}
 		var args = hash.split("/");
-		if (args.length == 3) {
+		if (args.length >= 3) {
 			var zoom = parseInt(args[0], 10),
 			lat = parseFloat(args[1]),
 			lon = parseFloat(args[2]);
+			var party = null;
+			if(args.length > 3) {
+				party = args[3];
+			}
 			if (isNaN(zoom) || isNaN(lat) || isNaN(lon)) {
 				return false;
 			} else {
 				return {
 					center: new L.LatLng(lat, lon),
-					zoom: zoom
+					zoom: zoom,
+					party: party,
+					forceBounds: party == null
 				};
 			}
+		} else if(args.length == 1 && args[0].length > 0){
+			return {
+				center: new L.LatLng(47.175, 12.524),
+				zoom: 5,
+				party: args[0],
+				forceBounds: true
+			};
 		} else {
 			return false;
 		}
@@ -40,10 +53,18 @@
 		    zoom = map.getZoom(),
 		    precision = Math.max(0, Math.ceil(Math.log(zoom) / Math.LN2));
 
-		return "#" + [zoom,
-			center.lat.toFixed(precision),
-			center.lng.toFixed(precision)
-		].join("/");
+		if(!("party" in map.options)) {
+			return "#" + [zoom,
+				center.lat.toFixed(precision),
+				center.lng.toFixed(precision)
+			].join("/");
+		} else {
+			return "#" + [zoom,
+				center.lat.toFixed(precision),
+				center.lng.toFixed(precision),
+				map.options["party"].tag
+			].join("/");
+		}
 	},
 
 	L.Hash.prototype = {
@@ -103,6 +124,8 @@
 				this.movingMap = true;
 
 				this.map.setView(parsed.center, parsed.zoom);
+
+				this.map.options["party"] = {tag: parsed.party, forceBounds: parsed.forceBounds};
 
 				this.movingMap = false;
 			} else {
