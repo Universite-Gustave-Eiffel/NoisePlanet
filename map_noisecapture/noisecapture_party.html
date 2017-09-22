@@ -385,9 +385,6 @@
           var loadBounds = !("party" in map.options) || ("party" in map.options && map.options["party"].forceBounds);
 
           map.options["party"] = noisePartyList[noiseparty_id];
-          //test load http://127.0.0.1:8085/geoserver/gwc/service/wmts?gp-leaflet-ext=0.10.0-dev&service=WMTS&request=GetTile&version=1.0.0&layer=noisecapture:noisecapture_area&TileMatrixSet=EPSG:900913&format=image%2Fpng&tilematrix=EPSG:900913:15&tilerow=11504&tilecol=16234
-          // use wms instead
-          // &CQL_FILTER=pk_party %3D 5
           onomap.loadNoiseCaptureParty(noisePartyList[noiseparty_id]);
 
           onomap_points.setParams({cql_filter: 'pk_party=' + noisePartyList[noiseparty_id].pk_party});
