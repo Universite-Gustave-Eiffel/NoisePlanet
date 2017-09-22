@@ -266,11 +266,11 @@
     </div>
 	<div id="map" class="sidebar-map"></div>
 	<!-- Javascript placed at the end of the document so the pages load faster -->
+  <script src="js/jquery.js"></script>
 	<script type="text/javascript">window.liveSettings={api_key:"4c31aac0398149cf971660ee00d6106b"};</script>
 	<script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
 	<script src="js/leaflet.js"></script>
 	<script src="js/time_donut.js"></script>
-    <script src="js/jquery.js"></script>
     <script src="js/proj4.js"></script>
     <script src="js/L.TileLayer.OnoMap.js"></script>
     <script src="js/leaflet-hash.js"></script>
@@ -301,9 +301,13 @@
 	    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         });
 
-        var onomap = L.tileLayer.OnoMap(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_area@EPSG:900913@png/{z}/{x}/{y}.png', {
-            server_url: server_url,
-            tms: true,
+        var onomap = createOnomap({server_url: server_url, map: map});
+        onomap.onAdd(map);
+
+        var onomap_hexa = L.tileLayer.wms(server_url+'ows?', {
+            layers: 'noisecapture:noisecapture_area_party',
+            format: 'image/png',
+            transparent: true,
             minZoom: 14
         });
 
@@ -355,7 +359,7 @@
         noiseparty_list.addTo(map);
 
         map.addLayer(osm)
-        map.addLayer(onomap)
+        map.addLayer(onomap_hexa)
 
         var baseLayers = {
             "OpenStreetMap": osm,
@@ -363,7 +367,7 @@
         };
 
         L.control.layers(baseLayers, {
-            "Sound level (LA50)": onomap,
+            "Sound level (LA50)": onomap_hexa,
             "Location of measures": onomap_points
         }).addTo(map);
 
@@ -385,9 +389,9 @@
           // use wms instead
           // &CQL_FILTER=pk_party %3D 5
           onomap.loadNoiseCaptureParty(noisePartyList[noiseparty_id]);
-          onomap.setUrl(server_url+'gwc/service/tms/1.0.0/'+noisePartyList[noiseparty_id].layer_name+'@EPSG:900913@png/{z}/{x}/{y}.png');
 
           onomap_points.setParams({cql_filter: 'pk_party=' + noisePartyList[noiseparty_id].pk_party});
+          onomap_hexa.setParams({cql_filter: 'pk_party=' + noisePartyList[noiseparty_id].pk_party});
           //.options["CQL_FILTER"] = 'pk_party=' + noisePartyList[noiseparty_id].pk_party;
           //onomap_points.setUrl(server_url+'ows?');
 
