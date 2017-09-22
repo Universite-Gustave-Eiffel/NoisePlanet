@@ -295,7 +295,7 @@
 	<script src="js/time_donut.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/proj4.js"></script>
-    <script src="js/L.TileLayer.OnoMap.js"></script>
+    <script src="js/onomap.js"></script>
     <script src="js/leaflet-hash.js"></script>
     <script src="js/leaflet-sidebar.js"></script>
     <script src="js/cluster.js"></script>
@@ -324,10 +324,13 @@
 	    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         });
 
-        var onomap = L.tileLayer.OnoMap(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_area@EPSG:900913@png/{z}/{x}/{y}.png', {
+
+        var onomap = createOnomap({server_url: server_url, map: map});
+        onomap.onAdd(map);
+
+        var onomap_hexa = L.tileLayer(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_area@EPSG:900913@png/{z}/{x}/{y}.png', {
             "attribution": "<a href='http://onomap-gs.noise-planet.org'>OnoMap server</a>",
             tms: true,
-            server_url: server_url,
             minZoom: 14
         });
 
@@ -360,7 +363,7 @@
         }).addTo(map);
 
         map.addLayer(osm)
-        map.addLayer(onomap)
+        map.addLayer(onomap_hexa)
         map.addLayer(onomap_cluster_layer)
 
         var baseLayers = {
@@ -369,7 +372,7 @@
         };
 
         L.control.layers(baseLayers, {
-            "Sound level (LA50)": onomap,
+            "Sound level (LA50)": onomap_hexa,
             "Density of measures": onomap_cluster_layer,
             "Location of measures": onomap_pt
         }).addTo(map);
