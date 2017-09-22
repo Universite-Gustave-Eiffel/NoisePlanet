@@ -319,6 +319,14 @@ var onomap_class = {
       markerColor: 'black',
       iconColor: 'white'
     })}));
+    if(this.options["doAutoFly"]) {
+      // Redraw tiles in some seconds, as processing may have be done yet
+      setTimeout(function(){map.eachLayer(function(layer){
+          if(typeof layer.redraw == 'function') {
+            layer.redraw();
+          }
+        });}, 10000);
+    }
   },
 
   getHistory: function() {
