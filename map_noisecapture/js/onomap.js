@@ -530,6 +530,11 @@ var onomap_class = {
     if(typeof sundaydonut !== 'undefined') {
       sundaydonut.loadLevels(sundayData);
     }
+    // Load tags
+    $("#area_tags").innerHTML = '';
+    if(typeof content !== 'undefined' && "tags" in content) {
+      $("#area_tags").jQCloud(content["tags"]);
+    }
     if(alldata) {
       sidebar.open('hexainfo');
     }
