@@ -34,6 +34,8 @@ function onomap_constructor(options) {
   this._map = options["map"];
   this.server_url = options["server_url"];
   this.ows_url = this.server_url+'ows';
+  this.refreshInterval = null;
+  this.last_record_utc = 0;
 }
 
 var onomap_class = {
@@ -204,11 +206,23 @@ var onomap_class = {
     }
   },
 
+  setAutoTrack: function(newValue) {
+    this.options["doAutoFly"] = newValue;
+    var thisgetHistory = L.Util.bind(this.getHistory, this);
+    if(newValue) {
+      this.refreshInterval = setInterval(thisgetHistory, 35000);
+      this.getHistory();
+    } else {
+      clearInterval(this.refreshInterval);
+    }
+  },
+
   onAdd: function (map) {
-    map.on('click', this.getFeatureInfo, this);
-	  map.on("mousemove", this.updateHexOverlay, this);
     // Fetch language selection
     var _this = this;
+    map.on('click', this.getFeatureInfo, this);
+	  map.on("mousemove", this.updateHexOverlay, this);
+    //var histFunc = L.Util.bind(this.getHistory, this);
     $('#time_lang_list span').on('click',function(element) { _this.onSelectLang(element.target)});
     // Fetch time option
     $("input[name='tz-option']").on('click',function(element) { _this.onSelectTimeOption(element.target)});;
@@ -253,6 +267,11 @@ var onomap_class = {
         html_cont += "</tbody></table>";
         histoDiv.innerHTML = html_cont;
         $('[data-toggle="tooltip"]').tooltip();
+        // Fly to last track
+        if(this.options["doAutoFly"] && data.length > 0 && data[0].record_utc != this.last_record_utc) {
+          this.last_record_utc = data[0].record_utc;
+          this.goToHistory(0);
+        }
     }
   },
 
@@ -260,13 +279,24 @@ var onomap_class = {
     var row = this.data_histo[historyId];
     if(row.bounds.type=='Point') {
       var bounds = row.bounds.coordinates;
-      map.setView([bounds[1], bounds[0]], 18);
+      if(!this.options["doAutoFly"]) {
+        map.setView([bounds[1], bounds[0]], 18);
+      } else {
+        map.flyTo([bounds[1], bounds[0]], 18);
+      }
     } else {
       var bounds = row.bounds.coordinates[0];
-      map.fitBounds([
-      [bounds[0][1], bounds[0][0]],
-      [bounds[2][1], bounds[2][0]]
-      ]);
+      if(!this.options["doAutoFly"]) {
+        map.fitBounds([
+        [bounds[0][1], bounds[0][0]],
+        [bounds[2][1], bounds[2][0]]
+        ]);
+      } else {
+        map.flyToBounds([
+        [bounds[0][1], bounds[0][0]],
+        [bounds[2][1], bounds[2][0]]
+        ]);
+      }
     }
     // Add start stop layer
     if(this.start_stop_layer) {
@@ -289,6 +319,14 @@ var onomap_class = {
       markerColor: 'black',
       iconColor: 'white'
     })}));
+    if(this.options["doAutoFly"]) {
+      // Redraw tiles in some seconds, as processing may have be done yet
+      setTimeout(function(){map.eachLayer(function(layer){
+          if(typeof layer.redraw == 'function') {
+            layer.redraw();
+          }
+        });}, 10000);
+    }
   },
 
   getHistory: function() {
@@ -315,7 +353,7 @@ var onomap_class = {
       }
     });
     // Clean markers
-    if(this.start_stop_layer) {
+    if(this.start_stop_layer && !this.options["doAutoFly"]) {
       this.start_stop_layer.clearLayers();
     }
   },

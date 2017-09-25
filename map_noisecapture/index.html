@@ -41,7 +41,7 @@
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-question-circle"></i></a></li>
                 <li><a href="#hexainfo" role="tab"><i class="fa fa-pie-chart"></i></a></li>
-                <li><a href="#history" role="tab" onclick="setTimeout(doHistoRefresh(),200)"><i class="fa fa-history"></i></a></li>
+                <li><a href="#history" role="tab" onclick="setTimeout(onomap.getHistory(),200)"><i class="fa fa-history"></i></a></li>
                 <li><a href="#statistics" role="tab"  onclick="setTimeout(loadStatistics,200)"><i class="fa fa-line-chart"></i></a></li>
 				<li><a href="#about" role="tab"><i class="fa fa-copyright"></i></a></li>
             </ul>
@@ -70,9 +70,8 @@
 
 			<div class="sidebar-pane" id="history">
                 <h1 class="sidebar-header">History</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></span>
-                <h3>Last measurements
-				<a><i class="fa fa-refresh" onclick="doHistoRefresh()"></i>
-				<span class="sr-only">Refresh</span></a></h3>
+                <h3>Last measurements</h3>
+                <input type="checkbox" id="auto_track" onchange='onomap.setAutoTrack(this.checked);'>&nbsp;<label for="auto_track">Auto fly to new measurements</label>
 				<span class="label label-primary"><i class="fa fa-lightbulb-o" aria-hidden="true"></i><b> Click on the flag to show the measure</b> </span>
                 <div id="measures_log"></div>
             </div>
@@ -385,10 +384,6 @@
 
         // Load default donuts
         onomap.showGetFeatureInfo(null, null, []);
-
-        function doHistoRefresh() {
-            onomap.getHistory();
-        }
 
             function length_to_dd_hh_mm_ss(seconds) {
               if (seconds == 0) {
