@@ -479,6 +479,7 @@ var onomap_class = {
     moment.locale(lang);
     var first_measure;
     var last_measure;
+    $("#area_tags").find('span').remove();
     if(content["first_measure"]) {
       if($('input[name=tz-option]:checked')[0].attributes.onsite) {
         // User check to see the time on the measurement zone (not on browser timezone)
@@ -531,10 +532,17 @@ var onomap_class = {
       sundaydonut.loadLevels(sundayData);
     }
     // Load tags
-    $("#area_tags").innerHTML = '';
     if(typeof content !== 'undefined' && "tags" in content) {
+      for(var idTag=0; idTag < content["tags"].length; idTag++) {
+        content["tags"][idTag]["html"] = {'data-original-title': Transifex.live.translateText("{nbseconds} seconds", { nbseconds : content["tags"][idTag]["weight"]}), 'data-toggle':"tooltip", 'data-placement':"top", title:""}
+        content["tags"][idTag]["text"] = Transifex.live.translateText(content["tags"][idTag]["text"]);
+      }
       $("#area_tags").jQCloud(content["tags"]);
     }
+
+    // Have to call this for tags clouds toolips to work
+    // do not remove
+    setTimeout(function() { $('[data-toggle="tooltip"]').tooltip(); }, 1000);
     if(alldata) {
       sidebar.open('hexainfo');
     }

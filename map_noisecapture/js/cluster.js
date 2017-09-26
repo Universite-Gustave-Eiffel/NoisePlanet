@@ -25,16 +25,16 @@
  * 14-20 Boulevard Newton Cite Descartes, Champs sur Marne F-77447 Marne la Vallee Cedex 2 FRANCE
  *  or write to scientific.computing@ifsttar.fr
  */
- 
+
 GeoJSONCluster = L.GeoJSON.extend({
     ready: false,
     onAdd: function (map) {
-        
+
         var _this = this;
-        
+
         // Triggered when the layer is added to a map.
         L.GeoJSON.prototype.onAdd.call(this, map);
-        
+
         this.options.onEachFeature = function(feature, layer) {
             var count = feature.properties.measure_count;
             var abbrev = count >= 10000 ? Math.round(count / 1000) + 'k' :
@@ -50,22 +50,23 @@ GeoJSONCluster = L.GeoJSON.extend({
             var label = L.marker(layer.getBounds().getCenter(), { icon: icon, keyboard: false , interactive: false});
             L.GeoJSON.prototype.addLayer.call(_this, label);
         };
-        
+
         this.ready = true;
-        
+
         map.on('moveend', this.update, this);
-        
+        map.on('zoomend', this.update, this);
+
         this.update();
     },
-    
+
     loadGeoJson: function (data) {
         if(this.ready) {
             L.GeoJSON.prototype.clearLayers.call(this);
             L.GeoJSON.prototype.addData.call(this, data);
         }
     },
-    
-    update: function (data) {        
+
+    update: function (data) {
        if(this._map && this.ready && this._map.getZoom() < 15) {
           var _this = this;
           var geoJsonUrl = this.options.wfs_url;
@@ -94,13 +95,14 @@ GeoJSONCluster = L.GeoJSON.extend({
                        }
               });
         } else {
-          L.GeoJSON.prototype.clearLayers.call(this);
+          var _this = this;
+          setTimeout(function(){L.GeoJSON.prototype.clearLayers.call(_this);}, 200);
         }
     },
 });
 
 L.geoJSON.OnoMap = function (url) {
-    return new GeoJSONCluster(null, {  wfs_url : url,     
+    return new GeoJSONCluster(null, {  wfs_url : url,
     style: function (geoJsonFeature) {
           var count = geoJsonFeature.properties.measure_count;
           return { stroke : true,
