@@ -19,8 +19,9 @@
 
 	<link href="../assets/css/main.css" rel="stylesheet">
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+
+    <link href='../assets/css/lato.css' rel='stylesheet' type='text/css'>
+    <link href='../assets/css/raleway.css' rel='stylesheet' type='text/css'>    
 
 </head>
 
@@ -141,8 +142,8 @@
 				<br>
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#la50">LA50 <i class="fa fa-info-circle" aria-hidden="true" title="The LA50 is the A-weighted noise level that is exceeded for 50% of the measurement period. It is a good descriptor of the mean sound level in the environment."></i></a></li>
-                    <!--<li><a data-toggle="tab" href="#lden">Lden</a></li>-->
                     <li><a data-toggle="tab" href="#laeq">LAeq <i class="fa fa-info-circle" aria-hidden="true" title="The LAeq is the A-weighted noise level. It is a standard descriptor of the perceived sound level in the environment."></i></a></li>
+                    <li><a data-toggle="tab" href="#tags_tab">Tags <i class="fa fa-info-circle" aria-hidden="true" title="Tags cloud provided by users for this area"></i></a></li>
                 </ul>
                 <div class="tab-content">
                     <div id="la50" class="tab-pane fade in active">
@@ -183,13 +184,9 @@
 								</div>
 							</div>
                     </div>
-                    <div id="lden" class="tab-pane fade">
-                        <h3>Menu 1</h3>
-                        <p>Some content in menu 1.</p>
-                    </div>
-                    <div id="leq" class="tab-pane fade">
-                        <h3>Menu 2</h3>
-                        <p>Some content in menu 2.</p>
+
+                    <div id="tags_tab" class="tab-pane fade in">
+                      <div id="area_tags" style="width: 385px; height: 200px;"></div>
                     </div>
                 </div>
             </div>
