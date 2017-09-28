@@ -65,9 +65,9 @@ TimeDonut.prototype.getDonutFromSliceElement = function(sliceElement) {
     var parentElementId = sliceElement.parentElement.id;
     var id_cat = null;
     var full_id = null;
-    for(let id_pair of this.DONUT_LEVELS) {
-      var id_ext = id_pair[0];
-      var pair_id_cat = id_pair[1];
+    for(var hour in this.DONUT_LEVELS) {
+      var id_ext = this.DONUT_LEVELS[hour][0];
+      var pair_id_cat = this.DONUT_LEVELS[hour][1];
       var pair_full_id = this.id+id_ext;
       if(parentElementId.startsWith(pair_full_id)) {
         return [pair_id_cat, pair_full_id];
@@ -105,9 +105,9 @@ TimeDonut.prototype.hoverOff = function(element) {
 
 TimeDonut.prototype.loadLevels = function(levels) {
    this.levels = levels;
-   for(let id_pair of this.DONUT_LEVELS) {
-     var id_ext = id_pair[0];
-     var id_cat = id_pair[1];
+   for(var hour in this.DONUT_LEVELS) {
+     var id_ext = this.DONUT_LEVELS[hour][0];
+     var id_cat = this.DONUT_LEVELS[hour][1];
      var full_id = this.id+id_ext;
      var circleWeek = document.getElementById(full_id+"_ulcircle");
      for(child in circleWeek.children) {
@@ -129,9 +129,9 @@ function initTimeDonut(id, levels) {
   var newDonut = new TimeDonut(id, levels);
   // id is the time period (week, saturday and sunday)
   // For each time period there is a specific level
-  for(let id_pair of newDonut.DONUT_LEVELS) {
-    var id_ext = id_pair[0];
-    var id_cat = id_pair[1];
+  for(var hour in newDonut.DONUT_LEVELS) {
+    var id_ext = newDonut.DONUT_LEVELS[hour][0];
+    var id_cat = newDonut.DONUT_LEVELS[hour][1];
     var full_id = id+id_ext;
     var div_centercircletextunit = document.createElement('div');
     var div_centercircletext = document.createElement('div');
