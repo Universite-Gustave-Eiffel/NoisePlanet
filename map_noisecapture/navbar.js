@@ -23,7 +23,9 @@ document.write("                            <li> <a href=\"../onomap.html\" clas
 document.write("                            <li class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">NoiseCapture<span class=\"caret\"></span></a>");
 document.write("                            <ul class=\"dropdown-menu\">");
 document.write("                            		  <li><a href=\"../noisecapture.html\">NoiseCapture App</a></li>");
-document.write("                                      <li><a href=\"../noisecapture_protocol.html\">NoiseCapture Party</a></li>");
+document.write("                                      <li><a href=\"../noisecapture_protocol.html\">Protocol</a></li>");
+document.write("                                      <li><a href=\"../noisecapture_calibration.html\">Calibration</a></li>");
+document.write("                                      <li><a href=\"../noisecapture_party.html\">NoiseCapture Party</a></li>");
 document.write("                                      <li><a href=\"../NoiseCapture_privacy_policy_history.html\">Privacy Policy</a></li>");
 document.write("                                      <li><a href=\"../faq_NoiseCapture.html\">FAQ</a></li>");
 document.write("                            </ul>");
