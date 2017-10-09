@@ -514,7 +514,7 @@
                     var opt = document.createElement("option");
                     opt.value = i;
                     opt.text = row.title;
-                    if("party" in map.options && map.options["party"].tag == row.tag) {
+                    if("party" in map.options && map.options["party"].layer_name == row.layer_name) {
                       partyIndex = i;
                       opt.selected = true;
                     }

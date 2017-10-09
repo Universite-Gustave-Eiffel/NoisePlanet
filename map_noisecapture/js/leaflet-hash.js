@@ -62,7 +62,7 @@
 			return "#" + [zoom,
 				center.lat.toFixed(precision),
 				center.lng.toFixed(precision),
-				map.options["party"].tag
+				map.options["party"].layer_name
 			].join("/");
 		}
 	},
@@ -125,7 +125,7 @@
 
 				this.map.setView(parsed.center, parsed.zoom);
 
-				this.map.options["party"] = {tag: parsed.party, forceBounds: parsed.forceBounds};
+				this.map.options["party"] = {layer_name: parsed.party, forceBounds: parsed.forceBounds};
 
 				this.movingMap = false;
 			} else {

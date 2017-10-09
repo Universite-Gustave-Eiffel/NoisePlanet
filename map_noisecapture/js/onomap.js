@@ -334,7 +334,7 @@ var onomap_class = {
     var url = this.getFeatureInfoUrl('groovy:nc_last_measures'),
         showResults = L.Util.bind(this.showHistory, this);
     var _this = this;
-    var postData = this.getHistoryContent(this.partyData != null ? this.partyData.tag : "");
+    var postData = this.getHistoryContent(this.partyData != null ? this.partyData.pk_party : "");
     $.ajax({
       type: 'POST',
       crossDomain: true,
@@ -398,7 +398,7 @@ var onomap_class = {
     return this.ows_url + L.Util.getParamString(params, this.ows_url, true);
   },
 
-  getHistoryContent: function(noise_party_tag) {
+  getHistoryContent: function(noise_party_id) {
     return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><wps:Execute version=\"1.0.0\" \
      service=\"WPS\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"  \
      xmlns=\"http://www.opengis.net/wps/1.0.0\" xmlns:wfs=\"http://www.opengis.net/wfs\"  \
@@ -411,7 +411,7 @@ var onomap_class = {
         <wps:Input>\
           <ows:Identifier>noiseparty</ows:Identifier>\
           <wps:Data>\
-            <wps:LiteralData>"+noise_party_tag+"</wps:LiteralData>\
+            <wps:LiteralData>"+noise_party_id+"</wps:LiteralData>\
           </wps:Data>\
         </wps:Input>\
       </wps:DataInputs>\
