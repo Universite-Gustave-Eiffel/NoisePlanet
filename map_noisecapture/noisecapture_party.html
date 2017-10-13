@@ -14,7 +14,6 @@
     <link href="css/flag-icon.min.css" rel="stylesheet">
     <link href="css/leaflet-search.min.css" rel="stylesheet" />
     <link href="css/L.Control.MousePosition.css" rel="stylesheet" />
-    <link href="css/time_donut.css" rel="stylesheet">
 
 
 	<link href="../assets/css/main.css" rel="stylesheet">
@@ -261,7 +260,6 @@
 	<script type="text/javascript">window.liveSettings={api_key:"4c31aac0398149cf971660ee00d6106b"};</script>
 	<script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
 	<script src="js/leaflet.js"></script>
-	<script src="js/time_donut.js"></script>
     <script src="js/proj4.js"></script>
     <script src="js/onomap.js"></script>
     <script src="js/leaflet-hash.js"></script>
@@ -366,11 +364,7 @@
 
         var hash = new L.Hash(map);
 
-        var weekdonut = initTimeDonut("donut_working_day");
-        var saturdaydonut = initTimeDonut("donut_saturday");
-        var sundaydonut = initTimeDonut("donut_sunday");
-
-        // Load default donuts
+        // Load default area info
         onomap.showGetFeatureInfo(null, null, []);
 
         function loadNoiseParty(noiseparty_id) {
@@ -504,7 +498,7 @@
                 url: url,
                 success: function(data) {
                   noisePartyList = data;
-                  var partyIndex = 0;
+                  var partyIndex = -1;
                   for (i = 0; i < data.length; i++) {
                     var row = data[i];
                     var opt = document.createElement("option");
@@ -516,7 +510,7 @@
                     }
                     sel.appendChild(opt);
                   }
-                  if(data.length > partyIndex) {
+                  if(partyIndex > -1 && data.length > partyIndex) {
                     loadNoiseParty(partyIndex);
                   }
                 }
