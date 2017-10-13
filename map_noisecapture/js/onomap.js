@@ -516,7 +516,7 @@ var onomap_class = {
                 datasets: [
                   {
                     label: Transifex.live.translateText(graphsLabels[graphCat]),
-                    backgroundColor: "#d1e5f0",
+                    backgroundColor: colorset,
                     borderColor: "#67a9cf",
                     data: dataset
                   }
@@ -533,6 +533,17 @@ var onomap_class = {
                             stepSize: 5
                         }
                     }]
+                },
+                tooltips: {
+                  callbacks: {
+                    label: function(tooltipItem, data) {
+                      if(isNaN(tooltipItem.yLabel)) {
+                        return null;
+                      } else {
+                        return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel.toFixed(1) + ' dB(A)';
+                      }
+                    }
+                  }
                 }
               }
           });
@@ -602,11 +613,13 @@ var onomap_class = {
         }
       }
       if(typeof weekData !== 'undefined') {
-        this.loadHourlyGraphData('working_day', weekData);
-
-        this.loadHourlyGraphData('saturday', saturdayData);
-
-        this.loadHourlyGraphData('sunday', sundayData);
+        // Load graph later as it may take time to compute graph the first time
+        var loadHourlyGraphDataWorking_day = L.Util.bind(this.loadHourlyGraphData, this, 'working_day', weekData);
+        setTimeout(loadHourlyGraphDataWorking_day, 50);
+        var loadHourlyGraphDataSaturday = L.Util.bind(this.loadHourlyGraphData, this, 'saturday', saturdayData);
+        setTimeout(loadHourlyGraphDataSaturday, 50);
+        var loadHourlyGraphDataSunday = L.Util.bind(this.loadHourlyGraphData, this, 'sunday', sundayData);
+        setTimeout(loadHourlyGraphDataSunday, 50);
       }
     }
     // Load tags
