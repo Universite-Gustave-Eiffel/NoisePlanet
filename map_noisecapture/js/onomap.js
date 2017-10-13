@@ -54,6 +54,9 @@ var onomap_class = {
   data_histo:null,
   // Start stop marker of selected history
   start_stop_layer:null,
+  // Chart.js instances
+  timeCharts: {},
+
 
 	/**
 	 * @param hex Hex index
@@ -473,14 +476,76 @@ var onomap_class = {
         }
   },
 
+  loadHourlyGraphData: function (canvas_period, data) {
+    var labels = ["0h", "1h", "2h", "3h", "4h", "5h", "6h", "7h", "8h", "9h",
+     "10h", "11h", "12h", "13h", "14h", "15h", "16h", "17h", "18h", "19h",
+      "20h", "21h", "22h", "23h"];
+    for(var i=0;i<labels.length;i++) {
+      labels[i] = Transifex.live.translateText(labels[i]);
+    }
+    var graphs = { 'la50' : document.getElementById('statistics_'+canvas_period+'_la50'),
+     laeq: document.getElementById('statistics_'+canvas_period+'_laeq')};
+    var graphsLabels = { 'la50' : 'LA50', 'laeq': 'LAeq'};
+    for(var graphCat in graphs) {
+      var graphEl = graphs[graphCat];
+      if(graphEl != null) {
+        var dataset = [];
+        for(var hour = 0; hour < 24; hour++) {
+          var hourDict = data[hour];
+          if(hourDict != null) {
+            dataset.push(hourDict[graphCat]);
+          } else {
+            dataset.push(null);
+          }
+        }
+        var chartIdentifier = canvas_period+"_"+graphCat;
+        // Check if chart object is already created
+        if(this.timeCharts[chartIdentifier] != null) {
+          // Update data
+          this.timeCharts[chartIdentifier].data.datasets[0].data = dataset;
+          this.timeCharts[chartIdentifier].update();
+        } else {
+          this.timeCharts[chartIdentifier] = new Chart(graphEl, {
+              type: 'bar',
+              data: {
+                labels: labels,
+                datasets: [
+                  {
+                    label: Transifex.live.translateText(graphsLabels[graphCat]),
+                    backgroundColor: "#d1e5f0",
+                    borderColor: "#67a9cf",
+                    data: dataset
+                  }
+                ]
+              },
+              options: {
+                legend: { display: false },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 30,   // minimum value will be 0.
+                            suggestedMax: 80,
+                            stepSize: 5
+                        }
+                    }]
+                }
+              }
+          });
+        }
+      }
+    }
+  },
+
   showGetFeatureInfo: function (err, latlng, content) {
     var infoDiv = document.getElementById('areainfo');
+
     var lang = $('#time_lang')[0].attributes.lang.value;
     moment.locale(lang);
     var first_measure;
     var last_measure;
     $("#area_tags").find('span').remove();
-    if(content["first_measure"]) {
+    if(typeof content !== 'undefined' && content["first_measure"]) {
       if($('input[name=tz-option]:checked')[0].attributes.onsite) {
         // User check to see the time on the measurement zone (not on browser timezone)
         first_measure = moment.parseZone(content["first_measure"]).format('LLL');
@@ -500,15 +565,6 @@ var onomap_class = {
     <p class='attribute_label'>Last measure:</p><i class='fa fa-clock-o' aria-hidden='true'></i> "+last_measure+"\
     <p class='attribute_label'>Pleasantness:</p><i class='fa fa-smile-o' aria-hidden='true'></i> "+(content["mean_pleasantness"] ? Math.round(content["mean_pleasantness"]) + " %" : "NC")+"\
     <p class='attribute_label'>Measure duration:</p><i class='fa fa-hourglass' aria-hidden='true'></i> "+(content["measure_count"] ? Math.round(content["measure_count"]) + " seconds" : "None");
-    if(typeof weekdonut !== 'undefined') {
-      weekdonut.loadLevels();
-    }
-    if(typeof saturdaydonut !== 'undefined') {
-      saturdaydonut.loadLevels();
-    }
-    if(typeof sundaydonut !== 'undefined') {
-      sundaydonut.loadLevels();
-    }
     if (err) { console.log(err); return; } // do nothing if there's an error
     // Split hour levels for week, saturday and sunday
     var alldata = content["profile"];
@@ -522,14 +578,12 @@ var onomap_class = {
         sundayData.push(alldata[48 + i]);
       }
     }
-    if(typeof weekdonut !== 'undefined') {
-      weekdonut.loadLevels(weekData);
-    }
-    if(typeof saturdaydonut !== 'undefined') {
-      saturdaydonut.loadLevels(saturdayData);
-    }
-    if(typeof sundaydonut !== 'undefined') {
-      sundaydonut.loadLevels(sundayData);
+    if(typeof weekData !== 'undefined') {
+      this.loadHourlyGraphData('working_day', weekData);
+
+      this.loadHourlyGraphData('saturday', saturdayData);
+
+      this.loadHourlyGraphData('sunday', sundayData);
     }
     // Load tags
     if(typeof content !== 'undefined' && "tags" in content) {
