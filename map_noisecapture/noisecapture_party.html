@@ -499,7 +499,9 @@
                 success: function(data) {
                   noisePartyList = data;
                   var partyIndex = -1;
-                  var party_layer_name = L.Hash.parseHash(location.hash).party;
+                  var urlData = L.Hash.parseHash(location.hash);
+                  var party_layer_name = urlData.party;
+                  map.options["party"] = {layer_name: party_layer_name, forceBounds: urlData.forceBounds};
                   for (i = 0; i < data.length; i++) {
                     var row = data[i];
                     var opt = document.createElement("option");
