@@ -490,12 +490,15 @@ var onomap_class = {
       var graphEl = graphs[graphCat];
       if(graphEl != null) {
         var dataset = [];
+        var colorset = [];
         for(var hour = 0; hour < 24; hour++) {
           var hourDict = data[hour];
           if(hourDict != null) {
             dataset.push(hourDict[graphCat]);
+            colorset.push(this.getColor(hourDict[graphCat]));
           } else {
             dataset.push(null);
+            colorset.push("white");
           }
         }
         var chartIdentifier = canvas_period+"_"+graphCat;
@@ -503,6 +506,7 @@ var onomap_class = {
         if(this.timeCharts[chartIdentifier] != null) {
           // Update data
           this.timeCharts[chartIdentifier].data.datasets[0].data = dataset;
+          this.timeCharts[chartIdentifier].data.datasets[0].backgroundColor = colorset;
           this.timeCharts[chartIdentifier].update();
         } else {
           this.timeCharts[chartIdentifier] = new Chart(graphEl, {
@@ -533,11 +537,28 @@ var onomap_class = {
               }
           });
         }
+        // Change color of bars
+
       }
     }
   },
 
+  getColor: function(level) {
+    var prev = -1;
+    var i;
+    for (i in this.COLOR_RAMP) {
+      var n = parseInt(i);
+      if ((prev != -1) && (level < n))
+        return this.COLOR_RAMP[prev];
+      else
+        prev = n;
+    }
+    var levels = Object.keys(this.COLOR_RAMP);
+    return this.COLOR_RAMP[levels[levels.length - 1]];
+  },
+
   showGetFeatureInfo: function (err, latlng, content) {
+    if (err) { console.log(err); return; } // do nothing if there's an error
     var infoDiv = document.getElementById('areainfo');
 
     var lang = $('#time_lang')[0].attributes.lang.value;
@@ -565,25 +586,27 @@ var onomap_class = {
     <p class='attribute_label'>Last measure:</p><i class='fa fa-clock-o' aria-hidden='true'></i> "+last_measure+"\
     <p class='attribute_label'>Pleasantness:</p><i class='fa fa-smile-o' aria-hidden='true'></i> "+(content["mean_pleasantness"] ? Math.round(content["mean_pleasantness"]) + " %" : "NC")+"\
     <p class='attribute_label'>Measure duration:</p><i class='fa fa-hourglass' aria-hidden='true'></i> "+(content["measure_count"] ? Math.round(content["measure_count"]) + " seconds" : "None");
-    if (err) { console.log(err); return; } // do nothing if there's an error
+
     // Split hour levels for week, saturday and sunday
-    var alldata = content["profile"];
-    var weekData = alldata;
-    var saturdayData = [];
-    var sundayData = [];
-    if(alldata) {
-      for(i=0; i<24; i++) {
-        var key = i.toString();
-        saturdayData.push(alldata[24 + i]);
-        sundayData.push(alldata[48 + i]);
+    if(typeof content !== 'undefined') {
+      var alldata = content["profile"];
+      var weekData = alldata;
+      var saturdayData = [];
+      var sundayData = [];
+      if(alldata) {
+        for(i=0; i<24; i++) {
+          var key = i.toString();
+          saturdayData.push(alldata[24 + i]);
+          sundayData.push(alldata[48 + i]);
+        }
       }
-    }
-    if(typeof weekData !== 'undefined') {
-      this.loadHourlyGraphData('working_day', weekData);
+      if(typeof weekData !== 'undefined') {
+        this.loadHourlyGraphData('working_day', weekData);
 
-      this.loadHourlyGraphData('saturday', saturdayData);
+        this.loadHourlyGraphData('saturday', saturdayData);
 
-      this.loadHourlyGraphData('sunday', sundayData);
+        this.loadHourlyGraphData('sunday', sundayData);
+      }
     }
     // Load tags
     if(typeof content !== 'undefined' && "tags" in content) {
