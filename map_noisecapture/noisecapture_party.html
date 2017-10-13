@@ -499,12 +499,13 @@
                 success: function(data) {
                   noisePartyList = data;
                   var partyIndex = -1;
+                  var party_layer_name = L.Hash.parseHash(location.hash).party;
                   for (i = 0; i < data.length; i++) {
                     var row = data[i];
                     var opt = document.createElement("option");
                     opt.value = i;
                     opt.text = row.title;
-                    if("party" in map.options && map.options["party"].layer_name == row.layer_name) {
+                    if("party" in map.options && party_layer_name == row.layer_name) {
                       partyIndex = i;
                       opt.selected = true;
                     }
