@@ -580,7 +580,8 @@ var onomap_class = {
       first_measure = "None";
       last_measure = "None";
     }
-    infoDiv.innerHTML = "<p class='attribute_label'>LA50:</p><i class='fa fa-microphone' aria-hidden='true'></i> "+(content["la50"] ? content["la50"].toFixed(1)+" dB(A)" : "None")+"\
+    infoDiv.innerHTML = "<img style=\"margin:5px 5px; float:right;\" src=\""+this.server_url+"gwc/service/wms?REQUEST=GetLegendGraphic&VERSION=1.3.0&FORMAT=image/png&LAYER=noisecapture:noisecapture_area&legend_options=fontName:Cerdana;fontAntiAliasing:true;fontColor:0x000033;fontSize:12;dpi:80&TRANSPARENT=true\"/>\
+    <p class='attribute_label'>LA50:</p><i class='fa fa-microphone' aria-hidden='true'></i> "+(content["la50"] ? content["la50"].toFixed(1)+" dB(A)" : "None")+"\
     <p class='attribute_label'>LAeq:</p><i class='fa fa-microphone' aria-hidden='true'></i> "+(content["laeq"] ? content["laeq"].toFixed(1)+" dB(A)" : "None")+"\
     <p class='attribute_label'>First measure:</p><i class='fa fa-clock-o' aria-hidden='true'></i> "+first_measure+"\
     <p class='attribute_label'>Last measure:</p><i class='fa fa-clock-o' aria-hidden='true'></i> "+last_measure+"\
