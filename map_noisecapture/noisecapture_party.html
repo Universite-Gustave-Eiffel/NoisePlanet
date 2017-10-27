@@ -104,6 +104,8 @@
                      </tr>
                    </tbody>
                  </table>
+                 <h4>Best contributors</h4>
+                 <div id="ranks"></div>
             </div>
 
 			<div class="sidebar-pane" id="about">
@@ -132,18 +134,18 @@
                 </p>
             </div>
 
+
             <div class="sidebar-pane" id="hexainfo">
                 <h1 class="sidebar-header">Selected area</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></span>
                 <h3>Explore the mean noise of your environment</h3>
-				<p>Results are obtained from all collected measurements, without filtering.</p>
-				<span class="label label-primary"><i class="fa fa-lightbulb-o" aria-hidden="true"></i><b> Select an hexagon to show results</b> </span>
+  			<p>Results are obtained from all collected measurements, without filtering.</p>
+  			<span class="label label-primary"><i class="fa fa-lightbulb-o" aria-hidden="true"></i><b> Select an hexagon to show results</b> </span>
                 <div id="areainfo"></div>
-				<br>
+  			<br>
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#la50">LA50 <i class="fa fa-info-circle" aria-hidden="true" title="The LA50 is the A-weighted noise level that is exceeded for 50% of the measurement period. It is a good descriptor of the mean sound level in the environment."></i></a></li>
                     <!--<li><a data-toggle="tab" href="#lden">Lden</a></li>-->
                     <li><a data-toggle="tab" href="#laeq">LAeq <i class="fa fa-info-circle" aria-hidden="true" title="The LAeq is the A-weighted noise level. It is a standard descriptor of the perceived sound level in the environment."></i></a></li>
-                    <li><a data-toggle="tab" href="#tags_tab">Tags <i class="fa fa-info-circle" aria-hidden="true" title="Tags cloud provided by users for this area"></i></a></li>
                 </ul>
                 <div class="tab-content">
                     <div id="la50" class="tab-pane fade in active">
@@ -162,29 +164,29 @@
                             </div>
                         </div>
 
-					</div>
+  				</div>
 
-					<div id="laeq" class="tab-pane fade in">
-							<div>
-								<div>
-									<h4 class='attribute_label' style="margin-bottom:0.5em">Working days <i class="fa fa-info-circle" aria-hidden="true" title="The following chart show the temporal evolution of the noise level over the 24h of a working day."></i></h3>
+  				<div id="laeq" class="tab-pane fade in">
+  						<div>
+  							<div>
+  								<h4 class='attribute_label' style="margin-bottom:0.5em">Working days <i class="fa fa-info-circle" aria-hidden="true" title="The following chart show the temporal evolution of the noise level over the 24h of a working day."></i></h3>
                   <canvas id="statistics_working_day_laeq"></canvas>
-								</div>
-								<div>
-									<h4 class='attribute_label' style="margin-bottom:0.5em">Saturday <i class="fa fa-info-circle" aria-hidden="true" title="The following chart show the temporal evolution of the noise level over the 24h of a saturday."></i></h3>
+  							</div>
+  							<div>
+  								<h4 class='attribute_label' style="margin-bottom:0.5em">Saturday <i class="fa fa-info-circle" aria-hidden="true" title="The following chart show the temporal evolution of the noise level over the 24h of a saturday."></i></h3>
                   <canvas id="statistics_saturday_laeq"></canvas>
-								</div>
-								<div>
-									<h4 class='attribute_label' style="margin-bottom:0.5em">Sunday <i class="fa fa-info-circle" aria-hidden="true" title="The following chart show the temporal evolution of the noise level over the 24h of a sunday."></i></h3>
+  							</div>
+  							<div>
+  								<h4 class='attribute_label' style="margin-bottom:0.5em">Sunday <i class="fa fa-info-circle" aria-hidden="true" title="The following chart show the temporal evolution of the noise level over the 24h of a sunday."></i></h3>
                   <canvas id="statistics_sunday_laeq"></canvas>
-								</div>
-							</div>
+  							</div>
+  						</div>
           </div>
-          <div id="tags_tab" class="tab-pane fade in">
-            <div id="area_tags" style="width: 385px; height: 200px;"></div>
-          </div>
-                </div>
-            </div>
+
+        </div>
+        <h4>Tags <i class="fa fa-info-circle" aria-hidden="true" title="Tags cloud provided by users for this area"></i></a></h4>
+        <div id="area_tags" style="width: 385px; height: 200px;"></div>
+      </div>
 
 			<div class="sidebar-pane" id="settings">
                 <h1 class="sidebar-header">Settings</h1><span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
@@ -431,10 +433,6 @@
                 return;
               }
               var party_data = noisePartyList[sel.selectedIndex];
-              // Test if statistics are aloready loaded
-              if (typeof window.statisticsCountryContributionBar !== 'undefined') {
-                return;
-              }
               var postData = `<?xml version="1.0" encoding="UTF-8"?><wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
                 <ows:Identifier>groovy:nc_party_get_stats</ows:Identifier>
                 <wps:DataInputs>
@@ -465,6 +463,9 @@
                   document.getElementById('statistics_total_contributors').innerHTML = data["total_contributors"];
                   document.getElementById('statistics_total_tracks').innerHTML = data["total_tracks"];
                   document.getElementById('statistics_total_tracks_duration').innerHTML = length_to_dd_hh_mm_ss(data["total_tracks_duration"]);
+                  var users = data["contributors"];
+                  var rankDiv = document.getElementById('ranks');
+                  onomap.loadUserRanksTable(rankDiv, users);
                 }
               });
 

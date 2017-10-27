@@ -568,6 +568,19 @@ var onomap_class = {
     return this.COLOR_RAMP[levels[levels.length - 1]];
   },
 
+  loadUserRanksTable: function(rankDiv, users) {
+      if(users instanceof Array && rankDiv != null) {
+          html_cont = "<table class=\"table table-striped\"><thead><tr><th>"+Transifex.live.translateText("Rank")+"</th><th>"+Transifex.live.translateText("Device Id")+"</th><th>"+Transifex.live.translateText("Number of measurements")+"</th><th>"+Transifex.live.translateText("Total duration")+"</th></tr></thead><tbody>";
+          for (i = 0; i < users.length; i++) {
+            var row = users[i];
+            html_cont += "<tr><td>"+(i+1)+"</td><td><a data-toggle=\"tooltip\" data-placement=\"right\" title=\""+row.userid+"\"><span class=\"label label-default\">"+row.userid.substring(0, 4)+"</span></a></td><td>"+row.total_records+"</td><td>"+length_to_dd_hh_mm_ss(row.total_length)+"</td></tr>";
+          }
+          html_cont += "</tbody></table>";
+          rankDiv.innerHTML = html_cont;
+          $('[data-toggle="tooltip"]').tooltip();
+      }
+  },
+
   showGetFeatureInfo: function (err, latlng, content) {
     if (err) { console.log(err); return; } // do nothing if there's an error
     var infoDiv = document.getElementById('areainfo');
