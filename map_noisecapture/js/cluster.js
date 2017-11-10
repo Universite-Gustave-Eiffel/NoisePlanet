@@ -59,10 +59,27 @@ GeoJSONCluster = L.GeoJSON.extend({
         this.update();
     },
 
-    loadGeoJson: function (data) {
+    loadGeoJson: function (downloadedData) {
         if(this.ready) {
             L.GeoJSON.prototype.clearLayers.call(this);
-            L.GeoJSON.prototype.addData.call(this, data);
+            // Fix hexagons
+            // Workaround, should be fixed on server side.
+            for (var i = 0; i < downloadedData.features.length; i++) {
+              var geom = downloadedData.features[i].geometry;
+              var lastLongitude = geom.coordinates[0][0][0];
+              for (var j = 0; j < geom.coordinates[0].length; j++) {
+                var longitude = geom.coordinates[0][j][0];
+                if(Math.abs(lastLongitude - longitude) > Math.abs(lastLongitude - (longitude + 360))) {
+                  // The hexagon is crossing the map fix coordinates
+                  geom.coordinates[0][j][0] = geom.coordinates[0][j][0] + 360;
+                } else if(Math.abs(lastLongitude - longitude) > Math.abs(lastLongitude - (longitude - 360))) {
+                  // The hexagon is crossing the map fix coordinates
+                  geom.coordinates[0][j][0] = geom.coordinates[0][j][0] - 360;
+                }
+                lastLongitude = geom.coordinates[0][j][0];
+              }
+            }
+            L.GeoJSON.prototype.addData.call(this, downloadedData);
         }
     },
 
