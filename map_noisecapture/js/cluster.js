@@ -69,12 +69,14 @@ GeoJSONCluster = L.GeoJSON.extend({
               var lastLongitude = geom.coordinates[0][0][0];
               for (var j = 0; j < geom.coordinates[0].length; j++) {
                 var longitude = geom.coordinates[0][j][0];
-                if(Math.abs(lastLongitude - longitude) > Math.abs(lastLongitude - (longitude + 180))) {
-                  // The hexagon is crossing the map, remove it
-                  downloadedData.features.splice(i, 1);
-                  break;
+                if(Math.abs(lastLongitude - longitude) > Math.abs(lastLongitude - (longitude + 360))) {
+                  // The hexagon is crossing the map fix coordinates
+                  geom.coordinates[0][j][0] = geom.coordinates[0][j][0] + 360;
+                } else if(Math.abs(lastLongitude - longitude) > Math.abs(lastLongitude - (longitude - 360))) {
+                  // The hexagon is crossing the map fix coordinates
+                  geom.coordinates[0][j][0] = geom.coordinates[0][j][0] - 360;
                 }
-                lastLongitude = longitude;
+                lastLongitude = geom.coordinates[0][j][0];
               }
             }
             L.GeoJSON.prototype.addData.call(this, downloadedData);
