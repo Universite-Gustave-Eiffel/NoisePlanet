@@ -72,9 +72,9 @@ GeoJSONCluster = L.GeoJSON.extend({
                 if(Math.abs(lastLongitude - longitude) > Math.abs(lastLongitude - (longitude + 360))) {
                   // The hexagon is crossing the map fix coordinates
                   geom.coordinates[0][j][0] = geom.coordinates[0][j][0] + 360;
-                } else if(Math.abs(lastLongitude - longitude) > Math.abs(lastLongitude - (longitude - 360))) {
+                } else if(j > 0 && Math.abs(lastLongitude - longitude) > Math.abs(lastLongitude - (longitude - 360))) {
                   // The hexagon is crossing the map fix coordinates
-                  geom.coordinates[0][j][0] = geom.coordinates[0][j][0] - 360;
+                  geom.coordinates[0][j-1][0] = geom.coordinates[0][j-1][0] + 360;
                 }
                 lastLongitude = geom.coordinates[0][j][0];
               }
