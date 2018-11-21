@@ -41,45 +41,183 @@
                 <h1 class="centered"><img class="img-responsive" style="display: inline;" src="./assets/img/logos/Logo_noisecapture.png" height="80px" width="80px" alt="Logo NoiseCapture" /> NoiseCapture calibration</h1>
                 <hr>
 					
-
-            <div class="col-lg-offset-1 col-lg-3">
-
-			   <!-- Screenshot -->
-				  <div id="myCarousel" class="carousel slide" data-ride="carousel" >
-
-					<!-- Wrapper for slides -->
-					<div class="carousel-inner">
-					  <div class="item active"><img src="./assets/img/noisecapture_calibration/noisecapture_calibration.png" alt="Calibration" style="width:100%;"></div>
-
-					</div>
-
-					<!-- Left and right controls -->
-					<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-					  <span class="glyphicon glyphicon-chevron-left"></span>
-					  <span class="sr-only">Previous</span>
-					</a>
-					<a class="right carousel-control" href="#myCarousel" data-slide="next">
-					  <span class="glyphicon glyphicon-chevron-right"></span>
-					  <span class="sr-only">Next</span>
-					</a>
-				  </div>
-
-
-
-			</div><!-- col-lg-3 -->
-
-            <div class="col-lg-6">
-                <p align="justify">
-                    <b>This page is under construction</b>.
+                <div class="col-lg-8">
+                    <p align="justify">
+                        On the <b>Calibration</b> menu item, users have the opportunity to calibrate their smartphone.
                     </p>
-			  
-            </div><!-- col-lg-6 -->
+                    <p align="justify">
+                        The smartphone calibration is a crucial and recommanded step. Without calibration, you can be sure that the measured data will be <b>wrong</b>!
+                    </p>
+                    <p align="justify">
+                        The methodology is based on the knowledge of a <b>Reference value</b> for the equivalent noise level Leq <i>(in dB, not in dB(A))</i> for a given duration, from a reference device (an acoustic calibrator, a calibrated smartphone, a sound level meter).
+                        Depending on the calibration method, the calibration can be performed for a given frequency band or for the full range (global value).
+                        This <b>Reference value</b> is then compared to the <b>Measured Leq</b> (in dB) using the smartphone. The difference between these two values gives a <b>correction factor</b> (i.e. the signal gain) that will be applied to the input signal.
+                    </p>
+                    <p align="justify"> Warning:
+                        <ul>
+                            <li>The correction factor is applied for the whole signal. Multi-frequency calibration is not possible for now.</li>
+                            <li>The calibration is carried out with dB values, not dB(A).</li>
+                        </ul>
+                        
+                       
+                    </p>
+                </div><!-- col-lg-6 -->
+
+<br>
+<br>
+
+                <div class="col-lg-offset-1 col-lg-3">
+                <!-- Screenshot -->
+                  <div id="myCarousel" class="carousel slide" data-ride="carousel" >
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                      <div class="item active"><img src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration.jpg" alt="Calibration" style="width:100%;"></div> 
+                      <div class="item"><img src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration_Manual.jpg" alt="Manual calibration" style="width:100%;"></div>
+                      <div class="item"><img src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration_Auto.jpg" alt="Auto calibration" style="width:100%;"></div>
+                      <div class="item"><img src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration_Auto_Reference.jpg" alt="Auto calibration with reference" style="width:100%;"></div>
+
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                      <span class="glyphicon glyphicon-chevron-left"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                      <span class="glyphicon glyphicon-chevron-right"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+
+                </div><!-- col-lg-3 -->
             </div><!-- row -->
-            <br>
+        </div><!-- container -->
+
+        <div class="container" id="calibration_methods" name="calibration_methods">
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <p align="center"><img class="img-responsive" src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration_menu.png" alt="Calibration menu" width="300px"></p>
+                </div><!-- col-lg-6 -->
+                
+                <div class="col-lg-6">
+                    <br>
+                    <br>
+                    <p align="justify">Several calibration methods are possible:
+                        <ol>
+                            <li>Manual calibration from a reference device</li>
+                            <li>Manual calibration from a calibrator device</li>
+                            <li>Automatic calibration from a calibrated smartphone</li>
+                        </ol>
+                    </p>
+                </div><!-- col-lg-6 -->
+
+            </div><!-- row -->
+        </div><!-- container -->
+
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+<!-- ==== Calibration from a reference device or a calibrator ==== -->
+
+        <div class="container" id="Calibration_from_reference" name="Calibration_from_reference">
+
+            <div class="row">
+                <h2 class="centered">Calibration from a reference device (1) or a calibrator (2)</h2>
+                <hr>
+                <h3 class="centered">Performing the calibration</h3>
+
+                <div class="col-lg-4">
+                    <p align="center"><img class="img-responsive" src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration_manual_panel.png" alt="Manual calibration" width="300px"></p>
+                </div><!-- col-lg-8 -->
+
+                <div class="col-lg-8">
+                    <p align="justify">
+                    <ol>
+                        <li>In the 'Calibration mode' list <i>("A" on the illustration)</i>, choose the frequency on which you want perform the calibration. If you calibrate from a reference device <i>(e. g. sound level meter)</i>, you can also choose 'Global' from the list to calibrate over the entire measurement spectrum. In the latter case, remember to configure the reference device to perform a measurement in the same frequency band as your smartphone.</li>
+                        <li>Press the START button.</li>
+                        <ul>
+                            <li>Before calibration starts, you have a warm-up time that can help you to prepare your calibration <i>(prepare to turn on the reference device, if necessary)</i>.</li>
+                            <li>Then, the calibration measurement starts for a given duration. For a better accuracy, the measurement duration should be the same both for the smartphone and for the reference device.</li>
+                        </ul>
+                        <li>Once the measurement is done, enter the <b>Reference value</b> <i>(from the reference device)</i> in the edit box and press the <b>APPLY</b> button.</li>
+                        <li>If you do not want to apply the correction factor, you can press the <b>RESET</b> button to perform a new calibration or you can leave the Calibration activity.</li>
+                    </ol>
+                    </p>
+                </div><!-- col-lg-8 -->
+
+
+                <div class="col-lg-offset-2 col-lg-8">
+
+                <h3 class="centered">Testing the calibration</h3>
+                    <p align="justify">                    
+                    <ol>
+                        <li>Once a correction factor is applied, you can test the calibration by checking the box 'Test gain' <i>("B" on the illustration)</i>.</li>
+                        <li>Press the <b>START</b> button for performing a new measurement and turn on <i>(if necessary)</i> the calibrator.</li>
+                        <li>At the end of the measurement, the Measured Leq should be equal or quite similar to the reference device.</li>
+                        <li>Given the procedure and equipment involved, you may consider acceptable a difference up to 0.5dB between the two values. If the difference is not acceptable, restart the Calibration procedure. After several attempts, if you can not calibrate your smartphone phone with a difference of less than 0.5dB, you can restart with an error of 1dB.</li>
+                    </ol>
+                    </p>
+                    <p align="justify">
+                        When using a 'Global' value for the calibration, make sure that the <b>Reference value</b> will be obtained using the same frequency range that your smartphone.
+                    </p>
+                    <p align="justify">
+                        The 'Calibration warm-up time' and the 'Calibration duration' can be modified in the <b>Settings</b>.
+                    </p>
+                    <p align="justify">
+                        During calibration, the smartphone and the reference device must be used in a similar way.
+                    </p>
+                </div><!-- col-lg -->
+            </div><!-- row -->
         </div><!-- container -->
 
 
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+<!-- ==== Automatic calibration from a calibrated smartphone ==== -->
 
+        <div class="container" id="Calibration_auto" name="Calibration_auto">
+
+            <div class="row">
+                <h2 class="centered">Automatic calibration from a calibrated smartphone (3)</h2>
+                <hr>
+                <div class="col-lg-offset-2 col-lg-8">
+
+                <p align="justify">
+                    In this method, a smartphone already calibrated with NoiseCapture, can calibrate one or more smartphones. On the side of the microphones to be calibrated, the procedure is fully automatic. The entire system is controlled by the reference smartphone.
+                </p>
+
+                <h3 class="centered">Performing the calibration</h3>
+        
+                <p align="justify">
+                    <ol>
+                        <li>The reference smartphone must in "transmitter" mode.</li>
+                        <li>The smartphones to be calibrated must be in "receiver" mode.</li>
+                        <li>On the reference smartphone:</li>
+                        <ol>
+                            <li>Choose the source signal:</li>
+                            <ol>
+                                <li> "Pink noise" : in this case, the smartphone generates a reference signal. It is necessary to use a sound source connected wirelessly with the reference smartphone, the source being at equal distance from all smartphones;</li>
+                                <li>"Ambient noise" : Environmental noise is used for calibration. The sound level must be sufficiently high and the sound field must be relatively "diffuse".</li>
+                            </ol>
+                            <li>Press <b>START</b>; the rest of the procedure is automatic. If needed, you can cancel the current calibration with the <b>CANCEL</b> button.</li>
+                        </ol>
+                    </ol>
+                </p>
+                </div><!-- col-lg -->
+            </div><!-- row --> 
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <p align="center">Selection of the Transmitter (1) or Receiver (2) mode</p>
+                    <p align="center"><img class="img-responsive" src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration_Auto_choice.png" alt="Auto Calibration menu" width="300px"></p>
+                </div><!-- col-lg-6 -->
+
+                <div class="col-lg-6">
+                    <p align="center">Selection of the Pink (1) or Ambient (2) noise source</p>
+                    <p align="center"><img class="img-responsive" src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration_noise_type.png" alt="Noise type" width="300px"></p>
+                </div><!-- col-lg-6 -->
+             </div><!-- row -->
+            <br>
+        </div><!-- container -->
 
 
 <!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
