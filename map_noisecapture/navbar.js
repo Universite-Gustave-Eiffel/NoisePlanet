@@ -18,6 +18,9 @@ document.write("                            <ul class=\"dropdown-menu\">");
 document.write("                            		  <li><a href=\"../project.html\">Presentation</a></li>");
 document.write("                                      <li><a href=\"../publication.html\">Publications</a></li>");
 document.write("                                      <li><a href=\"../media.html\">Press center</a></li>");
+document.write("                                      <li><a href=\"./members.html\">Members</a></li>");
+document.write("                                      <li><a href=\"./history.html\">History</a></li>");
+document.write("                                      <li><a href=\"./resources.html\">Resources</a></li>");
 document.write("                            </ul>");				
 document.write("                            <li> <a href=\"../onomap.html\" class=\"smoothScroll\">OnoMap</a></li>");
 document.write("                            <li class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">NoiseCapture<span class=\"caret\"></span></a>");
@@ -26,6 +29,7 @@ document.write("                            		  <li><a href=\"../noisecapture.ht
 document.write("                                      <li><a href=\"../noisecapture_protocol.html\">Protocol</a></li>");
 document.write("                                      <li><a href=\"../noisecapture_calibration.html\">Calibration</a></li>");
 document.write("                                      <li><a href=\"../noisecapture_party.html\">NoiseCapture Party</a></li>");
+document.write("                                      <li><a href=\"./noisecapture_ambassador.html\">Ambassador</a></li>");
 document.write("                                      <li><a href=\"../NoiseCapture_privacy_policy_history.html\">Privacy Policy</a></li>");
 document.write("                                      <li><a href=\"../faq_NoiseCapture.html\">FAQ</a></li>");
 document.write("                            </ul>");
