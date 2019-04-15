@@ -306,7 +306,17 @@
             layers: 'noisecapture:noisecapture_points_party',
             format: 'image/png',
             transparent: true,
-            minZoom: 14
+            minZoom: 14,
+            styles: 'noisecapture_points_party'
+        });
+
+        var onomap_points_cluster = L.tileLayer.wms(server_url+'ows?', {
+            layers: 'noisecapture:noisecapture_points_party',
+            format: 'image/png',
+            transparent: true,
+            minZoom: 8,
+            maxZoom: 13,
+            styles: 'noisecapture_points_pointStacker'
         });
 
         L.control.scale({
@@ -353,6 +363,7 @@
 
         map.addLayer(osm)
         map.addLayer(onomap_hexa)
+        map.addLayer(onomap_points_cluster)
 
         var baseLayers = {
             "OpenStreetMap": osm,
@@ -361,7 +372,8 @@
 
         L.control.layers(baseLayers, {
             "Sound level (LA50)": onomap_hexa,
-            "Location of measures": onomap_points
+            "Measures location": onomap_points,
+            "Measures counting": onomap_points_cluster
         }).addTo(map);
 
         var hash = new L.Hash(map);
@@ -376,6 +388,7 @@
           map.options["party"] = noisePartyList[noiseparty_id];
           onomap.loadNoiseCaptureParty(noisePartyList[noiseparty_id]);
 
+          onomap_points_cluster.setParams({cql_filter: 'pk_party=' + noisePartyList[noiseparty_id].pk_party});
           onomap_points.setParams({cql_filter: 'pk_party=' + noisePartyList[noiseparty_id].pk_party});
           onomap_hexa.setParams({cql_filter: 'pk_party=' + noisePartyList[noiseparty_id].pk_party});
 
