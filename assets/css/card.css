@@ -80,3 +80,34 @@ h5 {
 
 
 .btn-default{background:#479ae7; color:#fff; font-weight:700; text-shadow:1px 1px 0 rgba(0,0,0,0.2); font-size:14px;}
+
+
+/*
+* — For cards dedicated to ambassadors —
+*/
+
+.thecard_ambassador {
+  width: 150px;
+  margin: 5% auto;
+  box-shadow: 0 1px 10px rgba(0,0,0,.4);
+  display: block;
+  background-color: #fff;
+  border-radius: 4px;
+  transition: 400ms ease;
+}
+
+.card-img_ambassador {
+  height: 130px;
+}
+
+.card-img_ambassador img {
+  width:100%;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.card-caption_ambassador {
+  position: relative;
+  background: #E5E5E5;
+  padding: 5px 5px 1px 5px;
+  border-radius: 0px 0px 0px 0px;
+}
