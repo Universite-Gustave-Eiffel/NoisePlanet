@@ -53,22 +53,14 @@
                     <a class="github-button" href="https://github.com/Ifsttar/NoiseModelling/releases/latest" data-icon="octicon-cloud-download" data-size="large" aria-label="Download Ifsttar/NoiseModelling on GitHub">Download</a>
 					</p>
 
-                <div class="col-lg-6">
-                    <p align="justify">
+                    <p align="center">
                     	<br>
                     	<b>NoiseModelling</b> is a free and open-source tool designed to produce environmental noise maps on very large urban areas. It can be used as a Java library or be controlled through a user friendly web interface. 
                 	</p>
-                	<p align="justify">
-                    	NoiseModelling is closely paired with spatial database <a href="http://www.h2gis.org/">H2GIS</a> or PostGIS in order to handle a large amount of spatial features. In addition to the operational aspect, this tool is an excellent support for training, teaching and research.
+                	<p align="center">
+                    	<b>NoiseModelling</b> is closely paired with spatial database <a href="http://www.h2gis.org/">H2GIS</a> or PostGIS in order to handle a large amount of spatial features. In addition to the operational aspect, this tool is an excellent support for training, teaching and research.
                     </p>
 	       
-                    
-                </div><!-- col-lg-6 -->
-
-                <div class="col-lg-6">
-                    <br>
-                    <p><img class="img-responsive" src="./assets/img/noisemodelling/noisemodelling_orbisgis.jpg" alt=""></p>
-                </div><!-- col-lg-6 -->
             </div><!-- row -->
         </div><!-- container -->
 
@@ -155,39 +147,38 @@
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
 
-                    <!-- PORTFOLIO IMAGE 3 -->
-                    <div class="col-md-4">
-                        <div class="grid mask">
-                            <figure>
-                                <img class="img-responsive" src="./assets/img/noisemodelling/portfolio/wps_builder.png" alt="">
-                                <figcaption>
-                                    <h5>WPS Builder</h5>
-                                    <a data-toggle="modal" href="#myModal_3" class="btn btn-primary btn-lg">Read More</a>
-                                </figcaption><!-- /figcaption -->
-                            </figure><!-- /figure -->
-                        </div><!-- /grid-mask -->
-                    </div><!-- /col -->
+                <!-- PORTFOLIO IMAGE 3 -->
+                <div class="col-md-4">
+                    <div class="grid mask">
+                        <figure>
+                            <img class="img-responsive" src="./assets/img/noisemodelling/portfolio/3d_ray.png" alt="">
+                            <figcaption>
+                                <h5>3D PROPAGATION</h5>
+                                <a data-toggle="modal" href="#myModal_6" class="btn btn-primary btn-lg">Read More</a>
+                            </figcaption><!-- /figcaption -->
+                        </figure><!-- /figure -->
+                    </div><!-- /grid-mask -->
+                </div><!-- /col -->
+                <!-- MODAL SHOW THE PORTFOLIO IMAGE. In this demo, all links point to this modal. You should create
+                                                                     a modal for each of your projects. -->
 
-                    <!-- MODAL SHOW THE PORTFOLIO IMAGE. In this demo, all links point to this modal. You should create
-                                                                         a modal for each of your projects. -->
-
-                    <div class="modal fade" id="myModal_3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title">WPS Builder</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p ><img class="img-responsive" src="./assets/img/noisemodelling/portfolio/wps_builder.png" alt=""></p>
-                                    <p align="justify">NoiseModelling can be operated from the user-friendly WPS Builder web interface. WPS Builder allows Web Processing Services to operate through a user interface. It allows for the creating of graphical process workflows that can be easily executed and reproduced. We have developed a version of WPS Builder adapted to the needs of NoiseModelling. As this version is very close to the original version, you can refer to the official WPS Builder documentation.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
+                <div class="modal fade" id="myModal_6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">3D PROPAGATION</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p><img class="img-responsive" src="./assets/img/noisemodelling/portfolio/3d_ray.png" alt=""></p>
+                                <p align="justify">At this step, the computation sub-area has all needed information: a propagation domain, a list of sound-sources and receivers coordinates. Each receiver seek for line sources in a range equal to the maximum propagation distance parameter; then each line source is subdivided into point sources with a space interval that depends on the receiver distance. When all point source locations are available, the propagation paths from the receiver to the sources are computed, by considering the direct, the reflected and the diffracted paths. For each path, the contribution of the sound source level is calculated, and then energetically summed into the corresponding receiver.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
 
                 </div><!-- /row -->
 
@@ -261,31 +252,30 @@
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
 
+
                 <!-- PORTFOLIO IMAGE 6 -->
                 <div class="col-md-4">
                     <div class="grid mask">
                         <figure>
-                            <img class="img-responsive" src="./assets/img/noisemodelling/portfolio/3d_ray.png" alt="">
+                            <img class="img-responsive" src="./assets/img/noisemodelling/portfolio/wps_builder.png" alt="">
                             <figcaption>
-                                <h5>3D PROPAGATION</h5>
-                                <a data-toggle="modal" href="#myModal_6" class="btn btn-primary btn-lg">Read More</a>
+                                <h5>WPS BUILDER</h5>
+                                <a data-toggle="modal" href="#myModal_3" class="btn btn-primary btn-lg">Read More</a>
                             </figcaption><!-- /figcaption -->
                         </figure><!-- /figure -->
                     </div><!-- /grid-mask -->
                 </div><!-- /col -->
-                <!-- MODAL SHOW THE PORTFOLIO IMAGE. In this demo, all links point to this modal. You should create
-                                                                     a modal for each of your projects. -->
 
-                <div class="modal fade" id="myModal_6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal fade" id="myModal_3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title">3D PROPAGATION</h4>
+                                <h4 class="modal-title">WPS BUILDER</h4>
                             </div>
                             <div class="modal-body">
-                                <p><img class="img-responsive" src="./assets/img/noisemodelling/portfolio/3d_ray.png" alt=""></p>
-                                <p align="justify">At this step, the computation sub-area has all needed information: a propagation domain, a list of sound-sources and receivers coordinates. Each receiver seek for line sources in a range equal to the maximum propagation distance parameter; then each line source is subdivided into point sources with a space interval that depends on the receiver distance. When all point source locations are available, the propagation paths from the receiver to the sources are computed, by considering the direct, the reflected and the diffracted paths. For each path, the contribution of the sound source level is calculated, and then energetically summed into the corresponding receiver.</p>
+                                <p ><img class="img-responsive" src="./assets/img/noisemodelling/portfolio/wps_builder.png" alt=""></p>
+                                <p align="justify">NoiseModelling can be operated from the user-friendly WPS Builder web interface. WPS Builder allows Web Processing Services to operate through a user interface. It allows for the creating of graphical process workflows that can be easily executed and reproduced. We have developed a version of WPS Builder adapted to the needs of NoiseModelling. As this version is very close to the original version, you can refer to the official WPS Builder documentation.</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -293,6 +283,7 @@
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
+
             </div><!-- /row -->
         </div><!-- /row -->
         <br>
