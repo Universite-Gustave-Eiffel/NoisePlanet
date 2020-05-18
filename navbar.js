@@ -32,6 +32,7 @@ document.write("                                      <li><a href=\"./noisecaptu
 document.write("                                      <li><a href=\"./noisecapture_calibration.html\">Calibration</a></li>");
 document.write("                                      <li><a href=\"./noisecapture_party.html\">NoiseCapture Party</a></li>");
 document.write("                                      <li><a href=\"./noisecapture_ambassador.html\">Ambassador</a></li>");
+document.write("                                      <li><a href=\"./noisecapture_exploit_data.html\">Exploit data</a></li>");
 document.write("                                      <li><a href=\"./NoiseCapture_privacy_policy_history.html\">Privacy Policy</a></li>");
 document.write("                                      <li><a href=\"./faq_NoiseCapture.html\">FAQ</a></li>");
 document.write("                            </ul>");

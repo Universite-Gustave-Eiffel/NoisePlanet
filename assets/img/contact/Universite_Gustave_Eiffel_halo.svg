@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:export-ydpi="29.5"
+   inkscape:export-xdpi="29.5"
+   inkscape:export-filename="/home/gpetit/Documents/Codes/NoisePlanet/assets/img/contact/Universite_Gustave_Eiffel_small.png"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:docname="Universite_Gustave_Eiffel_halo.svg"
+   version="1.0"
+   inkscape:version="1.0 (6e3e5246a0, 2020-05-07)"
+   sodipodi:version="0.32"
+   id="svg2"
+   height="461.2023"
+   width="933.60962">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     inkscape:document-rotation="0"
+     inkscape:window-maximized="1"
+     units="mm"
+     fit-margin-bottom="10"
+     fit-margin-right="10"
+     fit-margin-left="10"
+     fit-margin-top="10"
+     inkscape:window-y="0"
+     inkscape:window-x="1366"
+     inkscape:window-height="1163"
+     inkscape:window-width="1920"
+     showgrid="true"
+     height="744.09448px"
+     width="1052.3622px"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="-46.653542"
+     inkscape:cx="725.68758"
+     inkscape:zoom="0.50531215"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     style="display:inline"
+     transform="translate(23.330573,1.674758)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Halo">
+    <path
+       inkscape:export-ydpi="18.450001"
+       inkscape:export-xdpi="18.450001"
+       inkscape:export-filename="/home/gpetit/ownCloud/Noise_Planet/noise-planet.org/V2/assets/img/team/ifsttar_halo.png"
+       transform="matrix(0.81078312,0,0,0.81078312,-263.13665,-281.58278)"
+       d="m 1478.2942,633.37311 a 601.60834,601.60834 0 1 1 -1203.21669,0 601.60834,601.60834 0 1 1 1203.21669,0 z"
+       sodipodi:ry="601.60834"
+       sodipodi:rx="601.60834"
+       sodipodi:cy="633.37311"
+       sodipodi:cx="876.68585"
+       id="path3910"
+       style="fill:#ffffff;fill-opacity:0.66666669;stroke:none;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.66666669000000001;stroke-dasharray:none;stroke-dashoffset:0"
+       sodipodi:type="arc" />
+    <g
+       transform="matrix(6.9696865,0,0,6.9696865,-734.71601,3418.2498)"
+       id="g947">
+      <path
+         class="st0"
+         d="m 186.79784,-425.90073 c -5.04732,-3.45836 -11.02933,-5.32774 -17.10482,-5.32774 -8.13179,0 -15.79625,2.99101 -21.40438,8.50568 -2.99101,2.99101 -5.32773,6.44936 -6.82324,10.46852 l -0.65428,1.58897 h 13.17912 l 0.37388,-0.56081 c 0.65428,-1.02816 1.4955,-2.05632 2.43019,-2.89754 3.36488,-3.27141 7.94486,-5.14079 12.99218,-5.14079 6.07549,0 11.68362,2.99101 15.14198,8.03833 l 0.37387,0.46735 h 13.27259 l -0.84122,-1.49551 c -2.24325,-5.51467 -6.07548,-10.18811 -10.93587,-13.64646"
+         id="path4"
+         inkscape:connector-curvature="0"
+         style="fill:#450085;fill-opacity:1;stroke-width:0.93469" />
+      <path
+         class="st0"
+         d="m 135.01604,-478.43028 c -2.991,-2.99101 -6.44935,-5.32774 -10.46852,-6.82324 l -1.58897,-0.65428 v 13.17912 l 0.56081,0.37388 c 1.02816,0.65428 2.05632,1.4955 2.89754,2.43019 3.27141,3.36488 5.14079,7.94486 5.14079,12.99218 0,6.07549 -2.991,11.68362 -8.03833,15.14197 l -0.56081,0.28041 v 13.27259 l 1.58897,-0.65428 c 5.51467,-2.24326 10.28159,-6.07548 13.64647,-10.93587 3.45835,-5.14079 5.32773,-11.02933 5.32773,-17.19829 0,-8.13179 -2.99101,-15.79625 -8.50568,-21.40438"
+         id="path6"
+         inkscape:connector-curvature="0"
+         style="fill:#450085;fill-opacity:1;stroke-width:0.93469" />
+      <path
+         class="st0"
+         d="m 152.58821,-488.33799 c 5.04732,3.45835 11.02933,5.32773 17.10481,5.32773 8.1318,0 15.79626,-2.99101 21.40439,-8.50568 2.99101,-2.991 5.32774,-6.44936 6.82324,-10.46852 l 0.65428,-1.58897 h -13.17912 l -0.37388,0.56081 c -0.65428,1.02816 -1.4955,1.96285 -2.33672,2.89754 -3.36488,3.27141 -8.03833,5.04732 -12.99219,5.04732 -6.07548,0 -11.68361,-2.991 -15.14196,-8.03833 l -0.37388,-0.56081 h -13.27259 l 0.65428,1.68244 c 2.24326,5.51467 6.07548,10.28158 11.02934,13.64647"
+         id="path8"
+         inkscape:connector-curvature="0"
+         style="fill:#450085;fill-opacity:1;stroke-width:0.93469" />
+      <path
+         class="st0"
+         d="m 215.86669,-472.26133 0.46734,-0.37388 v -13.27259 l -1.58897,0.65428 c -5.51467,2.24326 -10.28158,6.07548 -13.64647,10.93587 -3.45835,5.04732 -5.32773,11.02934 -5.32773,17.19828 0,8.1318 2.99101,15.79626 8.50568,21.4044 2.991,2.991 6.44935,5.32773 10.46852,6.82323 l 1.58897,0.65428 v -13.17912 l -0.56081,-0.37388 c -1.02816,-0.65428 -2.05632,-1.4955 -2.89754,-2.43019 -3.27141,-3.36488 -5.14079,-7.94486 -5.14079,-12.99218 0.0935,-5.98202 3.08447,-11.68362 8.1318,-15.0485"
+         id="path10"
+         inkscape:connector-curvature="0"
+         style="fill:#450085;fill-opacity:1;stroke-width:0.93469" />
+      <path
+         class="st0"
+         d="m 181.56358,-457.0259 c 0,6.6363 -5.4212,12.0575 -12.05749,12.0575 -6.6363,0 -11.96403,-5.4212 -11.96403,-12.0575 0,-6.63629 5.4212,-12.05749 12.0575,-12.05749 6.54282,0.0935 11.96402,5.4212 11.96402,12.05749"
+         id="path12"
+         inkscape:connector-curvature="0"
+         style="fill:#450085;fill-opacity:1;stroke-width:0.93469" />
+    </g>
+  </g>
+  <g
+     style="display:inline"
+     transform="translate(23.330573,1.674758)"
+     id="layer2"
+     inkscape:groupmode="layer" />
+  <style
+     type="text/css"
+     id="style2">
+	.st0{fill:#FFFFFF;}
+</style>
+</svg>
