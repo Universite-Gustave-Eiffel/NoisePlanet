@@ -38,6 +38,11 @@ function onomap_constructor(options) {
   this.last_record_utc = 0;
 }
 
+function timeout_onomap(results, status, error){
+// Display info message
+    $('#map').append('<div class="alert"> <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>  <strong>Notice</strong><br/>We apologize, the NoiseCapture server is currently not accessible, please come back later, thank you.</div>');
+}
+
 var onomap_class = {
   COLOR_RAMP : {30:"#82A6AD", 35:"#A0BABF", 40:"#B8D6D1", 45:"#CEE4CC", 50:"#E2F2BF", 55:"#F3C683", 60:"#E87E4D", 65:"#CD463E", 70:"#A11A4D", 75:"#75085C", 80:"#430A4A"},
 	hexOverlay : null,

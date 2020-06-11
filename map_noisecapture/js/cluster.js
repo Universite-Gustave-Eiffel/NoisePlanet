@@ -109,7 +109,9 @@ GeoJSONCluster = L.GeoJSON.extend({
               jsonCallback: 'getJson',
               success: function (data, status, xhr) {
                           _this.loadGeoJson(data);
-                       }
+               },
+              error : timeout_onomap,
+                timeout: 5000
               });
         } else {
           var _this = this;
