@@ -530,7 +530,9 @@
                   if(partyIndex > -1 && data.length > partyIndex) {
                     loadNoiseParty(partyIndex);
                   }
-                }
+                },
+                  error : timeout_onomap,
+                    timeout: 5000
               });
           }
           loadPartyList();
