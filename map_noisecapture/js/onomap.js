@@ -40,7 +40,10 @@ function onomap_constructor(options) {
 
 function timeout_onomap(results, status, error){
 // Display info message
-    $('#map').append('<div class="alert"> <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>  <strong>Notice</strong><br/>We apologize, the NoiseCapture server is currently not accessible, please come back later, thank you.</div>');
+ if(status == "timeout") {
+    $('#onomap_alert').remove();	
+    $('#map').append('<div id="onomap_alert" class="alert"> <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>  <strong>Notice</strong><br/>We apologize, the NoiseCapture server is currently not accessible, please refresh the web page later, thank you.</div>');
+ }
 }
 
 var onomap_class = {
