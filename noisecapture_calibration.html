@@ -72,7 +72,7 @@
 
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
-                      <div class="item active"><img src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration.jpg" alt="Calibration" style="width:100%;"></div> 
+                      <div class="item active"><img src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration.png" alt="Calibration" style="width:100%;"></div> 
                       <div class="item"><img src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration_Manual.jpg" alt="Manual calibration" style="width:100%;"></div>
                       <div class="item"><img src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration_Auto.jpg" alt="Auto calibration" style="width:100%;"></div>
                       <div class="item"><img src="./assets/img/noisecapture_calibration/NoiseCapture_Calibration_Auto_Reference.jpg" alt="Auto calibration with reference" style="width:100%;"></div>
@@ -106,6 +106,7 @@
                     <br>
                     <p align="justify">Several calibration methods are possible:
                         <ol>
+                            <li>Calibration with the help of road traffic</li>
                             <li>Manual calibration from a reference device</li>
                             <li>Manual calibration from a calibrator device</li>
                             <li>Automatic calibration from a calibrated smartphone</li>
@@ -116,13 +117,65 @@
             </div><!-- row -->
         </div><!-- container -->
 
+
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+<!-- ==== Calibration with the help of road traffic ==== -->
+
+        <div class="container" id="Calibration_from_traffic" name="Calibration_from_traffic">
+
+            <div class="row">
+                <h2 class="centered">Calibration with the help of road traffic (1)</h2>
+                <hr>
+                <h3 class="centered">Introduction</h3>
+
+                <div class="col-lg-12">
+                    <p align="center">
+                        This calibration protocol is based on the low variability of the average noise emission of individual vehicles. The advantage of this protocol for the user is that it does not require specific equipment, i.e. reference sound source or device, or special knowledge in acoustics. The method consists in measuring the noise level of a few vehicles as they pass through at different measuring points. The measured levels are compared to the levels expected by a numerical model, the difference serving as an offset for subsequent measurements. The robustness of the protocol was tested in real conditions with a set of 8 smartphones. The comparison with a class 1 sound level meter on 6 control points shows an average error on all phones of −0.6 ± 1.2 dB(A).
+                        <br>
+                        This innovative method is described in the following article: Aumond, P., Can, A., Gozalo, G. R., Fortin, N., & Suárez, E. "<a href="https://doi.org/10.1016/j.apacoust.2020.107337" target="blank">Method for in situ acoustic calibration of smartphone-based sound measurement applications</a>". Applied Acoustics, 166, 2020.
+                    </p>
+                </div><!-- col-lg-8 -->
+
+
+                <h3 class="centered">Performing the calibration</h3>
+                <br>
+
+                <div class="col-lg-4">
+                    <p align="center"><img class="img-responsive" src="./assets/img/noisecapture_calibration/calibration_sessions_empty.png" alt="Empty calibration" width="200px"></p>
+                </div><!-- col-lg-4 -->
+                <div class="col-lg-4">
+                    <p align="center"><img class="img-responsive" src="./assets/img/noisecapture_calibration/calibration_passingby.png" alt="Empty calibration" width="200px"></p>
+                </div><!-- col-lg-4 -->
+                <div class="col-lg-4">
+                    <p align="center"><img class="img-responsive" src="./assets/img/noisecapture_calibration/calibration_sessions.png" alt="Empty calibration" width="200px"></p>
+                </div><!-- col-lg-4 -->
+
+                <div class="col-lg-12">
+                    <p align="justify">
+                    <ol>
+                        <li>In order to be able to perform the calibration, you must stand on a sidewalk. The measuring position for calibration must be close enough to the road while ensuring your safety. The nearby road must be relatively flat and vehicles must pass at a constant speed (no acceleration or deceleration, and no congestion). The road must be dry and in good conditions.</li>
+                        <li>To start the calibration protocol, please press “New Measurement”</li>
+                        <ul>
+                            <li>Then you need to estimate the distance between your smartphone and the center of the nearest road. The estimate can be rough, no need to take out the measuring tape!</li>
+                            <li>In the same way, it is a question of estimating the average speed of vehicles. If in doubt, you can enter the legal speed for the section of road you are on.</li>
+                            <li>Start the measurement (Play button) and you just have to wait ... You will then see the yellow progress bar advance little by little with each detected passage. On average, a complete measurement lasts between 3 and 5 minutes. In the case of a very particular acoustic phenomenon (a person coming to talk to you, a very noisy motorcycle, etc.) you can press the pause button, this will erase the last 3 seconds of measurements and thus increase the quality of your calibration.</li>
+                        </ul>
+                        <li>At the end of the measurement session, you will be able to return to the main screen, and you will see your measurement displayed. For optimal calibration, repeat this measurement at least in 3 different locations.
+</li>
+                        <li>The calibration value displayed is the average of the estimated calibration values for each session. You can then apply this value to your phone with the "apply" button.</li>
+                    </ol>
+                    </p>
+                </div><!-- col-lg-12 -->
+            </div><!-- row -->
+        </div><!-- container -->
+
 <!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 <!-- ==== Calibration from a reference device or a calibrator ==== -->
 
         <div class="container" id="Calibration_from_reference" name="Calibration_from_reference">
 
             <div class="row">
-                <h2 class="centered">Calibration from a reference device (1) or a calibrator (2)</h2>
+                <h2 class="centered">Calibration from a reference device (2) or a calibrator (3)</h2>
                 <hr>
                 <h3 class="centered">Performing the calibration</h3>
 
@@ -177,7 +230,7 @@
         <div class="container" id="Calibration_auto" name="Calibration_auto">
 
             <div class="row">
-                <h2 class="centered">Automatic calibration from a calibrated smartphone (3)</h2>
+                <h2 class="centered">Automatic calibration from a calibrated smartphone (4)</h2>
                 <hr>
                 <div class="col-lg-offset-2 col-lg-8">
 
