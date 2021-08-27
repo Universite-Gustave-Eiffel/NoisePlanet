@@ -299,7 +299,8 @@
             layers: 'noisecapture:noisecapture_area_party',
             format: 'image/png',
             transparent: true,
-            minZoom: 14
+            minZoom: 14,
+            crs: L.CRS.EPSG900913
         });
 
         var onomap_points = L.tileLayer.wms(server_url+'ows?', {
@@ -307,7 +308,8 @@
             format: 'image/png',
             transparent: true,
             minZoom: 14,
-            styles: 'noisecapture_points_party'
+            styles: 'noisecapture_points_party',
+            crs: L.CRS.EPSG900913
         });
 
         var onomap_points_cluster = L.tileLayer.wms(server_url+'ows?', {
@@ -316,7 +318,8 @@
             transparent: true,
             minZoom: 8,
             maxZoom: 13,
-            styles: 'noisecapture_points_pointStacker'
+            styles: 'noisecapture_points_pointStacker',
+            crs: L.CRS.EPSG900913
         });
 
         L.control.scale({
