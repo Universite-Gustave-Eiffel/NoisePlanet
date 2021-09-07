@@ -5829,3 +5829,50 @@ td.visible-print {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+
+
+/* 
+--------------------------------------------------------------- 
+5 columns grid for 'md' and 'lg' screens
+@tatygrassini
+
+*/
+
+@media (min-width: 992px) {
+  .col-md-1-5 { width: 20%; }
+  .col-md-2-5 { width: 40%; }
+  .col-md-3-5 { width: 60%; }
+  .col-md-4-5 { width: 80%; }
+  .col-md-5-5 { width: 100%; }
+}
+
+@media (min-width: 1200px) {
+  .col-lg-1-5 { width: 20%; }
+  .col-lg-2-5 { width: 40%; }
+  .col-lg-3-5 { width: 60%; }
+  .col-lg-4-5 { width: 80%; }
+  .col-lg-5-5 { width: 100%; }
+}
+
+/* Demo only, no need for this */
+
+.show-grid [class^=col-] span,
+.container-fluid .show-grid [class^=col-] {
+  display: block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #eee;
+  background-color: rgba(86,61,124,.15);
+  text-align: center;
+  border: 1px solid #ddd;
+  border: 1px solid rgba(86,61,124,.2);
+}
+
+[class^=col-] {
+  margin-bottom: 30px;
+}
+
+/* 
+---------------------------------------------------------------
+*/
