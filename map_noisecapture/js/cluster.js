@@ -1,7 +1,7 @@
 ﻿/*
  * This file is part of the NoiseCapture application and OnoMap system.
  *
- * The 'OnoMaP' system is led by Lab-STICC and Ifsttar and generates noise maps via
+ * The 'OnoMaP' system is led by Lab-STICC and Univ Eiffel and generates noise maps via
  * citizen-contributed noise data.
  *
  * This application is co-funded by the ENERGIC-OD Project (European Network for
@@ -11,7 +11,7 @@
  * Community. The application work is also supported by the French geographic portal GEOPAL of the
  * Pays de la Loire region (http://www.geopal.org).
  *
- * Copyright (C) 2007-2016 - IFSTTAR - LAE
+ * Copyright (C) 2007-2016 - Univ Eiffel - UMRAE
  * Lab-STICC – CNRS UMR 6285 Equipe DECIDE Vannes
  *
  * NoiseCapture is a free software; you can redistribute it and/or modify it under the terms of the
@@ -21,7 +21,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
  * more details.You should have received a copy of the GNU General Public License along with this
  * program; if not, write to the Free Software Foundation,Inc., 51 Franklin Street, Fifth Floor,
- * Boston, MA 02110-1301  USA or see For more information,  write to Ifsttar,
+ * Boston, MA 02110-1301  USA or see For more information,  write to Univ Eiffel,
  * 14-20 Boulevard Newton Cite Descartes, Champs sur Marne F-77447 Marne la Vallee Cedex 2 FRANCE
  *  or write to scientific.computing@ifsttar.fr
  */

@@ -18,7 +18,7 @@ document.write("");
 document.write("                       <h3>Authors<\/h3>");
 document.write("");
 document.write("                        <p>");
-document.write("                            This website has been developed by the <a href=\"http:\/\/www.labsticc.fr\/en\/teams\/m-570-decide.htm\" target=\"blank\">DECIDE team<\/a> (Lab-STICC) and the <a href=\"http:\/\/www.lae.ifsttar.fr\/\" target=\"blank\">LAE Laboratory<\/a> (IFSTTAR)<\/a>");
+document.write("                            This website has been developed by the <a href=\"http:\/\/www.labsticc.fr\/en\/teams\/m-570-decide.htm\" target=\"blank\">DECIDE team<\/a> (Lab-STICC) and the <a href=\"http:\/\/www.umrae.fr\/\" target=\"blank\">UMRAE<\/a> (Univ Eiffel)<\/a>");
 document.write("                        <\/p>                    ");
 document.write("");
 document.write("                        <h3>Developments fundings<\/h3>");
@@ -48,4 +48,3 @@ document.write("            <\/div><!-- \/.modal-dialog -->");
 document.write("        <\/div><!-- \/.modal -->");
 document.write("    <\/div>");
 document.write("      ");
-

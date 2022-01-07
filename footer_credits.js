@@ -53,7 +53,7 @@ document.write( '\n' );
 document.write( '\n' );
 document.write( '                        <h3>Other credits</h3>\n' );
 document.write( '\n' );
-document.write( '                        <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\"><img alt=\"Creative Commons License\" style=\"border-width:0\" src=\"https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png\" /></a><br />All other documents and ressources are produced by DECIDE team (Lab-STICC) & UMRAE team (IFSTTAR) and are credited under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>\n' );
+document.write( '                        <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\"><img alt=\"Creative Commons License\" style=\"border-width:0\" src=\"https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png\" /></a><br />All other documents and ressources are produced by DECIDE team (Lab-STICC) & UMRAE team (Univ Eiffel) and are credited under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>\n' );
 document.write( '                    </div>\n' );
 document.write( '                    <div class=\"modal-footer\">\n' );
 document.write( '                        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n' );
