@@ -432,10 +432,12 @@
           // Zoom to noisecapture party
           if(loadBounds) {
             var bounds = noisePartyList[noiseparty_id].geometry.coordinates[0];
+            // fetch last measure 
             map.fitBounds([
             [bounds[0][1], bounds[0][0]],
             [bounds[2][1], bounds[2][0]]
             ]);
+            onomap.flyToLastMeasure();
           }
 
           sidebar.open('home');
