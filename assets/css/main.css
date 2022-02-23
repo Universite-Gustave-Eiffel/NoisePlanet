@@ -103,19 +103,6 @@ margin-right: 0px;
 margin-left: -15px;
 }
 
-.modal-header {
-	background: #3498db;
-}
-
-.modal-header h4 {
-	color: white;
-}
-
-.modal-footer {
-	background: #2b2b2b;
-}
-
-
 .navbar-default {
 border-color: transparent;
 background-color: #dadada;
