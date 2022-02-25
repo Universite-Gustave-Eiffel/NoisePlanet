@@ -32,6 +32,36 @@
     <script src="./navbar.js"></script>
 
 	<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+	<!-- Modal window -->
+
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Welcome to NoiseCapture world map</h4>
+      </div>
+      <div class="modal-body">
+      <img style="width: 100%;" alt="Map guide" src="img/pop_up_ncp.png"/>
+      <ol>
+         <li>Zoom and navigate into the map. Some layers may be visible or not depending on the zoom level. Zoom on to visualize hidden layers.</li>
+         <li>Select the party</li>
+         <li>Party name and description</li>
+         <li>Choose the layer(s) and the basemap you want to display</li>
+         <li>Search an address, a city, a region, ...</li>
+         <li>Click on an hexagon to explore the noise information</li>
+         <li>Display the list of contributors. Click on a flag to zoom onto the measure</li>
+         <li>Some statistics about the party</li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+	<!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 	<!-- SIDEBAR -->
 
 	<div id="sidebar" class="sidebar collapsed">
@@ -60,7 +90,7 @@
                 <h3>Contribute to the noisemaps</h3>
                 <p>Download the NoiseCapture Android App, realize measurements and transfer data to the community...</p>
                 <div class="centered">
-                    <a href="https://play.google.com/store/apps/details?id=org.noise_planet.noisecapture"><img style="width: 164px; height: 63px;" alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"></a><br>
+                    <a href="https://play.google.com/store/apps/details?id=org.noise_planet.noisecapture"><img style="width: 164px; height: 63px;" alt="Get it on Google Play" src="img/en_badge_web_generic.png"></a><br>
                 </div>
 				<hr>
 				<h4><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Disclaimer</h4>
@@ -402,10 +432,12 @@
           // Zoom to noisecapture party
           if(loadBounds) {
             var bounds = noisePartyList[noiseparty_id].geometry.coordinates[0];
+            // fetch last measure 
             map.fitBounds([
             [bounds[0][1], bounds[0][0]],
             [bounds[2][1], bounds[2][0]]
             ]);
+            onomap.flyToLastMeasure();
           }
 
           sidebar.open('home');
@@ -539,6 +571,7 @@
               });
           }
           loadPartyList();
+          $('#basicModal').modal('show')
     </script>
 </body>
 

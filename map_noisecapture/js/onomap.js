@@ -339,7 +339,42 @@ var onomap_class = {
         });}, 10000);
     }
   },
+  
 
+
+  doFlyToLastMeasure: function(data) {
+      if(data instanceof Array && data.length > 0) {
+        this.data_histo = data;
+        this.goToHistory(0);
+      }  
+  },
+
+  flyToLastMeasure: function() {
+    // Make an AJAX request to the server and hope for the best
+    var url = this.getFeatureInfoUrl('groovy:nc_last_measures'),
+        doFlyToLastMeasure = L.Util.bind(this.doFlyToLastMeasure, this);
+    var _this = this;
+    var postData = this.getHistoryContent(this.partyData != null ? this.partyData.pk_party : "");
+    $.ajax({
+      type: 'POST',
+      crossDomain: true,
+      data: postData,
+      contentType: "text/plain",
+      dataType: "json",
+      url: url,
+      success: function (data, status, xhr) {
+        doFlyToLastMeasure(data);
+      },
+      error: function (xhr, status, error) {
+        showResults(error);
+      }
+    });
+    // Clean markers
+    if(this.start_stop_layer && !this.options["doAutoFly"]) {
+      this.start_stop_layer.clearLayers();
+    }
+  },
+  
   getHistory: function() {
     // Make an AJAX request to the server and hope for the best
     var url = this.getFeatureInfoUrl('groovy:nc_last_measures'),
