@@ -40,6 +40,7 @@ document.write("                            <li class=\"dropdown\"><a class=\"dr
 document.write("                            <ul class=\"dropdown-menu\">");
 document.write("                            <li> <a href=\"./noisemodelling.html\" class=\"smoothScroll\">NoiseModelling</a></li>");
 document.write("                            <li> <a href=\"./noisemodelling_days.html\" class=\"smoothScroll\">NoiseModelling days</a></li>");
+document.write("                            <li> <a href=\"./noisemodelling_days_2021.html\" class=\"smoothScroll\">NoiseModelling days 2021</a></li>");
 document.write("                            </ul>");
 document.write("                            <li> <a href=\"./map.html\" class=\"smoothScroll\"><i class=\"fa fa-map\" aria-hidden=\"true\"></i> Map</a></li>");
 document.write("                            <li> <a href=\"http://data.noise-planet.org\/index.html\" class=\"smoothScroll\"><i class=\"fa fa-download\" aria-hidden=\"true\"></i> Data</a></li>");
