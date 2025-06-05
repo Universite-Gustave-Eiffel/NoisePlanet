@@ -33,7 +33,7 @@ function onomap_constructor(options) {
   this.options = options;
   this._map = options["map"];
   this.server_url = options["server_url"];
-  this.ows_url = this.server_url+'ows';
+  this.wps_url = this.server_url+'wps';
   this.refreshInterval = null;
   this.last_record_utc = 0;
 }
@@ -432,8 +432,7 @@ var onomap_class = {
 
   getFeatureInfoUrl: function (funcIdentifier) {
     // Construct a GetFeatureInfo request URL
-        size = this._map.getSize(),
-        params = {
+        let params = {
           request: 'Execute',
           service: 'wps',
           version: '1.0.0'
@@ -441,7 +440,7 @@ var onomap_class = {
         if(funcIdentifier) {
           params['Identifier'] = funcIdentifier;
         }
-    return this.ows_url + L.Util.getParamString(params, this.ows_url, true);
+    return this.wps_url + L.Util.getParamString(params, this.wps_url, true);
   },
 
   getHistoryContent: function(noise_party_id) {

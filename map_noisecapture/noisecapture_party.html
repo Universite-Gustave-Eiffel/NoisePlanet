@@ -499,7 +499,7 @@
               </wps:Execute>
               `
               // Retrieve stored statistics file
-              var url = server_url+'ows' + L.Util.getParamString(params, '', true);
+              var url = server_url+'wps' + L.Util.getParamString(params, '', true);
               $.ajax({
                 type: 'POST',
                 crossDomain: true,
@@ -537,7 +537,7 @@
                 version: '1.0.0',
                 Identifier: 'groovy:nc_noiseparty_list'
               };
-              var url = server_url+'ows' + L.Util.getParamString(params, '', true);
+              var url = server_url+'wps' + L.Util.getParamString(params, '', true);
               $.ajax({
                 type: 'POST',
                 crossDomain: true,
