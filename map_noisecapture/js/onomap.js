@@ -418,11 +418,10 @@ var onomap_class = {
       dataType: "json",
       url: url,
       success: function (data, status, xhr) {
-        var err = data["la50"] != null ? null : data;
-        if(data["la50"] != null) {
+          if("la50" in data) {
           _this.data = data;
         }
-        showResults(err, evt.latlng, data);
+        showResults(null, evt.latlng, data);
       },
       error: function (xhr, status, error) {
         showResults(error);
@@ -624,7 +623,8 @@ var onomap_class = {
   },
 
   showGetFeatureInfo: function (err, latlng, content) {
-    if (err) { console.log(err); return; } // do nothing if there's an error
+    if(!("la50" in content)) { return;}
+    if (err instanceof Error) { console.error(err, err.stack); return; } // do nothing if there's an error
     var infoDiv = document.getElementById('areainfo');
 
     var lang = $('#time_lang')[0].attributes.lang.value;
