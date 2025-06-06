@@ -33,7 +33,7 @@ function onomap_constructor(options) {
   this.options = options;
   this._map = options["map"];
   this.server_url = options["server_url"];
-  this.ows_url = this.server_url+'ows';
+  this.wps_url = this.server_url+'wps';
   this.refreshInterval = null;
   this.last_record_utc = 0;
 }
@@ -418,11 +418,10 @@ var onomap_class = {
       dataType: "json",
       url: url,
       success: function (data, status, xhr) {
-        var err = data["la50"] != null ? null : data;
-        if(data["la50"] != null) {
+          if("la50" in data) {
           _this.data = data;
         }
-        showResults(err, evt.latlng, data);
+        showResults(null, evt.latlng, data);
       },
       error: function (xhr, status, error) {
         showResults(error);
@@ -432,8 +431,7 @@ var onomap_class = {
 
   getFeatureInfoUrl: function (funcIdentifier) {
     // Construct a GetFeatureInfo request URL
-        size = this._map.getSize(),
-        params = {
+        let params = {
           request: 'Execute',
           service: 'wps',
           version: '1.0.0'
@@ -441,7 +439,7 @@ var onomap_class = {
         if(funcIdentifier) {
           params['Identifier'] = funcIdentifier;
         }
-    return this.ows_url + L.Util.getParamString(params, this.ows_url, true);
+    return this.wps_url + L.Util.getParamString(params, this.wps_url, true);
   },
 
   getHistoryContent: function(noise_party_id) {
@@ -625,7 +623,8 @@ var onomap_class = {
   },
 
   showGetFeatureInfo: function (err, latlng, content) {
-    if (err) { console.log(err); return; } // do nothing if there's an error
+    if(!("la50" in content)) { return;}
+    if (err instanceof Error) { console.error(err, err.stack); return; } // do nothing if there's an error
     var infoDiv = document.getElementById('areainfo');
 
     var lang = $('#time_lang')[0].attributes.lang.value;
