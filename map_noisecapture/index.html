@@ -299,7 +299,7 @@
     <script src="js/L.Control.MousePosition.js"></script>
     <script>
 
-        var server_url = 'https://onomap-gs.noise-planet.org/geoserver/';
+        var server_url = 'https://data.noise-planet.org/geoserver/';
 
         var map = L.map('map').setView([30.30, 9.84], 3);
 
@@ -318,13 +318,13 @@
         onomap.onAdd(map);
 
         var onomap_hexa = L.tileLayer(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_area@EPSG:900913@png/{z}/{x}/{y}.png', {
-            "attribution": "<a href='https://onomap-gs.noise-planet.org'>OnoMap server</a>",
+            "attribution": "<a href='https://data.noise-planet.org'>OnoMap server</a>",
             tms: true,
             minZoom: 14
         });
 
         var onomap_pt = L.tileLayer(server_url+'gwc/service/tms/1.0.0/noisecapture:noisecapture_leaflet_point@EPSG:900913@png/{z}/{x}/{y}.png', {
-            "attribution": "<a href='https://onomap-gs.noise-planet.org'>OnoMap server</a>",
+            "attribution": "<a href='https://data.noise-planet.org'>OnoMap server</a>",
             tms: true,
             minZoom: 14
         });
