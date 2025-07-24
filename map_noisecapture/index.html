@@ -154,7 +154,7 @@
                     <label for="dateRange">
                         Date filter
                     </label>
-                    <input type="text" id="dateRange"/>
+                    <input type="text" id="dateRange" name="dateRange"/>
                     <label>
                         <input type="checkbox" name="exportTracks" checked>
                         Export Tracks (Global measurement data)
@@ -691,8 +691,6 @@
             "startDate": "01/01/2015",
             "minYear": 2015,
             "maxYear": parseInt(moment().format('YYYY'),10)
-        }, function(start, end, label) {
-            console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
         });
 
         map.on('moveend', function() {
