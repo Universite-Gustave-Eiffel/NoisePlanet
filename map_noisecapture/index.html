@@ -136,22 +136,25 @@
             <div class="sidebar-pane" id="download">
                 <h1 class="sidebar-header">Download data</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></span>
                 <h3>Request data extraction</h3>
+                <p>
+                    Extract the data using the current view bounding box. Currently the extraction zone is limited to 300 &#13218;
+                </p>
                 <div id="extractFormEnvelopeInformation"></div>
                 <form action="https://data.noise-planet.org/geoserver/wps" method="POST" id="extractForm">
                     <input type="hidden" name="service" value="WPS" />
                     <input type="hidden" name="request" value="Execute" />
                     <input type="hidden" name="version" value="1.0.0" />
 
-                    <input type="hidden" name="identifier" value="nom_du_processus" />
-                    <input type="hidden" name="startLatitude" value="">
-                    <input type="hidden" name="startLongitude" value="">
-                    <input type="hidden" name="stopLatitude" value="">
-                    <input type="hidden" name="stopLongitude" value="">
+                    <input type="hidden" name="identifier" value="nc_dump_records" />
+                    <input type="hidden" id="startLatitude"  name="startLatitude"  value="">
+                    <input type="hidden" id="startLongitude" name="startLongitude" value="">
+                    <input type="hidden" id="stopLatitude"   name="stopLatitude"   value="">
+                    <input type="hidden" id="stopLongitude"  name="stopLongitude"  value="">
 
-                    <label for="fromEpoch">
-                        From this date
+                    <label for="dateRange">
+                        Date filter
                     </label>
-                    <input type="text" id="fromEpoch"/>
+                    <input type="text" id="dateRange"/>
                     <label>
                         <input type="checkbox" name="exportTracks" checked>
                         Export Tracks (Global measurement data)
@@ -165,7 +168,7 @@
                         Export Hexagons (Aggregated 15 meters data)
                     </label>
                     <label> Email (for receiving the download link)
-                        <input type="email" name="emailNotification" value="" />
+                        <input type="email" name="emailNotification" value="" required />
                     </label>
                     <label>
                         <button type="submit">Send</button>
@@ -681,14 +684,34 @@
               });
             }
 
-        $('#fromEpoch').daterangepicker({
-            "singleDatePicker": true,
+        $('#dateRange').daterangepicker({
             "autoApply": true,
+            "showDropdowns": true,
             "showCustomRangeLabel": false,
             "startDate": "01/01/2015",
-            "endDate": ""
+            "minYear": 2015,
+            "maxYear": parseInt(moment().format('YYYY'),10)
         }, function(start, end, label) {
             console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+        });
+
+        map.on('moveend', function() {
+            let bounds = map.getBounds();
+            let northWest = bounds.getNorthWest();
+            let southEast = bounds.getSouthEast();
+
+            let km_per_degree = 111
+            let delta_lat = Math.abs(northWest.lat - southEast.lat)
+            let delta_lon = Math.abs(northWest.lng - southEast.lng)
+            let area = (delta_lat * km_per_degree) * (delta_lon * km_per_degree * Math.cos((northWest.lat + southEast.lat) / 2 * (Math.PI / 180.0)))
+
+            $('#startLatitude').val(southEast.lat)
+            $('#startLongitude').val(northWest.lng)
+            $('#stopLatitude').val(northWest.lat)
+            $('#stopLongitude').val(southEast.lng)
+            $('#extractFormEnvelopeInformation').html("<p>Approximate area: "+ area.toFixed(2) + " km²</p>")
+
+            $('#extractForm button').prop("disabled", area > 300)
         });
     </script>
 </body>
