@@ -137,43 +137,38 @@
                 <h1 class="sidebar-header">Download data</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></span>
                 <h3>Request data extraction</h3>
                 <p>
-                    Extract the data using the current view bounding box. Currently the extraction zone is limited to 300 &#13218;
+                    Extract the data using the current view bounding box. The extraction time is limited to some minutes so you should zoom in to only the area of interest.
                 </p>
                 <div id="extractFormEnvelopeInformation"></div>
-                <form action="https://data.noise-planet.org/geoserver/wps" method="POST" id="extractForm">
-                    <input type="hidden" name="service" value="WPS" />
-                    <input type="hidden" name="request" value="Execute" />
-                    <input type="hidden" name="version" value="1.0.0" />
-
-                    <input type="hidden" name="identifier" value="nc_dump_records" />
-                    <input type="hidden" id="startLatitude"  name="startLatitude"  value="">
-                    <input type="hidden" id="startLongitude" name="startLongitude" value="">
-                    <input type="hidden" id="stopLatitude"   name="stopLatitude"   value="">
-                    <input type="hidden" id="stopLongitude"  name="stopLongitude"  value="">
-
-                    <label for="dateRange">
-                        Date filter
-                    </label>
-                    <input type="text" id="dateRange" name="dateRange"/>
-                    <label>
-                        <input type="checkbox" name="exportTracks" checked>
-                        Export Tracks (Global measurement data)
-                    </label>
-                    <label>
-                        <input type="checkbox" name="exportMeasures" checked>
-                        Export Points (Second-Per-Second measurements)
-                    </label>
-                    <label>
-                        <input type="checkbox" name="exportAreas" checked>
-                        Export Hexagons (Aggregated 15 meters data)
-                    </label>
-                    <label> Email (for receiving the download link)
-                        <input type="email" name="emailNotification" value="" required />
-                    </label>
-                    <label>
-                        <button type="submit">Send</button>
-                    </label>
-                </form>
+                <div id="extractFormArea">
+                    <form method="POST" id="extractForm">
+                        <input type="hidden" id="startLatitude"  name="startLatitude"  value="">
+                        <input type="hidden" id="startLongitude" name="startLongitude" value="">
+                        <input type="hidden" id="stopLatitude"   name="stopLatitude"   value="">
+                        <input type="hidden" id="stopLongitude"  name="stopLongitude"  value="">
+                        <fieldset id="extractFormFields" disabled>
+                            <label for="dateRange">
+                                Date filter
+                            </label>
+                            <input type="text" id="dateRange" name="dateRange"/>
+                            <label>
+                                <input type="checkbox" name="exportTracks" checked id="exportTracks">
+                                Export Tracks (Global measurement data)
+                            </label>
+                            <label>
+                                <input type="checkbox" name="exportMeasures" checked id="exportMeasures">
+                                Export Points (Second-Per-Second measurements)
+                            </label>
+                            <label>
+                                <input type="checkbox" name="exportAreas" checked id="exportAreas">
+                                Export Hexagons (Aggregated 15 meters data)
+                            </label>
+                            <label>
+                                <button type="submit">Create data dump</button>
+                            </label>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
 			<div class="sidebar-pane" id="about">
                 <h1 class="sidebar-header">About</h1><span class="sidebar-close"><font color="white"><i class="fa fa-caret-left fa-2x" ></i></font></i></span>
@@ -415,23 +410,23 @@
         onomap.showGetFeatureInfo(null, null, []);
 
             function length_to_dd_hh_mm_ss(seconds) {
-              if (seconds == 0) {
+              if (seconds === 0) {
                 return "0s";
               }
               // calculate (and subtract) whole days
-              var days = Math.floor(seconds / 86400);
+              const days = Math.floor(seconds / 86400);
               seconds -= days * 86400;
 
               // calculate (and subtract) whole hours
-              var hours = Math.floor(seconds / 3600) % 24;
+              const hours = Math.floor(seconds / 3600) % 24;
               seconds -= hours * 3600;
 
               // calculate (and subtract) whole minutes
-              var minutes = Math.floor(seconds / 60) % 60;
+              const minutes = Math.floor(seconds / 60) % 60;
               seconds -= minutes * 60;
 
               // what's left is seconds
-              var seconds = seconds % 60; // in theory the modulus is not required
+              seconds = seconds % 60; // in theory the modulus is not required
               if (days > 0) {
                 return Transifex.live.translateText("{days}d {hours}h{minutes}m", { days: days, hours:hours, minutes:minutes})
               } else if (hours > 0) {
@@ -693,6 +688,28 @@
             "maxYear": parseInt(moment().format('YYYY'),10)
         });
 
+        $(document).ready(function() {
+            $("#extractForm").on("submit", function(event) {
+                event.preventDefault();
+                const startLatitude = $('#startLatitude').val();
+                const startLongitude = $('#startLongitude').val();
+                const stopLatitude = $('#stopLatitude').val();
+                const stopLongitude = $('#stopLongitude').val();
+                const envelope = `Polygon ((${startLongitude} ${startLatitude}, ${stopLongitude} ${startLatitude},
+                 ${stopLongitude} ${stopLatitude}, ${startLongitude} ${stopLatitude}, ${startLongitude} ${startLatitude}))`;
+                const exportTracks = $('#exportTracks').val();
+                const exportAreas = $('#exportAreas').val();
+                const exportMeasures = $('#exportMeasures').val();
+                const dateRange = $('#dateRange').val();
+                // ex: 01/01/2015 - 07/28/2025
+                const fromEpoch = onomap.convertToTimestamp(dateRange.substring(0, dateRange.indexOf(' - ')));
+                const toEpoch = onomap.convertToTimestamp(dateRange.substring(dateRange.indexOf(' - ') + 3)) + 24 * 3600 * 1000;
+                onomap.postDumpArea(envelope, exportTracks, exportMeasures, exportAreas,
+                    fromEpoch, toEpoch);
+                }
+            );
+        });
+
         map.on('moveend', function() {
             let bounds = map.getBounds();
             let northWest = bounds.getNorthWest();
@@ -707,9 +724,9 @@
             $('#startLongitude').val(northWest.lng)
             $('#stopLatitude').val(northWest.lat)
             $('#stopLongitude').val(southEast.lng)
-            $('#extractFormEnvelopeInformation').html("<p>Approximate area: "+ area.toFixed(2) + " km²</p>")
+            $('#extractFormEnvelopeInformation').html(Transifex.live.translateText("Approximate area: {area} km²", {area: area.toFixed(2)}))
 
-            $('#extractForm button').prop("disabled", area > 300)
+            $('#extractFormFields').prop("disabled", map.getZoom() < 13)
         });
     </script>
 </body>
