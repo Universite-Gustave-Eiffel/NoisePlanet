@@ -772,6 +772,12 @@ const onomap_class = {
           </wps:Data>
         </wps:Input>
         <wps:Input>
+          <ows:Identifier>exportAreas</ows:Identifier>
+          <wps:Data>
+            <wps:LiteralData>${exportRaw}</wps:LiteralData>
+          </wps:Data>
+        </wps:Input>
+        <wps:Input>
           <ows:Identifier>fromEpoch</ows:Identifier>
           <wps:Data>
             <wps:LiteralData>${fromEpoch}</wps:LiteralData>
