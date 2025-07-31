@@ -651,9 +651,9 @@ const onomap_class = {
         }
     },
 
-    postDumpArea: function (envelope, exportTracks, exportMeasures, exportAreas, fromEpoch, toEpoch) {
+    postDumpArea: function (envelope, exportTracks, exportMeasures, exportAreas,exportRaw, fromEpoch, toEpoch) {
         const url = this.getFeatureInfoUrl('groovy:nc_dump_area');
-        const postData = this.wpsPostDumpArea(envelope, exportTracks, exportMeasures, exportAreas, fromEpoch, toEpoch)
+        const postData = this.wpsPostDumpArea(envelope, exportTracks, exportMeasures, exportAreas,exportRaw, fromEpoch, toEpoch)
         $.ajax({
             type: 'POST',
             crossDomain: true,
@@ -737,7 +737,7 @@ const onomap_class = {
         return this.wps_url + L.Util.getParamString(params, this.wps_url, true);
     },
 
-    wpsPostDumpArea: function (envelope, exportTracks, exportMeasures, exportAreas, fromEpoch, toEpoch) {
+    wpsPostDumpArea: function (envelope, exportTracks, exportMeasures, exportAreas, exportRaw, fromEpoch, toEpoch) {
         return `<?xml version="1.0" encoding="UTF-8"?>
     <wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
      xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs"  

@@ -164,6 +164,10 @@
                                 Export Hexagons (Aggregated 15 meters data)
                             </label>
                             <label>
+                                <input type="checkbox" name="exportRaw" checked id="exportRaw">
+                                Export Raw files (non-processed data)
+                            </label>
+                            <label>
                                 <button type="submit">Create data dump</button>
                             </label>
                         </fieldset>
@@ -700,11 +704,12 @@
                 const exportTracks = $('#exportTracks').val();
                 const exportAreas = $('#exportAreas').val();
                 const exportMeasures = $('#exportMeasures').val();
+                const exportRaw = $('#exportRaw').val();
                 const dateRange = $('#dateRange').val();
                 // ex: 01/01/2015 - 07/28/2025
                 const fromEpoch = onomap.convertToTimestamp(dateRange.substring(0, dateRange.indexOf(' - ')));
                 const toEpoch = onomap.convertToTimestamp(dateRange.substring(dateRange.indexOf(' - ') + 3)) + 24 * 3600 * 1000;
-                onomap.postDumpArea(envelope, exportTracks, exportMeasures, exportAreas,
+                onomap.postDumpArea(envelope, exportTracks, exportMeasures, exportAreas, exportRaw,
                     fromEpoch, toEpoch);
                 }
             );
