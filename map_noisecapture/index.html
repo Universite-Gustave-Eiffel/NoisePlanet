@@ -683,13 +683,31 @@
               });
             }
 
+        // 1. Set Moment to the browser's language
+        const browserLocale = window.navigator.language || window.navigator.userLanguage;
+        moment.locale(browserLocale);
+        // 2. Extract locale-specific data from Moment
+        const localeData = moment.localeData();
+
         $('#dateRange').daterangepicker({
             "autoApply": true,
             "showDropdowns": true,
             "showCustomRangeLabel": false,
-            "startDate": "01/01/2015",
+            "startDate": moment().startOf('week').toDate(),
+            "endDate": moment().add(1, 'days').toDate(),
             "minYear": 2015,
-            "maxYear": parseInt(moment().format('YYYY'),10)
+            "maxYear": parseInt(moment().format('YYYY'),10),
+            locale: {
+                // Get the localized date format (e.g., MM/DD/YYYY or DD/MM/YYYY)
+                format: localeData.longDateFormat('L'),
+
+                // Get localized day/month names
+                daysOfWeek: localeData.weekdaysMin(),
+                monthNames: localeData.monthsShort(),
+
+                // Get the local first day of the week (0 = Sunday, 1 = Monday, etc.)
+                firstDay: localeData.firstDayOfWeek(),
+            }
         });
 
         $(document).ready(function() {
@@ -707,8 +725,8 @@
                 const exportRaw = $('#exportRaw').val();
                 const dateRange = $('#dateRange').val();
                 // ex: 01/01/2015 - 07/28/2025
-                const fromEpoch = onomap.convertToTimestamp(dateRange.substring(0, dateRange.indexOf(' - ')));
-                const toEpoch = onomap.convertToTimestamp(dateRange.substring(dateRange.indexOf(' - ') + 3)) + 24 * 3600 * 1000;
+                const fromEpoch = $('#dateRange').data('daterangepicker').startDate.toDate().getTime();
+                const toEpoch = $('#dateRange').data('daterangepicker').endDate.toDate().getTime();
                 onomap.postDumpArea(envelope, exportTracks, exportMeasures, exportAreas, exportRaw,
                     fromEpoch, toEpoch);
                 }
